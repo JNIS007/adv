@@ -131,6 +131,7 @@ if($_GET['action']=='parmdel' && $_GET['rid'])
                                                         <thead>
                                                             <tr>
                                                                 <th>#</th>
+                                                                <th>Destination</th>
                                                                 <th> Category</th>
                                                                 <th>Description</th>
                                                           
@@ -141,7 +142,7 @@ if($_GET['action']=='parmdel' && $_GET['rid'])
                                                         </thead>
                                                         <tbody>
 <?php 
-$query=mysqli_query($con,"Select id,CategoryName,Description,PostingDate,UpdationDate from  tblcategory where Is_Active=1");
+$query=mysqli_query($con,"Select tblcategory.id,CategoryName,tblcategory.Description,tblcategory.PostingDate,tblcategory.UpdationDate,DestName from  tblcategory,tbldest where tblcategory.Is_Active=1 and tbldest.id=tblcategory.DestId;");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -149,6 +150,7 @@ while($row=mysqli_fetch_array($query))
 
  <tr>
 <th scope="row"><?php echo htmlentities($cnt);?></th>
+<td><?php echo htmlentities($row['DestName']);?></td>
 <td><?php echo htmlentities($row['CategoryName']);?></td>
 <td><?php echo htmlentities($row['Description']);?></td>
 <td><?php echo htmlentities($row['PostingDate']);?></td>

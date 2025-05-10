@@ -1,11 +1,193 @@
 <?php
+$i = 1;
 include("./admin/includes/config.php");
 $id = $_GET['id'];
-if($id == ''){
- header('location:http://localhost/adv/index.php');
-}else{
-        $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1 and id='$id'"); 
-        $row = mysqli_fetch_array($query);
+if ($id == '') {
+  header('location:https://www.dotweb.com.np/advadventure/adv/index.php');
+} else {
+  $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1 and id='$id'");
+  $row = mysqli_fetch_array($query);
+
+  $q = "SELECT * FROM other WHERE P_id='$id' and is_active = 1 ";
+  $result = mysqli_query($con, $q);
+
+
+  $roo = mysqli_fetch_assoc($result);
+
+
+
+  $itineraryText = $roo["Detailed_Itinerary"];
+  $inputString = $roo["Useful_Information"];
+  $inc = $roo["Inc"];
+  $exe = $roo["Exc"];
+  $altitudeDataJson = $roo["chart_data"]; // Your JSON string: '[{"outline":"Day 01","height":"1350"},{"outline":"Day 04","height":"1560"}]'
+  $Important_Note = $roo["Important_Note"];
+  $Recommended_Package = $roo["Recommended_Package"];
+  // Decode the JSON data
+  $altitudeData = json_decode($altitudeDataJson, true);
+
+  // Prepare arrays for Chart.js
+  $labels = [];
+  $dataPoints = [];
+  $dayDetails = [];
+
+  foreach ($altitudeData as $item) {
+    $labels[] = $item['outline'];
+    $dataPoints[] = (int) $item['height'];
+    $dayDetails[] = $item['outline'] . " - " . $item['height'] . "m";
+  }
+
+  // Fill in missing days with null values (if needed)
+  $completeLabels = [];
+  $completeData = [];
+  $completeDetails = [];
+
+  for ($i = 1; $i <= count($altitudeData); $i++) {
+    $dayStr = 'Day ' . str_pad($i, 2, '0', STR_PAD_LEFT);
+    $completeLabels[] = $dayStr;
+
+    $found = false;
+    foreach ($altitudeData as $item) {
+      if ($item['outline'] === $dayStr) {
+        $completeData[] = (int) $item['height'];
+        $completeDetails[] = $item['outline'] . " - " . $item['height'] . "m";
+        $found = true;
+        break;
+      }
+    }
+
+    if (!$found) {
+      $completeData[] = null;
+      $completeDetails[] = $dayStr . " - No data";
+    }
+  }
+
+  $it = explode('|', $inc);
+
+  $exit = explode('|', $exe);
+
+  $items = explode('|', $inputString);
+
+  $smtrek = explode('|', $Recommended_Package);
+
+  // Trim whitespace from each item and create an associative array
+  $result = [];
+  foreach ($items as $item) {
+    $item = trim($item);
+    if (!empty($item)) {
+      // Split each item into key-value pairs
+      $parts = explode(':', $item, 2);
+      if (count($parts) === 2) {
+        $key = trim($parts[0]);
+        $value = trim($parts[1]);
+        $result[$key] = $value;
+      }
+    }
+  }
+
+
+  $tripFacts = [];
+
+  // Split by pipe
+  $components = explode('|', $Important_Note);
+
+  foreach ($components as $component) {
+    $component = trim($component);
+    if (strpos($component, ':') !== false) {
+      list($key, $value) = explode(':', $component, 2);
+      $tripFacts[trim($key)] = trim($value);
+    }
+  }
+
+
+
+
+
+
+
+
+
+  // Display the results
+// echo "<ul>";
+// foreach ($result as $key => $value) {
+//     echo "<li><strong>$key:</strong> $value</li>";
+// }
+// echo "</ul>";
+
+  // Parse the text into structured days
+  // Parse itinerary text with pipe delimiter
+  $days = [];
+  if (!empty($itineraryText)) {
+    // Split by day delimiter (assuming each day starts with "Day XX:")
+    $dayEntries = preg_split('/(?=Day \d{2}:)/', $itineraryText, -1, PREG_SPLIT_NO_EMPTY);
+
+    foreach ($dayEntries as $dayEntry) {
+      // Split the day entry into components using pipe delimiter
+      $components = explode('|', $dayEntry);
+
+      // Initialize day array
+      $day = [
+        'day' => '',
+        'title' => '',
+        'altitude' => '',
+        'meals' => '',
+        'description' => ''
+      ];
+
+      // Process each component
+      foreach ($components as $component) {
+        $component = trim($component);
+
+        if (preg_match('/^Day (\d{2}):(.+)$/', $component, $dayMatch)) {
+          $day['day'] = trim($dayMatch[1]);
+          $day['title'] = trim($dayMatch[2]);
+        } elseif (preg_match('/^Altitude:(.+)$/', $component, $altMatch)) {
+          $day['altitude'] = trim($altMatch[1]);
+        } elseif (preg_match('/^Meals:(.+)$/', $component, $mealsMatch)) {
+          $day['meals'] = trim($mealsMatch[1]);
+        } elseif (preg_match('/^Description:(.+)$/', $component, $descMatch)) {
+          $day['description'] = trim($descMatch[1]);
+        }
+      }
+
+      // Only add if we have at least a day number and title
+      if (!empty($day['day']) && !empty($day['title'])) {
+        $days[] = $day;
+      }
+    }
+  }
+
+  // Display the formatted output
+// foreach ($days as $day) {
+//     echo "<div class='itinerary-day'>";
+//     echo "<h3>Day {$day['day']}: {$day['title']}</h3>";
+//     echo "<p><strong>Altitude:</strong> {$day['altitude']}</p>";
+//     echo "<p><strong>Meals:</strong> {$day['meals']}</p>";
+//     echo "<p><strong>Description:</strong> {$day['description']}</p>";
+//     echo "</div><br>";
+// }
+  $data = 1;
+  $qaText = $roo["faq"];
+  $qaPairs = preg_split('/(?<=\.)\s+(?=Q:)/', $qaText);
+
+  $formattedQA = [];
+  foreach ($qaPairs as $pair) {
+    if (preg_match('/Q:\s*(.*?)\s*A:\s*(.*)/', $pair, $matches)) {
+      $formattedQA[] = [
+        'question' => trim($matches[1]),
+        'answer' => trim($matches[2])
+      ];
+    }
+  }
+
+  // Display the formatted Q&A
+// foreach ($formattedQA as $qa) {
+//     echo '<div class="qa-item">';
+//     echo '  <div class="question font-bold text-blue-600">Q: ' . htmlspecialchars($qa['question']) . '</div>';
+//     echo '  <div class="answer text-gray-700 mt-2">A: ' . htmlspecialchars($qa['answer']) . '</div>';
+//     echo '</div>';
+//     echo '<hr class="my-4">';
+// }
 }
 ?>
 <!DOCTYPE html>
@@ -274,17 +456,20 @@ if($id == ''){
     <main class="w-full md:w-3/4">
       <!-- Featured Image -->
       <div class="mb-8 rounded-xl overflow-hidden shadow-lg">
-        <img src='./admin/postimages/<?php echo $row['PostImage'];?>' alt="Nepal, Tibet & Bhutan Introduction Tour" class="w-full h-96 object-cover">
+        <img src='./admin/postimages/<?php echo $row['PostImage']; ?>' alt="Nepal, Tibet & Bhutan Introduction Tour"
+          class="w-full h-96 object-cover">
       </div>
 
       <!-- Breadcrumb -->
       <div class="text-sm text-gray-600 py-2">
-        Home - Nepal - Trekking in Nepal - Everest region - Everest base camp trek
+        Home - Nepal - <?php echo $row["PostTitle"] ?>
       </div>
 
       <!-- Title Section -->
       <div class="mb-6">
-        <h1 class="text-3xl font-bold text-accent-blue"><?php echo $row["PostTitle"]?> – <?php echo $row["Days"] ?> Days</h1>
+        <h1 class="text-3xl font-bold text-accent-blue"><?php echo $row["PostTitle"] ?> – <?php echo $row["Days"] ?>
+          Days
+        </h1>
         <p class="text-yellow-600 font-medium mt-1">★★★★★ 140 reviews on TripAdvisor | Recommended by 99% of travelers
         </p>
       </div>
@@ -306,66 +491,23 @@ if($id == ''){
       <section id="facts" class="bg-blue-50 p-8 rounded-xl shadow-lg mb-10">
         <h2 class="text-3xl font-bold text-accent-blue mb-8 border-b-2 border-accent-blue pb-4">Trip Facts</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Activities -->
-          <div class="flex items-start space-x-4">
-            <div class="w-8 mt-1 text-accent-blue">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-              </svg>
+          <?php foreach ($tripFacts as $label => $value): ?>
+            <div class="flex items-start space-x-4">
+              <div class="w-8 mt-1 text-accent-blue">
+                <!-- Optional: Add icon logic based on $label if needed -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z" />
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-lg mb-1"><?= htmlspecialchars($label) ?></h3>
+                <p class="text-gray-700"><?= htmlspecialchars($value) ?></p>
+              </div>
             </div>
-            <div>
-              <h3 class="font-semibold text-lg mb-1">Activities</h3>
-              <p class="text-gray-700">Sightseeing Tours & Hiking</p>
-            </div>
-          </div>
-
-          <!-- Meals -->
-          <div class="flex items-start space-x-4">
-            <div class="w-8 mt-1 text-accent-blue">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M3 13.5A2.25 2.25 0 005.25 11.5h13.5a2.25 2.25 0 010 4.5H5.25A2.25 2.25 0 003 13.5z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg mb-1">Meals</h3>
-              <p class="text-gray-700">Breakfast in Nepal & Tibet, Full board in Bhutan</p>
-            </div>
-          </div>
-
-          <!-- Accommodation -->
-          <div class="flex items-start space-x-4">
-            <div class="w-8 mt-1 text-accent-blue">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 4.5h10.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25V6.75A2.25 2.25 0 016.75 4.5z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg mb-1">Accommodation</h3>
-              <p class="text-gray-700">Three star standard hotel</p>
-            </div>
-          </div>
-
-          <!-- Group Size -->
-          <div class="flex items-start space-x-4">
-            <div class="w-8 mt-1 text-accent-blue">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg mb-1">Group Size</h3>
-              <p class="text-gray-700">2+ Participants</p>
-            </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </section>
 
@@ -374,43 +516,21 @@ if($id == ''){
         <h2 class="text-3xl font-bold text-accent-blue mb-8 border-b-2 border-accent-blue pb-4">Trip Overview</h2>
         <div class="space-y-6 text-gray-700 leading-relaxed">
           <p>
-            <?php echo $row["PostDetails"];?>
+            <?php echo $row["PostDetails"]; ?>
           </p>
           <div class="bg-white/70 p-6 rounded-lg border-l-4 border-accent-blue">
             <h3 class="text-xl font-semibold mb-4 text-accent-blue">Key Highlights</h3>
             <ul class="space-y-2">
-              <li class="flex items-start space-x-2">
-                <svg class="w-5 mt-1 text-accent-blue" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Cross-border Himalayan experience covering 3 countries</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <svg class="w-5 mt-1 text-accent-blue" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Cultural interactions with diverse Buddhist traditions</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <svg class="w-5 mt-1 text-accent-blue" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Combination of cultural exploration and moderate hiking</span>
-              </li>
-              <li class="flex items-start space-x-2">
-                <svg class="w-5 mt-1 text-accent-blue" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span>Carefully curated accommodations with local character</span>
-              </li>
+              <?php foreach ($result as $key => $value) { ?>
+                <li class="flex items-start space-x-2">
+                  <svg class="w-5 mt-1 text-accent-blue" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span><?php echo "<strong>$key:</strong> $value"; ?></span>
+                </li>
+              <?php } ?>
             </ul>
           </div>
         </div>
@@ -424,18 +544,20 @@ if($id == ''){
         <h2 class="text-3xl font-bold text-[#005FAB] mb-6 border-b-2 border-[#005FAB] pb-4">Short Itinerary</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
           <!-- Day Items -->
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">1
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Arrival in Kathmandu</h3>
-                <p class="text-sm text-gray-600">Altitude: 1350m/4428ft</p>
+          <?php foreach ($days as $day) {
+            ?>
+            <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex items-start gap-3">
+                <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">
+                  <?php echo $day['day']; ?>
+                </div>
+                <div>
+                  <h3 class="font-semibold text-gray-800 mb-1"><?php echo $day['title']; ?></h3>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <?php } ?>
+          <!-- <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-start gap-3">
               <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">2
               </div>
@@ -555,7 +677,7 @@ if($id == ''){
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </section>
 
 
@@ -566,193 +688,26 @@ if($id == ''){
           <div x-data="{ selected: null }" class="space-y-4">
 
             <!-- Day 01 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 1 ? selected = 1 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 01:</strong> Arrival in Kathmandu</span>
-                <span x-show="selected !== 1">+</span>
-                <span x-show="selected === 1">−</span>
-              </button>
-              <div x-show="selected === 1" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Altitude:</strong> 1350m / 4428ft</p>
-                <p><strong>Meals:</strong> Welcome Dinner</p>
-                <br>
-                <p>On arrival to Kathmandu; Advanced Adventures representative will greet you at the airport and
-                  transfer you to our trip hotel. Later we meet and take you to our head office, brief your upcoming
-                  Nepal & Bhutan trip with us. Evening, we host welcome dinner at one of the finest local restaurant
-                  with music and ethnic dance. Overnight Kathmandu.</p>
+            <?php
+            foreach ($days as $day) {
+              ?>
+              <div class="border border-gray-200 rounded-lg">
+                <button @click="selected !== <?php echo $i; ?> ? selected = <?php echo $i; ?> : selected = null"
+                  class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
+                  <span><strong>Day <?php echo $day['day']; ?>:</strong> <?php echo $day['title']; ?></span>
+                  <span x-show="selected !== <?php echo $i; ?>">+</span>
+                  <span x-show="selected === <?php echo $i; ?>">−</span>
+                </button>
+                <div x-show="selected === <?php echo $i; ?>" x-collapse class="px-4 pb-4 text-black">
+                  <p><strong>Altitude:</strong> <?php echo $day['altitude']; ?></p>
+                  <p><strong>Meals:</strong> <?php echo $day['meals']; ?></p>
+                  <br>
+                  <p><?php echo $day['description']; ?></p>
+                </div>
               </div>
-            </div>
-
-            <!-- Day 02 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 2 ? selected = 2 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 02:</strong> Sightseeing tour in Kathmandu</span>
-                <span x-show="selected !== 2">+</span>
-                <span x-show="selected === 2">−</span>
-              </button>
-              <div x-show="selected === 2" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Places:</strong> Boudhanath, Pashupatinath, Kathmandu Durbar Square, Swoyambhunath</p>
-                <p><strong>Altitude:</strong> 1350m / 4428ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-                <br>
-                <p>After breakfast, we will start to our guided trip to cultural world heritage sites in Kathmandu;
-                  including visits to the pilgrimage sites of Hindus Pashupatinath temple, the world biggest
-                  Bouddhanath Stupa, visit Swoyambhunath Stupa also known as monkey temple and historical Kathmandu
-                  Durbar Square with temple, unique architectures and the living goddess Kumari in central
-                  Kathmandu. Overnight.</p>
-              </div>
-            </div>
-
-            <!-- Day 03 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 3 ? selected = 3 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 03:</strong> Bhaktapur, Changunarayan & Drive to Nagarkot</span>
-                <span x-show="selected !== 3">+</span>
-                <span x-show="selected === 3">−</span>
-              </button>
-              <div x-show="selected === 3" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Places:</strong> Bhaktapur Durbar Square, Changunarayan Temple, Drive to Nagarkot</p>
-                <p><strong>Altitude:</strong> 2161m / 7090ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
-            <!-- Day 04 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 4 ? selected = 4 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 04:</strong> Sunrise at Nagarkot & Patan, Bungamati, Khokana Tour</span>
-                <span x-show="selected !== 4">+</span>
-                <span x-show="selected === 4">−</span>
-              </button>
-              <div x-show="selected === 4" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Places:</strong> Sunrise from Nagarkot, Patan Durbar Square, Bungamati, Khokana</p>
-                <p><strong>Altitude:</strong> 1350m / 4428ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
-            <!-- Day 05 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 5 ? selected = 5 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 05:</strong> Fly to Lhasa</span>
-                <span x-show="selected !== 5">+</span>
-                <span x-show="selected === 5">−</span>
-              </button>
-              <div x-show="selected === 5" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Flight Duration:</strong> 1.5 hours</p>
-                <p><strong>Altitude:</strong> 3650m / 11,980ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
-            <!-- Day 06 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 6 ? selected = 6 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 06:</strong> Lhasa Sightseeing: Potala, Jokhang & Barkhor</span>
-                <span x-show="selected !== 6">+</span>
-                <span x-show="selected === 6">−</span>
-              </button>
-              <div x-show="selected === 6" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Places:</strong> Potala Palace, Jokhang Temple, Barkhor Street</p>
-                <p><strong>Altitude:</strong> 3650m / 11,980ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
-            <!-- Day 07 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 7 ? selected = 7 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 07:</strong> Lhasa Monasteries: Drepung & Sera</span>
-                <span x-show="selected !== 7">+</span>
-                <span x-show="selected === 7">−</span>
-              </button>
-              <div x-show="selected === 7" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Places:</strong> Drepung Monastery, Sera Monastery</p>
-                <p><strong>Altitude:</strong> 3650m / 11,980ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
-            <!-- Day 08 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 8 ? selected = 8 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 08:</strong> Fly back to Kathmandu</span>
-                <span x-show="selected !== 8">+</span>
-                <span x-show="selected === 8">−</span>
-              </button>
-              <div x-show="selected === 8" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Flight Duration:</strong> 1.5 hours</p>
-                <p><strong>Altitude:</strong> 1350m / 4428ft</p>
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
-            <!-- Day 09 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 9 ? selected = 9 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 09:</strong> Fly to Paro & Drive to Thimphu</span>
-                <span x-show="selected !== 9">+</span>
-                <span x-show="selected === 9">−</span>
-              </button>
-              <div x-show="selected === 9" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Altitude:</strong> 2248m / 7375ft</p>
-                <p><strong>Activities:</strong> Paro to Thimphu drive, Thimphu sightseeing</p>
-                <p><strong>Meals:</strong> Breakfast, Lunch & Dinner</p>
-              </div>
-            </div>
-
-            <!-- Day 10 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 10 ? selected = 10 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 10:</strong> Thimphu to Paro & Paro Sightseeing</span>
-                <span x-show="selected !== 10">+</span>
-                <span x-show="selected === 10">−</span>
-              </button>
-              <div x-show="selected === 10" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Altitude:</strong> 2200m / 7200ft</p>
-                <p><strong>Activities:</strong> Return drive, sightseeing around Paro</p>
-                <p><strong>Meals:</strong> Breakfast, Lunch & Dinner</p>
-              </div>
-            </div>
-
-            <!-- Day 11 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 11 ? selected = 11 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 11:</strong> Hike to Tiger's Nest (Taktsang Monastery)</span>
-                <span x-show="selected !== 11">+</span>
-                <span x-show="selected === 11">−</span>
-              </button>
-              <div x-show="selected === 11" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Altitude:</strong> 3180m / 10430ft</p>
-                <p><strong>Hike Duration:</strong> 5–6 hours</p>
-                <p><strong>Meals:</strong> Breakfast, Lunch & Dinner</p>
-              </div>
-            </div>
-
-            <!-- Day 12 -->
-            <div class="border border-gray-200 rounded-lg">
-              <button @click="selected !== 12 ? selected = 12 : selected = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
-                <span><strong>Day 12:</strong> Departure from Paro</span>
-                <span x-show="selected !== 12">+</span>
-                <span x-show="selected === 12">−</span>
-              </button>
-              <div x-show="selected === 12" x-collapse class="px-4 pb-4 text-black">
-                <p><strong>Meals:</strong> Breakfast</p>
-              </div>
-            </div>
-
+              <?php
+              $i++;
+            } ?>
           </div>
         </div>
       </section>
@@ -768,6 +723,7 @@ if($id == ''){
 
       <!-- Include Alpine.js -->
       <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
 
 
       <!-- Altitude Map -->
@@ -787,20 +743,14 @@ if($id == ''){
         const altitudeChart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: [
-              'Day 01', 'Day 02', 'Day 03', 'Day 04', 'Day 05', 'Day 06',
-              'Day 07', 'Day 08', 'Day 09', 'Day 10', 'Day 11', 'Day 12'
-            ],
+            labels: <?php echo json_encode($completeLabels); ?>,
             datasets: [{
               label: 'Altitude (m)',
-              data: [
-                1350, 1350, 2161, 1350, 3650, 3650,
-                3650, 1350, 2248, 2200, 3180, 2200
-              ],
-              backgroundColor: 'rgba(0, 95, 171, 0.2)', // Updated with #005FAB (light blue)
-              borderColor: 'rgba(0, 95, 171, 1)', // Updated with #005FAB (dark blue)
+              data: <?php echo json_encode($completeData); ?>,
+              backgroundColor: 'rgba(0, 95, 171, 0.2)',
+              borderColor: 'rgba(0, 95, 171, 1)',
               borderWidth: 2,
-              pointBackgroundColor: 'rgba(0, 95, 171, 1)', // Updated with #005FAB
+              pointBackgroundColor: 'rgba(0, 95, 171, 1)',
               pointRadius: 5,
               tension: 0.3,
               fill: true,
@@ -810,33 +760,20 @@ if($id == ''){
             responsive: true,
             plugins: {
               tooltip: {
-                backgroundColor: '#ffffff', // Tooltip background color for better readability
-                titleColor: '#005FAB', // Tooltip title color
-                bodyColor: '#333333', // Tooltip body color for better contrast
+                backgroundColor: '#ffffff',
+                titleColor: '#005FAB',
+                bodyColor: '#333333',
                 font: {
-                  size: 14, // Increase font size for tooltips
-                  family: 'Arial, sans-serif', // Set font family
-                  weight: 'bold' // Make the tooltip font bold
+                  size: 14,
+                  family: 'Arial, sans-serif',
+                  weight: 'bold'
                 },
                 callbacks: {
                   title: function (context) {
                     return context[0].label;
                   },
                   label: function (context) {
-                    const dayDetails = [
-                      "Arrival in Kathmandu - 1350m",
-                      "Kathmandu Sightseeing - 1350m",
-                      "Bhaktapur, Changunarayan, Nagarkot - 2161m",
-                      "Nagarkot Sunrise & Heritage Tour - 1350m",
-                      "Fly to Lhasa - 3650m",
-                      "Potala, Jokhang, Barkhor - 3650m",
-                      "Drepung & Sera Monasteries - 3650m",
-                      "Fly back to Kathmandu - 1350m",
-                      "Paro to Thimphu - 2248m",
-                      "Thimphu to Paro - 2200m",
-                      "Tiger's Nest Hike - 3180m",
-                      "Departure from Paro - 2200m"
-                    ];
+                    const dayDetails = <?php echo json_encode($completeDetails); ?>;
                     return dayDetails[context.dataIndex];
                   }
                 }
@@ -855,19 +792,19 @@ if($id == ''){
                   display: true,
                   text: 'Altitude (meters)',
                   font: {
-                    size: 16, // Increase font size for Y-axis title
-                    family: 'Arial, sans-serif', // Set font family
-                    weight: 'bold' // Make the Y-axis title bold
+                    size: 16,
+                    family: 'Arial, sans-serif',
+                    weight: 'bold'
                   },
-                  color: '#005FAB' // Set Y-axis title color
+                  color: '#005FAB'
                 },
                 ticks: {
                   font: {
-                    size: 14, // Increase font size for Y-axis labels
-                    family: 'Arial, sans-serif', // Set font family
-                    weight: 'normal' // Use normal weight for Y-axis labels
+                    size: 14,
+                    family: 'Arial, sans-serif',
+                    weight: 'normal'
                   },
-                  color: '#333333' // Set Y-axis labels color for better readability
+                  color: '#333333'
                 }
               },
               x: {
@@ -875,19 +812,19 @@ if($id == ''){
                   display: true,
                   text: 'Days',
                   font: {
-                    size: 16, // Increase font size for X-axis title
-                    family: 'Arial, sans-serif', // Set font family
-                    weight: 'bold' // Make the X-axis title bold
+                    size: 16,
+                    family: 'Arial, sans-serif',
+                    weight: 'bold'
                   },
-                  color: '#005FAB' // Set X-axis title color
+                  color: '#005FAB'
                 },
                 ticks: {
                   font: {
-                    size: 14, // Increase font size for X-axis labels
-                    family: 'Arial, sans-serif', // Set font family
-                    weight: 'normal' // Use normal weight for X-axis labels
+                    size: 14,
+                    family: 'Arial, sans-serif',
+                    weight: 'normal'
                   },
-                  color: '#333333' // Set X-axis labels color for better readability
+                  color: '#333333'
                 }
               }
             }
@@ -895,77 +832,51 @@ if($id == ''){
         });
       </script>
 
-
       <!-----------------Includes and Excludes--------------------->
       <section class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2">What's Included?</h2>
         <ul class="list-disc pl-6 space-y-4 text-gray-700">
+          <?php
+          foreach ($it as $itm) {
+            $cleanItem = trim($itm);
+
+            ?>
+
           <li class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>3-star standard hotels in Nepal, Tibet, and Bhutan</span>
+            <?php if (!empty($cleanItem)) {
+              echo "<span>{$cleanItem}</span>";
+            } ?>
           </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>All transfers according to the program by private vehicle</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>Breakfast, Lunch, and Dinner during your stay in Bhutan</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>Breakfast basis in Nepal and Tibet</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>Monument entry fees as per itinerary</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>Services of local English-speaking guides in Nepal, Tibet, and Bhutan</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>Bhutan Visa and Tibet Travel Permit</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <span>Government taxes in Nepal, Tibet & Bhutan</span>
-          </li>
+          <?php } ?>
         </ul>
       </section>
 
       <section class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2">What's Not Included?</h2>
         <ul class="list-disc pl-6 space-y-4 text-gray-700">
+          <?php
+          foreach ($exit as $itmm) {
+            $cleanItem = trim($itmm);
+
+            ?>
           <li class="flex items-center space-x-2">
             <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            <span>International flight tickets to and from Kathmandu, Kathmandu - Paro - Kathmandu & Kathmandu -
-              Lhasa - Kathmandu</span>
+            <?php if (!empty($cleanItem)) {
+              echo "<span>{$cleanItem}</span>";
+            } ?>
           </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            <span>Nepal Visa (purchased on arrival at Kathmandu airport)</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            <span>Tips for local guides and drivers</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            <span>Travel insurance</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            <span>Other personal and incidental expenses</span>
-          </li>
+
+          <?php } ?>
         </ul>
       </section>
 
 
       <!----------------------Departure Dates And Price------------------------->
       <section id="departures" class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">Everest Base Camp Trek Departures 2025 & 2026</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">
+          <?php echo $row["PostTitle"] ?>
+        </h2>
 
         <p class="text-gray-700 mb-4">
           Choose between joining a fixed departure group or creating your own private trip. Below are the upcoming group
@@ -984,28 +895,16 @@ if($id == ''){
         <div id="group-departures">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-              <label for="year" class="block text-sm font-medium text-gray-800 mb-1">Select Year</label>
-              <select id="year" class="w-full p-2 border rounded-md bg-white">
-                <option>2025</option>
-                <option>2026</option>
-              </select>
+              <label for="year" class="block text-sm font-medium text-gray-800 mb-1">Start Date</label>
+              <input type="date" id="year" class="w-full p-2 border rounded-md bg-white">
+
+              </input>
             </div>
             <div>
-              <label for="month" class="block text-sm font-medium text-gray-800 mb-1">Select Month</label>
-              <select id="month" class="w-full p-2 border rounded-md bg-white">
-                <option>January</option>
-                <option>February</option>
-                <option>March</option>
-                <option>April</option>
-                <option>May</option>
-                <option>June</option>
-                <option>July</option>
-                <option>August</option>
-                <option>September</option>
-                <option>October</option>
-                <option>November</option>
-                <option>December</option>
-              </select>
+              <label for="month" class="block text-sm font-medium text-gray-800 mb-1">End Date</label>
+              <input type="date" id="month" class="w-full p-2 border rounded-md bg-white">
+
+              </input>
             </div>
           </div>
 
@@ -1097,117 +996,42 @@ if($id == ''){
         <!-- Useful Info content -->
       </section>
       <section id="similar-treks" class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
-        <h2 class="text-2xl font-bold text-[#005FAB] mb-4">Similar Treks</h2>
+        <h2 class="text-2xl font-bold text-[#005FAB] mb-4">Similar Tours</h2>
         <ul class="space-y-3 text-blue-700 list-disc list-inside">
-          <li><a href="/trip/annapurna-base-camp-trek" class="hover:underline">Annapurna Base Camp Trek – 11 Days</a>
-          </li>
-          <li><a href="/trip/langtang-valley-trek" class="hover:underline">Langtang Valley Trek – 10 Days</a></li>
-          <li><a href="/trip/manaslu-circuit-trek" class="hover:underline">Manaslu Circuit Trek – 16 Days</a></li>
+          <?php if (!empty($smtrek)): ?>
+            <?php foreach ($smtrek as $tour): ?>
+              <li><?= htmlspecialchars($tour) ?></li>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <li>No similar tours available.</li>
+          <?php endif; ?>
         </ul>
       </section>
+
       <section class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8" id="faqs">
         <h2 class="text-3xl font-bold text-[#005FAB] mb-6 border-b-2 border-[#005FAB] pb-3">Frequently Asked Questions
         </h2>
 
         <div class="space-y-6" x-data="{ open: null }">
           <!-- Visa Requirements -->
-          <div class="border border-gray-200 rounded-lg">
-            <button @click="open !== 1 ? open = 1 : open = null"
-              class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
-              <span>What are the visa requirements for this trip?</span>
-              <i class="fas fa-chevron-down text-[#005FAB]" :class="{ 'rotate-180': open === 1 }"></i>
-            </button>
-            <div x-show="open === 1" x-collapse class="px-4 pb-4 text-gray-700">
-              <p>Nepal: Visa on arrival for most nationalities (bring 2 passport photos and USD cash)<br>
-                Tibet: Requires Tibet Travel Permit (we arrange this)<br>
-                Bhutan: Visa must be arranged in advance (processing included in package)</p>
+          <?php
+          foreach ($formattedQA as $qa) {
+            ?>
+            <div class="border border-gray-200 rounded-lg">
+              <button @click="open !== <?php echo $data; ?> ? open = <?php echo $data; ?> : open = null"
+                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
+                <span><?php echo htmlspecialchars($qa['question']); ?></span>
+                <i class="fas fa-chevron-down text-[#005FAB]"
+                  :class="{ 'rotate-180': open === <?php echo $data; ?> }"></i>
+              </button>
+              <div x-show="open === <?php echo $data; ?>" x-collapse class="px-4 pb-4 text-gray-700">
+                <p><?php echo htmlspecialchars($qa['answer']); ?></p>
+              </div>
             </div>
-          </div>
 
-          <!-- Fitness Level -->
-          <div class="border border-gray-200 rounded-lg">
-            <button @click="open !== 2 ? open = 2 : open = null"
-              class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
-              <span>What physical fitness level is required?</span>
-              <i class="fas fa-chevron-down text-[#005FAB]" :class="{ 'rotate-180': open === 2 }"></i>
-            </button>
-            <div x-show="open === 2" x-collapse class="px-4 pb-4 text-gray-700">
-              <p>Moderate fitness required. Daily activities include:<br>
-                - 3-5 hours walking at high altitude<br>
-                - Some steep temple climbs<br>
-                - Adaptation to elevations up to 3,650m<br>
-                We recommend 2-3 months of regular cardio preparation.</p>
-            </div>
-          </div>
-
-          <!-- Altitude Safety -->
-          <div class="border border-gray-200 rounded-lg">
-            <button @click="open !== 3 ? open = 3 : open = null"
-              class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
-              <span>How do you handle altitude sickness?</span>
-              <i class="fas fa-chevron-down text-[#005FAB]" :class="{ 'rotate-180': open === 3 }"></i>
-            </button>
-            <div x-show="open === 3" x-collapse class="px-4 pb-4 text-gray-700">
-              <p>Our safety protocol includes:<br>
-                1. Gradual ascent with acclimatization days<br>
-                2. Oxygen cylinders in all vehicles<br>
-                3. Pulse oximeters for daily health checks<br>
-                4. AMS-trained guides<br>
-                5. Flexible itinerary for individual needs</p>
-            </div>
-          </div>
-
-          <!-- Payment Security -->
-          <div class="border border-gray-200 rounded-lg">
-            <button @click="open !== 4 ? open = 4 : open = null"
-              class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
-              <span>Is my payment secure?</span>
-              <i class="fas fa-chevron-down text-[#005FAB]" :class="{ 'rotate-180': open === 4 }"></i>
-            </button>
-            <div x-show="open === 4" x-collapse class="px-4 pb-4 text-gray-700">
-              <p>We guarantee:<br>
-                - SSL encrypted transactions<br>
-                - 100% financial protection<br>
-                - No hidden fees<br>
-                - Flexible rescheduling policy<br>
-                - Licensed under Nepal Tourism Board (NTB: 1215/067)</p>
-            </div>
-          </div>
-
-          <!-- Cultural Etiquette -->
-          <div class="border border-gray-200 rounded-lg">
-            <button @click="open !== 5 ? open = 5 : open = null"
-              class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
-              <span>What cultural etiquette should I know?</span>
-              <i class="fas fa-chevron-down text-[#005FAB]" :class="{ 'rotate-180': open === 5 }"></i>
-            </button>
-            <div x-show="open === 5" x-collapse class="px-4 pb-4 text-gray-700">
-              <p>Key cultural guidelines:<br>
-                - Remove shoes before entering temples<br>
-                - Avoid public displays of affection<br>
-                - Dress modestly (covered shoulders/knees)<br>
-                - Always receive items with right hand<br>
-                - Ask permission before photographing people</p>
-            </div>
-          </div>
-
-          <!-- Emergency Support -->
-          <div class="border border-gray-200 rounded-lg">
-            <button @click="open !== 6 ? open = 6 : open = null"
-              class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
-              <span>What emergency support is available?</span>
-              <i class="fas fa-chevron-down text-[#005FAB]" :class="{ 'rotate-180': open === 6 }"></i>
-            </button>
-            <div x-show="open === 6" x-collapse class="px-4 pb-4 text-gray-700">
-              <p>24/7 support includes:<br>
-                - Local emergency hotline in all countries<br>
-                - Satellite phone access<br>
-                - Network of partner hospitals<br>
-                - Evacuation insurance coordination<br>
-                - Diplomatic liaison services if needed</p>
-            </div>
-          </div>
-        </div>
+            <?php
+            $data++;
+          } ?>
       </section>
 
 
@@ -1223,7 +1047,8 @@ if($id == ''){
           10%
         </div>
         <div class="text-center mb-4">
-          <p class="text-2xl font-bold text-[#005FAB]">US $<?php echo $row['Price'];?> <span class="text-sm font-normal text-gray-600">per
+          <p class="text-2xl font-bold text-[#005FAB]">US $<?php echo $row['Price']; ?> <span
+              class="text-sm font-normal text-gray-600">per
               person</span></p>
         </div>
         <div class="flex flex-col items-center mb-4 space-y-1">
@@ -1235,7 +1060,8 @@ if($id == ''){
         </div>
         <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
           <span class="flex items-center"><i class="fas fa-lock mr-1"></i> All inclusive</span>
-          <span class="flex items-center"><i class="fas fa-calendar-alt mr-1"></i> <?php echo $row["Days"];?> Days</span>
+          <span class="flex items-center"><i class="fas fa-calendar-alt mr-1"></i> <?php echo $row["Days"]; ?>
+            Days</span>
         </div>
         <ul class="space-y-3 text-sm text-gray-700 border-t border-b border-gray-200 py-4 mb-4">
           <li class="flex items-start space-x-2"><i class="fas fa-key text-[#005FAB] mt-1"></i><span>Group & Early

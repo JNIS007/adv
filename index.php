@@ -1,6 +1,45 @@
-<?php 
-    include("./admin/includes/config.php");
+<?php
+include("./admin/includes/config.php");
+
+$menuData = [];
+
+$dests = mysqli_query($con, "SELECT * FROM tbldest");
+while ($dest = mysqli_fetch_assoc($dests)) {
+    $destId = $dest['Id'];
+    $menuData[$destId] = [
+        'name' => $dest['DestName'],
+        'categories' => []
+    ];
+
+    $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
+    while ($cat = mysqli_fetch_assoc($cats)) {
+        $catId = $cat['id'];
+        $menuData[$destId]['categories'][$catId] = [
+            'name' => $cat['CategoryName'],
+            'subcategories' => []
+        ];
+
+        $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
+        while ($sub = mysqli_fetch_assoc($subs)) {
+            $subId = $sub['SubCategoryId'];
+            $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [
+                'name' => $sub['Subcategory'],
+                'posts' => []
+            ];
+
+            $posts = mysqli_query($con, "SELECT * FROM tblPosts WHERE CategoryId = $catId AND SubCategoryId = $subId");
+            while ($post = mysqli_fetch_assoc($posts)) {
+                $menuData[$destId]['categories'][$catId]['subcategories'][$subId]['posts'][] = [
+                    'id' => $post['id'],
+                    'title' => $post['PostTitle']
+                ];
+            }
+        }
+    }
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +54,49 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const dropdown = document.getElementById('countries-dropdown');
+      const mainToggle = document.getElementById('main-toggle');
+
+      // Show dropdown on hover
+      mainToggle.addEventListener('mouseenter', () => {
+        dropdown.classList.remove('hidden');
+      });
+
+      // Hide dropdown when mouse leaves both button and dropdown
+      mainToggle.addEventListener('mouseleave', (e) => {
+        setTimeout(() => {
+          if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
+            dropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+
+      dropdown.addEventListener('mouseleave', (e) => {
+        setTimeout(() => {
+          if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
+            dropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+
+      // Handle submenu hover (optional enhancement)
+      const submenuButtons = document.querySelectorAll('#countries-dropdown button');
+
+      submenuButtons.forEach(button => {
+        const submenu = button.nextElementSibling;
+        if (!submenu) return;
+
+        button.addEventListener('mouseenter', () => {
+          submenu.classList.remove('hidden');
+        });
+
+        button.parentElement.addEventListener('mouseleave', () => {
+          submenu.classList.add('hidden');
+        });
+      });
+    });
+
     tailwind.config = {
       theme: {
         extend: {
@@ -119,6 +201,26 @@
       border-radius: 6px;
     }
 
+    [class="dropdown"] {
+      transition: all 0.2s ease;
+    }
+
+    / Prevent layout shift / .relative {
+      position: relative;
+    }
+
+    .absolute {
+      position: absolute;
+    }
+
+    / Better hover effects */ .hover:bg-gray-50:hover {
+      background-color: #f9fafb;
+    }
+
+    .hover:text-secondary:hover {
+      color: #6b7280;
+    }
+
     @media (max-width: 1024px) {
 
       .testimonial-prev,
@@ -153,46 +255,67 @@
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
         <!-- Logo -->
-        <a href="https://www.advadventures.com" class="flex items-center">
+        <a href="#" class="flex items-center">
           <img src="assets/logo.png" alt="Advanced Adventures" class="h-12 md:h-16 object-contain">
         </a>
 
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-8">
           <!-- Destinations Mega Menu -->
-          <div class="dropdown relative">
-            <button class="flex items-center font-medium text-gray-700 hover:text-primary transition">
-              Destinations <i class="fas fa-chevron-down ml-1 text-xs"></i>
-            </button>
-            <div class="accordion-content hidden pl-4 mt-2 space-y-2">
-              <a href="/nepal" class="block py-1 hover:text-secondary">Nepal</a>
-              <a href="/tibet" class="block py-1 hover:text-secondary">Tibet</a>
-              <a href="/bhutan" class="block py-1 hover:text-secondary">Bhutan</a>
-              <a href="#" class="block py-1 hover:text-secondary">Mt. Kailash</a>
-              <a href="#" class="block py-1 hover:text-secondary">luxury Travel</a>
-            </div>
-            <div
-              class="dropdown-content absolute left-0 mt-2 w-96 bg-white shadow-xl rounded-md p-4 grid grid-cols-2 gap-4">
-              <div>
-                <h3 class="font-bold text-primary mb-2">Trekking</h3>
-                <ul class="space-y-2">
-                  <li><a href="/nepal/everest-region-trekking" class="hover:text-secondary">Everest Region</a></li>
-                  <li><a href="/nepal/annapurna-region-trekking" class="hover:text-secondary">Annapurna Region</a></li>
-                  <li><a href="/nepal/langtang-region-trekking" class="hover:text-secondary">Langtang Region</a></li>
-                  <li><a href="/nepal/manaslu-region-trekking" class="hover:text-secondary">Manaslu Region</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="font-bold text-primary mb-2">Tours</h3>
-                <ul class="space-y-2">
-                  <li><a href="/nepal/tours-in-nepal" class="hover:text-secondary">Cultural Tours</a></li>
-                  <li><a href="/nepal/wildlife-tour-in-nepal" class="hover:text-secondary">Wildlife Tours</a></li>
-                  <li><a href="/nepal/luxury-travel" class="hover:text-secondary">Luxury Travel</a></li>
-                  <li><a href="/nepal/day-tours" class="hover:text-secondary">Day Tours</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
+          <div class="relative">
+    <button id="main-toggle" class="flex items-center font-medium text-gray-700 transition hover:text-primary">
+        Destination <i class="ml-1 text-xs fas fa-chevron-down"></i>
+    </button>
+
+    <div id="countries-dropdown" class="absolute left-0 hidden w-48 mt-2 bg-white rounded-md shadow-xl">
+        <ul class="py-1">
+            <?php foreach ($menuData as $dest): ?>
+                <li class="relative group">
+                    <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                        <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                    </button>
+
+                    <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                        <ul class="py-1">
+                            <?php foreach ($dest['categories'] as $cat): ?>
+                                <li class="relative group">
+                                    <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                        <?= $cat['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                                    </button>
+
+                                    <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                        <ul class="py-1">
+                                            <?php foreach ($cat['subcategories'] as $sub): ?>
+                                                <li class="relative group">
+                                                    <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                                        <?= $sub['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                                                    </button>
+
+                                                    <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                                        <ul class="py-1">
+                                                            <?php foreach ($sub['posts'] as $post): ?>
+                                                                <li>
+                                                                    <a href="new_page.php?id=<?= $post['id'] ?>" class="block px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                                                        <?= $post['title'] ?>
+                                                                    </a>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+
 
           <!-- Other Menu Items -->
           <a href="/page/booking.html" class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
@@ -270,54 +393,56 @@
     <div class="swiper-container h-screen max-h-[800px]">
       <div class="swiper-wrapper">
         <!-- Slide 1 - Everest Base Camp -->
-        <?php 
-$q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1"); 
-while ($r = mysqli_fetch_array($q)) {
-    $ct = $r["CategoryId"];
-?>
-<div class="swiper-slide relative">
-  <!-- Background Image -->
-  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./admin/postimages/<?php echo htmlspecialchars($r["PostImage"]); ?>');">
-    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-  </div>
-
-  <!-- Foreground Content -->
-  <div class="relative h-full flex items-center justify-center text-center px-4">
-    <div class="max-w-4xl text-white">
-      <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn">
-        <?php echo htmlspecialchars($r["PostTitle"]); ?>
-      </h1>
-
-      <p class="text-xl md:text-2xl mb-8 animate-fadeIn delay-100 line-clamp-2">
-        <?php echo htmlspecialchars($r["PostDetails"]); ?>
-      </p>
-
-      <!-- Metadata Badges -->
-      <div class="animate-fadeIn delay-200">
-        <span class="inline-block bg-primary px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
-          <?php echo (int)$r["Days"]; ?> Days
-        </span>
-
-        <span class="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
-          <?php
-            $catRes = mysqli_query($con, "SELECT CategoryName FROM tblcategory WHERE id = " . (int)$ct);
-            if ($catRow = mysqli_fetch_assoc($catRes)) {
-              echo htmlspecialchars($catRow["CategoryName"]);
-            }
+        <?php
+        $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
+        while ($r = mysqli_fetch_array($q)) {
+          $ct = $r["CategoryId"];
           ?>
-        </span>
+          <div class="swiper-slide relative">
+            <!-- Background Image -->
+            <div class="absolute inset-0 bg-cover bg-center"
+              style="background-image: url('./admin/postimages/<?php echo htmlspecialchars($r["PostImage"]); ?>');">
+              <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+            </div>
+
+            <!-- Foreground Content -->
+            <div class="relative h-full flex items-center justify-center text-center px-4">
+              <div class="max-w-4xl text-white">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn">
+                  <?php echo htmlspecialchars($r["PostTitle"]); ?>
+                </h1>
+
+                <p class="text-xl md:text-2xl mb-8 animate-fadeIn delay-100 line-clamp-2">
+                  <?php echo htmlspecialchars($r["PostDetails"]); ?>
+                </p>
+
+                <!-- Metadata Badges -->
+                <div class="animate-fadeIn delay-200">
+                  <span class="inline-block bg-primary px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
+                    <?php echo (int) $r["Days"]; ?> Days
+                  </span>
+
+                  <span class="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
+                    <?php
+                    $catRes = mysqli_query($con, "SELECT CategoryName FROM tblcategory WHERE id = " . (int) $ct);
+                    if ($catRow = mysqli_fetch_assoc($catRes)) {
+                      echo htmlspecialchars($catRow["CategoryName"]);
+                    }
+                    ?>
+                  </span>
+                </div>
+
+                <!-- CTA Button -->
+                <a href="#"
+                  class="mt-8 inline-block bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-md font-bold text-lg transition animate-fadeIn delay-300">
+                  Explore This Trek
+                </a>
+              </div>
+            </div>
+          </div>
+        <?php } ?>
+
       </div>
-
-      <!-- CTA Button -->
-      <a href="#" class="mt-8 inline-block bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-md font-bold text-lg transition animate-fadeIn delay-300">
-        Explore This Trek
-      </a>
-    </div>
-  </div>
-</div>
-<?php } ?>
-
-      </div> 
 
       <!-- Navigation Arrows -->
       <div class="swiper-button-next text-white"></div>
@@ -327,68 +452,67 @@ while ($r = mysqli_fetch_array($q)) {
       <div class="swiper-pagination"></div>
     </div>
 
-   <!-- Trip Finder Section -->
-<div class="container mx-auto px-4 -mt-16 relative z-10">
-  <div class="backdrop-blur-lg bg-white/80 rounded-2xl shadow-2xl p-8 border border-gray-200">
-    <h3 class="text-3xl font-bold text-gray-900 text-center mb-6">Find Your Perfect Adventure</h3>
+    <!-- Trip Finder Section -->
+    <div class="container mx-auto px-4 -mt-16 relative z-10">
+      <div class="backdrop-blur-lg bg-white/80 rounded-2xl shadow-2xl p-8 border border-gray-200">
+        <h3 class="text-3xl font-bold text-gray-900 text-center mb-6">Find Your Perfect Adventure</h3>
 
-    <!-- Search Bar -->
-    <div class="mb-6">
-      <input type="text" 
-             placeholder="Search for a trip..." 
-             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+        <!-- Search Bar -->
+        <div class="mb-6">
+          <input type="text" placeholder="Search for a trip..."
+            class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+        </div>
+
+        <form class="grid grid-cols-1 md:grid-cols-4 gap-6">
+
+          <!-- Destination Select -->
+          <div>
+            <label for="destination" class="block text-sm font-semibold text-gray-700 mb-2">Destination</label>
+            <select id="destination"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+              <option value="">All Destinations</option>
+              <option value="nepal">Nepal</option>
+              <option value="tibet">Tibet</option>
+              <option value="bhutan">Bhutan</option>
+            </select>
+          </div>
+
+          <!-- Activity Select -->
+          <div>
+            <label for="activity" class="block text-sm font-semibold text-gray-700 mb-2">Activity</label>
+            <select id="activity"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+              <option value="">All Activities</option>
+              <option value="trekking">Trekking</option>
+              <option value="climbing">Peak Climbing</option>
+              <option value="tours">Cultural Tours</option>
+            </select>
+          </div>
+
+          <!-- Duration Select -->
+          <div>
+            <label for="duration" class="block text-sm font-semibold text-gray-700 mb-2">Duration</label>
+            <select id="duration"
+              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+              <option value="">Any Duration</option>
+              <option value="1-7">1-7 Days</option>
+              <option value="8-14">8-14 Days</option>
+              <option value="15+">15+ Days</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <div class="flex items-end">
+            <button type="submit"
+              class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition transform hover:scale-105 shadow-lg">
+              <i class="fas fa-search"></i> Search
+            </button>
+          </div>
+
+        </form>
+      </div>
     </div>
-
-    <form class="grid grid-cols-1 md:grid-cols-4 gap-6">
-
-      <!-- Destination Select -->
-      <div>
-        <label for="destination" class="block text-sm font-semibold text-gray-700 mb-2">Destination</label>
-        <select id="destination"
-          class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
-          <option value="">All Destinations</option>
-          <option value="nepal">Nepal</option>
-          <option value="tibet">Tibet</option>
-          <option value="bhutan">Bhutan</option>
-        </select>
-      </div>
-
-      <!-- Activity Select -->
-      <div>
-        <label for="activity" class="block text-sm font-semibold text-gray-700 mb-2">Activity</label>
-        <select id="activity"
-          class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
-          <option value="">All Activities</option>
-          <option value="trekking">Trekking</option>
-          <option value="climbing">Peak Climbing</option>
-          <option value="tours">Cultural Tours</option>
-        </select>
-      </div>
-
-      <!-- Duration Select -->
-      <div>
-        <label for="duration" class="block text-sm font-semibold text-gray-700 mb-2">Duration</label>
-        <select id="duration"
-          class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
-          <option value="">Any Duration</option>
-          <option value="1-7">1-7 Days</option>
-          <option value="8-14">8-14 Days</option>
-          <option value="15+">15+ Days</option>
-        </select>
-      </div>
-
-      <!-- Search Button -->
-      <div class="flex items-end">
-        <button type="submit"
-          class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition transform hover:scale-105 shadow-lg">
-          <i class="fas fa-search"></i> Search
-        </button>
-      </div>
-
-    </form>
-  </div>
-</div>
-</section>
+  </section>
 
   <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
@@ -567,50 +691,50 @@ while ($r = mysqli_fetch_array($q)) {
 
       <!-- Trek Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      
-      <?php
-      $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1"); 
+
+        <?php
+        $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-        ?>
+          ?>
 
-      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
-      <div class="relative h-64 overflow-hidden">
-     <img src="admin/postimages/<?php echo htmlentities($row['PostImage']); ?>"
-      alt="<?php echo htmlentities($row['PostTitle']); ?>"
-      class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
-      <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" 
-      style="mask-image: linear-gradient(to bottom, black 0%, transparent 30%), 
+          <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="relative h-64 overflow-hidden">
+              <img src="admin/postimages/<?php echo htmlentities($row['PostImage']); ?>"
+                alt="<?php echo htmlentities($row['PostTitle']); ?>"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" style="mask-image: linear-gradient(to bottom, black 0%, transparent 30%), 
       linear-gradient(to right, black 0%, transparent 30%);">
-    </div>
-    <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
-      <span class="font-bold text-primary">US $<?php echo htmlentities($row['Price']); ?></span>
-    </div>
-  </div>
-  <div class="p-6 bg-white">
-    <div class="flex justify-between items-start mb-2">
-      <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
-      <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-800 rounded-full"><?php 
-      $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid"); 
-      $r = mysqli_fetch_array($q);
-       echo $r["CategoryName"];
-      ?></span>
-    </div>
-    <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
-      <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
-        <?php echo htmlentities($row['PostTitle']); ?>
-      </a>
-    </h3>
-    <p class="text-gray-600 mb-4 line-clamp-3">
-      <?php echo htmlentities(substr($row['PostDetails'], 0, 150)); ?>...
-    </p>
-    <a href="http://localhost/adv/new_page.php?id=<?php echo urlencode($row['id']); ?>"
-      class="inline-flex items-center font-medium text-primary hover:text-blue-800 transition">
-      Explore This Trek <i class="fas fa-arrow-right ml-2"></i>
-    </a>
-  </div>
-</div>
-<?php } ?>
+              </div>
+              <div
+                class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                <span class="font-bold text-primary">US $<?php echo htmlentities($row['Price']); ?></span>
+              </div>
+            </div>
+            <div class="p-6 bg-white">
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
+                <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-800 rounded-full"><?php
+                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                $r = mysqli_fetch_array($q);
+                echo $r["CategoryName"];
+                ?></span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
+                <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
+                  <?php echo htmlentities($row['PostTitle']); ?>
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                <?php echo htmlentities(substr($row['PostDetails'], 0, 150)); ?>...
+              </p>
+              <a href="http://localhost/adv/new_page.php?id=<?php echo urlencode($row['id']); ?>"
+                class="inline-flex items-center font-medium text-primary hover:text-blue-800 transition">
+                Explore This Trek <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+        <?php } ?>
 
       </div>
 
@@ -1507,5 +1631,3 @@ while ($r = mysqli_fetch_array($q)) {
 </body>
 
 </html>
-
-

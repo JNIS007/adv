@@ -21,6 +21,13 @@
                             <?php endif; ?>
 
 
+                            <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Destination </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="add-destination.php">Add Dest</a></li>
+                                    <li><a href="manage-destination.php">Manage Dest</a></li>
+                                </ul>
+                            </li>
 
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Category </span> <span class="menu-arrow"></span></a>
@@ -37,11 +44,13 @@
                                     <li><a href="manage-subcategories.php">Manage Sub Category</a></li>
                                 </ul>
                             </li>
+
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Posts (Adventure) </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="add-post.php">Add Posts</a></li>
                                     <li><a href="other-category.php">Other Posts</a></li>
+                                    <li><a href="manage-other.php">Manage Others</a></li>
                                     <li><a href="manage-posts.php">Manage Posts</a></li>
                                     <li><a href="trash-posts.php">Trash Posts</a></li>
                                 </ul>

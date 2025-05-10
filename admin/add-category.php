@@ -10,10 +10,11 @@ else{
 
 if(isset($_POST['submit']))
 {
+    $categoryid=$_POST['categoryid'];
 $category=$_POST['category'];
 $description=$_POST['description'];
 $status=1;
-$query=mysqli_query($con,"insert into tblcategory(CategoryName,Description,Is_Active) values('$category','$description','$status')");
+$query=mysqli_query($con,"insert into tblcategory(CategoryName,Description,Is_Active,DestId) values('$category','$description','$status','$categoryid')");
 if($query)
 {
 $msg="Category created ";
@@ -124,12 +125,28 @@ $error="Something went wrong . Please try again.";
                         				<div class="col-md-6">
                         					<form class="form-horizontal" name="category" method="post">
 	                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Destination</label>
+	                                                <div class="col-md-10">
+	                                                  <select class="form-control" name="categoryid" required>
+                                                   <option value="">Select Destination </option>
+<?php
+// Feching active categories
+$ret=mysqli_query($con,"select id,DestName from  tbldest where Is_Active=1");
+while($result=mysqli_fetch_array($ret))
+{    
+?>
+<option value="<?php echo htmlentities($result['id']);?>"><?php echo htmlentities($result['DestName']);?></option>
+<?php } ?>
+
+                                                        </select> 
+	                                                </div></div>
+                                                    <div class="form-group">
 	                                                <label class="col-md-2 control-label">Category</label>
 	                                                <div class="col-md-10">
 	                                                    <input type="text" class="form-control" value="" name="category" required>
 	                                                </div>
 	                                            </div>
-	                                     
+                                                
 	                                            <div class="form-group">
 	                                                <label class="col-md-2 control-label">Category Description</label>
 	                                                <div class="col-md-10">

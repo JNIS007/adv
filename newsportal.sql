@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2025 at 08:00 AM
+-- Generation Time: May 07, 2025 at 11:43 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `newsportal`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `other`
+--
+
+CREATE TABLE `other` (
+  `id` int(11) NOT NULL,
+  `Detailed_Itinerary` longtext DEFAULT NULL,
+  `Important_Note` longtext DEFAULT NULL,
+  `Useful_Information` longtext DEFAULT NULL,
+  `Inc` longtext DEFAULT NULL,
+  `Exc` longtext DEFAULT NULL,
+  `faq` longtext DEFAULT NULL,
+  `Recommended_Package` longtext DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  `chart_data` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `P_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -56,18 +77,17 @@ CREATE TABLE `tblcategory` (
   `Description` mediumtext DEFAULT NULL,
   `PostingDate` timestamp NULL DEFAULT current_timestamp(),
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  `Is_Active` int(1) DEFAULT NULL
+  `Is_Active` int(1) DEFAULT NULL,
+  `DestId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `tblcategory`
 --
 
-INSERT INTO `tblcategory` (`id`, `CategoryName`, `Description`, `PostingDate`, `UpdationDate`, `Is_Active`) VALUES
-(12, 'ADVENTURE', 'This is adventurous Trekking.', '2025-04-28 03:18:02', NULL, 1),
-(13, 'CHALLENGING', 'This is quit difficult. ', '2025-04-28 03:18:57', NULL, 1),
-(14, 'POPULAR', 'This is mostly preferred. ', '2025-04-28 03:19:41', NULL, 1),
-(15, 'BEST SELLER', 'This is cheap and mostly preferred. ', '2025-04-28 03:22:47', NULL, 1);
+INSERT INTO `tblcategory` (`id`, `CategoryName`, `Description`, `PostingDate`, `UpdationDate`, `Is_Active`, `DestId`) VALUES
+(18, 'Trekking in Nepal', 'This is Nepal ', '2025-05-07 08:34:06', NULL, 1, 5),
+(19, 'Bhutan Tour', 'Tour', '2025-05-07 08:41:54', NULL, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -83,6 +103,21 @@ CREATE TABLE `tblcomments` (
   `comment` mediumtext DEFAULT NULL,
   `postingDate` timestamp NULL DEFAULT current_timestamp(),
   `status` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldest`
+--
+
+CREATE TABLE `tbldest` (
+  `Id` int(11) NOT NULL,
+  `DestName` varchar(200) DEFAULT NULL,
+  `Description` mediumtext DEFAULT NULL,
+  `PostingDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `Is_Active` int(1) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -125,22 +160,12 @@ CREATE TABLE `tblposts` (
   `Is_Active` int(1) DEFAULT NULL,
   `PostUrl` mediumtext DEFAULT NULL,
   `PostImage` varchar(255) DEFAULT NULL,
-  `viewCounter` int(11) DEFAULT NULL,
   `postedBy` varchar(255) DEFAULT NULL,
   `lastUpdatedBy` varchar(255) DEFAULT NULL,
   `Price` decimal(10,0) DEFAULT NULL,
-  `Days` int(11) DEFAULT NULL
+  `Days` int(11) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tblposts`
---
-
-INSERT INTO `tblposts` (`id`, `PostTitle`, `CategoryId`, `SubCategoryId`, `PostDetails`, `PostingDate`, `UpdationDate`, `Is_Active`, `PostUrl`, `PostImage`, `viewCounter`, `postedBy`, `lastUpdatedBy`, `Price`, `Days`) VALUES
-(15, 'Island Peak Climbing', 12, 13, 'Embark on an unforgettable 12-day cultural and scenic journey across the Himalayan jewels of Nepal, Tibet, and Bhutan. This thoughtfully curated itinerary blends spiritual immersion, breathtaking mountain landscapes, and local cultural experiences. Begin in Kathmandu, Nepal, exploring iconic UNESCO World Heritage Sites like Swayambhunath, Boudhanath, Pashupatinath, and Kathmandu Durbar Square. Ascend to Nagarkot for a peaceful mountain retreat with panoramic sunrise views and nature hikes. Fly to Lhasa, Tibet for a deep dive into Tibetan Buddhism. Visit the majestic Potala Palace, Jokhang Temple, Barkhor Street, and Drepung Monastery. Participate in local customs, including butter tea tasting and observing monastic debates. Conclude your journey in Bhutan, the Land of the Thunder Dragon. Discover Thimphu’s cultural gems and Paro Valley’s spiritual treasures, including the famed Taktsang (Tiger’s Nest) Monastery hike.</font></p>', '2025-04-28 03:30:07', '2025-04-28 04:21:46', 1, 'Island-Peak-Climbing', '954c7e7cb01e641b89bbb9c4959a0177.png', NULL, 'admin', 'admin', 1600, 19),
-(16, 'Mera Peak Climbing', 13, 14, 'Mera Peak Climbing is one of Nepal’s most popular trekking peaks, offering an exciting adventure for climbers seeking stunning Himalayan views and moderate technical challenges. Standing at 6,476 meters (21,247 feet), Mera Peak rewards climbers with panoramic vistas of Everest, Lhotse, Makalu, Cho Oyu, and Kanchenjunga. The journey combines remote trekking through beautiful Hinku Valley with glacier travel and a non-technical summit climb. Suitable for fit trekkers with basic mountaineering skills, Mera Peak provides a perfect stepping stone into high-altitude climbing and unforgettable Himalayan experiences.</p>', '2025-04-28 03:32:38', NULL, 1, 'Mera-Peak-Climbing', '3fc8cf7f0034f38d47a9ab0bee28ed71.png', NULL, 'admin', NULL, 1700, 16),
-(17, 'Nepal Peak climbing', 12, 13, 'Nepal offers thrilling peak climbing adventures, combining technical challenges and breathtaking Himalayan scenery. Popular among adventurers, it’s the perfect gateway to high-altitude mountaineering experiences. This is good place to travel.', '2025-04-28 04:10:16', '2025-04-28 05:33:09', 1, 'Nepal-Peak-climbing', '3c0ecbb97ce3e1e48acfaf6a6cbbfd43.png', NULL, 'admin', 'admin', 1300, 12),
-(18, 'Sivapuri Hike', 12, 13, 'Shivapuri Hike offers a refreshing escape into lush forests just outside Kathmandu. This moderate trail leads through beautiful greenery, Buddhist monasteries, and peaceful villages, ending with panoramic views of the Kathmandu Valley and distant Himalayan peaks.', '2025-04-28 05:54:57', NULL, 1, 'Sivapuri-Hike', 'e09a249d1b5172d9838a731beae8b58b.png', NULL, 'admin', NULL, 30, 1);
 
 -- --------------------------------------------------------
 
@@ -157,14 +182,6 @@ CREATE TABLE `tblsubcategory` (
   `UpdationDate` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `Is_Active` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `tblsubcategory`
---
-
-INSERT INTO `tblsubcategory` (`SubCategoryId`, `CategoryId`, `Subcategory`, `SubCatDescription`, `PostingDate`, `UpdationDate`, `Is_Active`) VALUES
-(13, 12, 'Short Trekking', 'This is short working.', '2025-04-28 03:23:25', NULL, 1),
-(14, 13, 'High Altitude Trekking', 'This is quit complex to do.', '2025-04-28 03:24:04', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -187,6 +204,13 @@ CREATE TABLE `tblusers` (
 --
 
 --
+-- Indexes for table `other`
+--
+ALTER TABLE `other`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_other_posts` (`P_id`);
+
+--
 -- Indexes for table `tbladmin`
 --
 ALTER TABLE `tbladmin`
@@ -197,7 +221,8 @@ ALTER TABLE `tbladmin`
 -- Indexes for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_category_dest` (`DestId`);
 
 --
 -- Indexes for table `tblcomments`
@@ -206,6 +231,12 @@ ALTER TABLE `tblcomments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`),
   ADD KEY `postId` (`postId`);
+
+--
+-- Indexes for table `tbldest`
+--
+ALTER TABLE `tbldest`
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Indexes for table `tblpages`
@@ -241,6 +272,12 @@ ALTER TABLE `tblusers`
 --
 
 --
+-- AUTO_INCREMENT for table `other`
+--
+ALTER TABLE `other`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbladmin`
 --
 ALTER TABLE `tbladmin`
@@ -250,13 +287,19 @@ ALTER TABLE `tbladmin`
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tblcomments`
 --
 ALTER TABLE `tblcomments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbldest`
+--
+ALTER TABLE `tbldest`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblpages`
@@ -268,13 +311,13 @@ ALTER TABLE `tblpages`
 -- AUTO_INCREMENT for table `tblposts`
 --
 ALTER TABLE `tblposts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblsubcategory`
 --
 ALTER TABLE `tblsubcategory`
-  MODIFY `SubCategoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `SubCategoryId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
@@ -285,6 +328,18 @@ ALTER TABLE `tblusers`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `other`
+--
+ALTER TABLE `other`
+  ADD CONSTRAINT `fk_other_posts` FOREIGN KEY (`P_id`) REFERENCES `tblposts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tblcategory`
+--
+ALTER TABLE `tblcategory`
+  ADD CONSTRAINT `fk_category_dest` FOREIGN KEY (`DestId`) REFERENCES `tbldest` (`Id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tblcomments`

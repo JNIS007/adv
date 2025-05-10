@@ -167,6 +167,7 @@ if (strlen($_SESSION['login']) == 0) {
                 <div class="tab" data-tab="FAQ">FAQ</div>
                 <div class="tab" data-tab="RECOMMENDED_PACKAGE">RECOMMENDED PACKAGE</div>
                 <div class="tab" data-tab="CHART">CHART</div>
+                <div class="tab" data-tab="BELONGS">BELONGS TO</div>
               </div>
 
               <div class="tab-content" data-tab="ITINERARY">
@@ -229,7 +230,28 @@ if (strlen($_SESSION['login']) == 0) {
                   ?></textarea>
                 </div>
               </div>
+              <div class="tab-content" data-tab="BELONGS" style="display:none;">
+    <div class="card-box">
+        <h4><b>Belongs To:</b></h4>
+        
+       <!-- Add this where you want the dropdown in your form -->
+<div class="form-group mb-3">
+    <label for="postTitle">Related Post:</label>
+    <select class="form-control" name="related_post_id" id="postTitle" required>
+        <option value="">-- Select Post --</option>
+        <?php 
+        $query = mysqli_query($con, "SELECT id, PostTitle FROM tblposts WHERE Is_Active = 1");
+        while($row = mysqli_fetch_assoc($query)) {
+            $selected = (isset($_SESSION['form_data']['related_post_id']) && $_SESSION['form_data']['related_post_id'] == $row['id']) ? 'selected' : '';
+            echo '<option value="'.$row['id'].'" '.$selected.'>'.htmlspecialchars($row['PostTitle']).'</option>';
+        }
+        ?>
+    </select>
+</div>
 
+    </div>
+</div>
+              
               <div class="tab-content" data-tab="CHART" style="display:none;">
                 <div class="card-box">
                   <!-- Container for dynamic fields -->
