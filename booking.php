@@ -53,7 +53,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const dropdown = document.getElementById('countries-dropdown');
             const mainToggle = document.getElementById('main-toggle');
 
@@ -100,7 +100,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#1a365d',  // Deep navy for professionalism
+                        primary: '#1a365d', // Deep navy for professionalism
                         secondary: '#c2410c', // Adventurous orange for accents
                     },
                     animation: {
@@ -108,8 +108,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                     },
                     keyframes: {
                         fadeIn: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' }
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
                         }
                     }
                 }
@@ -240,34 +246,34 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     </style>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="bg-gray-800 text-white text-sm py-2">
-        <div class="container mx-auto px-4 flex justify-between items-center text-sm md:text-base">
-            <span><i class="fas fa-medal mr-1"></i> 15 Years Experience</span>
+<body>
+    <div class="py-2 text-sm text-white bg-gray-800">
+        <div class="container flex items-center justify-between px-4 mx-auto text-sm md:text-base">
+            <span><i class="mr-1 fas fa-medal"></i> 15 Years Experience</span>
             <div>
                 <div class="flex items-center space-x-4">
-                    <span><i class="fas fa-phone-alt mr-1"></i> +977-9851189771</span>
+                    <span><i class="mr-1 fas fa-phone-alt"></i> +977-9851189771</span>
                     <a href="https://api.whatsapp.com/send?phone=9779851189771" target="_blank"
                         class="hover:text-secondary">
-                        <i class="fab fa-whatsapp mr-1"></i> WhatsApp
+                        <i class="mr-1 fab fa-whatsapp"></i> WhatsApp
                     </a>
                     <a href="viber://contact?number=9779851189771" target="_blank" class="hover:text-secondary">
-                        <i class="fab fa-viber mr-1"></i> Viber
+                        <i class="mr-1 fab fa-viber"></i> Viber
                     </a>
                 </div>
             </div>
         </div>
     </div>
     <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
+        <div class="container px-4 mx-auto">
+            <div class="flex items-center justify-between py-4">
                 <!-- Logo -->
                 <a href="#" class="flex items-center">
-                    <img src="assets/logo.png" alt="Advanced Adventures" class="h-12 md:h-16 object-contain">
+                    <img src="assets/logo.png" alt="Advanced Adventures" class="object-contain h-12 md:h-16">
                 </a>
 
                 <!-- Desktop Navigation -->
-                <nav class="hidden lg:flex items-center space-x-8">
+                <nav class="items-center hidden space-x-8 lg:flex">
                     <!-- Destinations Mega Menu -->
                     <div class="relative">
                         <button id="main-toggle"
@@ -286,7 +292,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                                         </button>
 
                                         <div
-                                            class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                            class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
                                             <ul class="py-1">
                                                 <?php foreach ($dest['categories'] as $cat): ?>
                                                     <li class="relative group">
@@ -297,7 +303,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                                                         </button>
 
                                                         <div
-                                                            class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                                            class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
                                                             <ul class="py-1">
                                                                 <?php foreach ($cat['subcategories'] as $sub): ?>
                                                                     <li class="relative group">
@@ -308,7 +314,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                                                                         </button>
 
                                                                         <div
-                                                                            class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                                                            class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
                                                                             <ul class="py-1">
                                                                                 <?php foreach ($sub['posts'] as $post): ?>
                                                                                     <li>
@@ -337,17 +343,17 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
                     <!-- Other Menu Items -->
                     <a href="/page/booking.html"
-                        class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
+                        class="font-medium text-gray-700 transition hover:text-primary">Booking</a>
                     <a href="/page/travel-guide.html"
-                        class="font-medium text-gray-700 hover:text-primary transition">Travel
+                        class="font-medium text-gray-700 transition hover:text-primary">Travel
                         Guide</a>
-                    <a href="/page/about-us.html" class="font-medium text-gray-700 hover:text-primary transition">About
+                    <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About
                         Us</a>
-                    <a href="/page/csr.html" class="font-medium text-gray-700 hover:text-primary transition">CSR</a>
-                    <a href="/testimonials.html" class="font-medium text-gray-700 hover:text-primary transition">Trip
+                    <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
+                    <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip
                         Reviews</a>
-                    <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Travel Blog</a>
-                    <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Contact</a>
+                    <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
+                    <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
                     <!-- Search Button -->
                     <button class="p-2 text-gray-600 hover:text-primary">
                         <i class="fas fa-search"></i>
@@ -358,63 +364,75 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             </div>
         </div>
     </header>
-    <div class="container mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <div class="container px-4 py-8 mx-auto">
+        <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <!-- Booking Form -->
-            <div class="lg:col-span-2 bg-white p-6 rounded shadow flex flex-col space-y-6">
-                <h2 class="text-2xl font-bold mb-6 text-gray-800">Book your trip now</h2>
+            <div class="flex flex-col p-6 space-y-6 bg-white rounded shadow lg:col-span-2">
+                <h2 class="mb-6 text-2xl font-bold text-gray-800">Book your trip now</h2>
                 <form action="submit_booking.php" method="POST" class="space-y-6">
                     <!-- Trip Selection -->
-                    <div class="grid md:grid-cols-3 gap-4">
+                    <div class="grid gap-4">
+                        <!-- Full-width Trip Selection -->
                         <div>
-                            <label class="block font-medium mb-1 text-gray-700">Your selected trip *</label>
-                            <select name="trip" required class="w-full border border-gray-300 p-2 rounded">
+                            <label class="block mb-1 font-medium text-gray-700">Your selected trip *</label>
+                            <select name="trip" required class="w-full p-2 border border-gray-300 rounded">
                                 <option value="">Select your package</option>
+                                <!-- Add trip options here -->
+                                <option value="package1">Trip Package 1</option>
+                                <option value="package2">Trip Package 2</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block font-medium mb-1 text-gray-700">Select trip date *</label>
-                            <input type="date" name="trip_date" required
-                                class="w-full border border-gray-300 p-2 rounded">
-                        </div>
-                        <div>
-                            <label class="block font-medium mb-1 text-gray-700">Select travellers number *</label>
-                            <input type="number" name="travellers" value="1" min="1" required
-                                class="w-full border border-gray-300 p-2 rounded">
+
+                        <!-- Two-column layout for Date and Travellers -->
+                        <div class="grid gap-4 md:grid-cols-2">
+                            <!-- Trip Date -->
+                            <div>
+                                <label class="block mb-1 font-medium text-gray-700">Select trip date *</label>
+                                <input type="date" name="trip_date" required class="w-full p-2 border border-gray-300 rounded">
+                            </div>
+
+                            <!-- Travellers -->
+                            <div>
+                                <label class="block mb-1 font-medium text-gray-700">Select travellers number *</label>
+                                <input type="number" name="travellers" value="1" min="1" required class="w-full p-2 border border-gray-300 rounded">
+                            </div>
                         </div>
                     </div>
 
+
+
                     <!-- Traveller Information -->
                     <h3 class="text-xl font-semibold text-gray-800">Information of traveller 1</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
+                    <div class="grid gap-4 md:grid-cols-2">
                         <div class="flex gap-2">
-                            <select name="salutation" class="border border-gray-300 p-2 rounded">
+                            <select name="salutation" class="p-2 border border-gray-300 rounded">
                                 <option>Mr.</option>
                                 <option>Ms.</option>
                                 <option>Mrs.</option>
                             </select>
                             <input type="text" name="fullname" required placeholder="Full Name"
-                                class="flex-1 border border-gray-300 p-2 rounded">
+                                class="flex-1 p-2 border border-gray-300 rounded">
                         </div>
                         <input type="email" name="email" required placeholder="Enter your email here"
-                            class="w-full border border-gray-300 p-2 rounded">
+                            class="w-full p-2 border border-gray-300 rounded">
                         <input type="tel" name="contact" placeholder="Contact Number"
-                            class="w-full border border-gray-300 p-2 rounded">
+                            class="w-full p-2 border border-gray-300 rounded">
                         <input type="text" name="country" required placeholder="Your Current Country"
-                            class="w-full border border-gray-300 p-2 rounded">
+                            class="w-full p-2 border border-gray-300 rounded">
                         <input type="text" name="passport" required placeholder="Passport Number"
-                            class="w-full border border-gray-300 p-2 rounded">
+                            class="w-full p-2 border border-gray-300 rounded">
                         <input type="text" name="emergency" required
                             placeholder="Enter personal address and number in case of emergency"
-                            class="w-full border border-gray-300 p-2 rounded">
-                        <select name="ref_source" class="w-full border border-gray-300 p-2 rounded">
+                            class="w-full p-2 border border-gray-300 rounded">
+                        <select name="ref_source" class="w-full p-2 border border-gray-300 rounded">
                             <option value="">Select how did you find us?</option>
                             <option>Google</option>
                             <option>Facebook</option>
                             <option>Friend</option>
                             <option>Other</option>
                         </select>
-                        <textarea name="special_request" rows="3" class="w-full border border-gray-300 p-2 rounded"
+                        <textarea name="special_request" rows="3" class="w-full p-2 border border-gray-300 rounded"
                             placeholder="Do you have any other special questions or request?"></textarea>
                     </div>
 
@@ -426,16 +444,16 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                     </div>
 
                     <!-- Submit -->
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded">
+                    <button type="submit" class="px-6 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">
                         Submit Booking
                     </button>
                 </form>
             </div>
 
             <!-- Aside Content -->
-            <aside class="bg-gray-100 p-6 rounded shadow sticky top-0">
-                <h3 class="text-xl font-semibold mb-4 text-gray-800">Why Book With Us?</h3>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <aside class="sticky top-0 p-6 bg-gray-100 rounded shadow">
+                <h3 class="mb-4 text-xl font-semibold text-gray-800">Why Book With Us?</h3>
+                <ul class="space-y-2 text-gray-700 list-disc list-inside">
                     <li>Group Discounts Available</li>
                     <li>Guaranteed Departures</li>
                     <li>Local Professional Guides</li>
@@ -447,6 +465,99 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     </div>
 
 
+    <footer class="pt-6 text-xs text-gray-300 bg-gray-900">
+        <div class="px-4 mx-auto max-w-7xl">
+            <div class="grid grid-cols-1 gap-4 mb-4 md:grid-cols-2 lg:grid-cols-4">
+                <!-- Destinations -->
+                <div>
+                    <h3 class="pb-1 mb-2 font-semibold text-white border-b border-primary">Destinations</h3>
+                    <ul class="space-y-1">
+                        <li><a href="/nepal" class="hover:text-primary">Nepal</a></li>
+                        <li><a href="/tibet" class="hover:text-primary">Tibet</a></li>
+                        <li><a href="/bhutan" class="hover:text-primary">Bhutan</a></li>
+                        <li><a href="/india" class="hover:text-primary">India</a></li>
+                        <li><a href="#" class="hover:text-primary">Nepal/Bhutan</a></li>
+                        <li><a href="#" class="hover:text-primary">Nepal/Tibet</a></li>
+                        <li><a href="#" class="hover:text-primary">Nepal/Tibet/Bhutan</a></li>
+                    </ul>
+                </div>
 
+                <!-- Activities -->
+                <div>
+                    <h3 class="pb-1 mb-2 font-semibold text-white border-b border-primary">Activities</h3>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="hover:text-primary">Trekking</a></li>
+                        <li><a href="#" class="hover:text-primary">Cultural Tours</a></li>
+                        <li><a href="#" class="hover:text-primary">Peak Climbing</a></li>
+                        <li><a href="#" class="hover:text-primary">Bhutan Tours</a></li>
+                        <li><a href="#" class="hover:text-primary">Mt. Kailash</a></li>
+                        <li><a href="#" class="hover:text-primary">Tibet Tours</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources -->
+                <div>
+                    <h3 class="pb-1 mb-2 font-semibold text-white border-b border-primary">Resources</h3>
+                    <ul class="space-y-1">
+                        <li><a href="#" class="hover:text-primary">Travel Guide</a></li>
+                        <li><a href="#" class="hover:text-primary">Visa Info</a></li>
+                        <li><a href="#" class="hover:text-primary">Insurance</a></li>
+                        <li><a href="#" class="hover:text-primary">Terms</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h3 class="pb-1 mb-2 font-semibold text-white border-b border-primary">Contact</h3>
+                    <address class="space-y-1 text-xs not-italic">
+                        <div class="flex items-start">
+                            <i class="mt-1 mr-2 text-xs fas fa-map-marker-alt text-primary"></i>
+                            <span>Advanced Adventures Nepal Pvt. Ltd<br>Bhagwan Bahal, Thamel</span>
+                        </div>
+                        <div class="flex items-center"><i class="mr-2 text-xs fas fa-phone-alt text-primary"></i> +977-1-4544152</div>
+                        <div class="flex items-center"><i class="mr-2 text-xs fab fa-whatsapp text-primary"></i> +977 9851189771</div>
+                        <div class="flex items-center"><i class="mr-2 text-xs fas fa-envelope text-primary"></i> <a href="mailto:info@advadventures.com" class="hover:text-primary">info@advadventures.com</a></div>
+                    </address>
+                </div>
+            </div>
+
+            <!-- Certifications -->
+            <div class="pt-3 mb-3 border-t border-gray-700">
+                <h3 class="mb-2 font-semibold text-center text-white">Certifications</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel17.png" alt="2017" class="h-10" />
+                    <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel18.png" alt="2018" class="h-10" />
+                    <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel19.png" alt="2019" class="h-10" />
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="pt-3 pb-4 border-t border-gray-700">
+                <div class="flex flex-col items-center justify-between gap-2 md:flex-row">
+                    <div class="text-center md:text-left">
+                        <p>© 2025 Advanced Adventures Nepal Pvt. Ltd.</p>
+                        <p class="mt-1 text-[11px]">Regd No: 064/065/47694 | NMA: 833 | NTB: 1215/067</p>
+                    </div>
+                    <div class="flex space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <p class="mt-2 text-center text-[11px]">Crafted with <span class="text-primary">♥</span> by <a href="https://www.cyberpirates.io" class="hover:text-primary">Cyber Pirates</a></p>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button id="goToTop" class="fixed z-50 p-2 text-white rounded-full shadow-lg bottom-6 right-4 bg-primary hover:bg-primary-dark">
+            <i class="text-xs fas fa-chevron-up"></i>
+        </button>
+    </footer>
+
+
+
+
+</body>
 
 </html>

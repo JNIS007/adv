@@ -54,7 +54,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const dropdown = document.getElementById('countries-dropdown');
       const mainToggle = document.getElementById('main-toggle');
 
@@ -101,7 +101,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       theme: {
         extend: {
           colors: {
-            primary: '#1a365d',  // Deep navy for professionalism
+            primary: '#1a365d', // Deep navy for professionalism
             secondary: '#c2410c', // Adventurous orange for accents
           },
           animation: {
@@ -109,8 +109,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           },
           keyframes: {
             fadeIn: {
-              'from': { opacity: '0', transform: 'translateY(20px)' },
-              'to': { opacity: '1', transform: 'translateY(0)' }
+              'from': {
+                opacity: '0',
+                transform: 'translateY(20px)'
+              },
+              'to': {
+                opacity: '1',
+                transform: 'translateY(0)'
+              }
             }
           }
         }
@@ -233,17 +239,17 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
 <body class="font-sans antialiased">
   <!-- Top info bar -->
-  <div class="bg-gray-800 text-white text-sm py-2">
-    <div class="container mx-auto px-4 flex justify-between items-center text-sm md:text-base">
-      <span><i class="fas fa-medal mr-1"></i> 15 Years Experience</span>
+  <div class="py-2 text-sm text-white bg-gray-800">
+    <div class="container flex items-center justify-between px-4 mx-auto text-sm md:text-base">
+      <span><i class="mr-1 fas fa-medal"></i> 15 Years Experience</span>
       <div>
         <div class="flex items-center space-x-4">
-          <span><i class="fas fa-phone-alt mr-1"></i> +977-9851189771</span>
+          <span><i class="mr-1 fas fa-phone-alt"></i> +977-9851189771</span>
           <a href="https://api.whatsapp.com/send?phone=9779851189771" target="_blank" class="hover:text-secondary">
-            <i class="fab fa-whatsapp mr-1"></i> WhatsApp
+            <i class="mr-1 fab fa-whatsapp"></i> WhatsApp
           </a>
           <a href="viber://contact?number=9779851189771" target="_blank" class="hover:text-secondary">
-            <i class="fab fa-viber mr-1"></i> Viber
+            <i class="mr-1 fab fa-viber"></i> Viber
           </a>
         </div>
       </div>
@@ -252,15 +258,15 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
   <!-- Main header -->
   <header class="sticky top-0 z-50 bg-white shadow-md">
-    <div class="container mx-auto px-4">
-      <div class="flex justify-between items-center py-4">
+    <div class="container px-4 mx-auto">
+      <div class="flex items-center justify-between py-4">
         <!-- Logo -->
         <a href="#" class="flex items-center">
-          <img src="assets/logo.png" alt="Advanced Adventures" class="h-12 md:h-16 object-contain">
+          <img src="assets/logo.png" alt="Advanced Adventures" class="object-contain h-12 md:h-16">
         </a>
 
         <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center space-x-8">
+        <nav class="items-center hidden space-x-8 lg:flex">
           <!-- Destinations Mega Menu -->
           <div class="relative">
             <button id="main-toggle" class="flex items-center font-medium text-gray-700 transition hover:text-primary">
@@ -276,7 +282,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                       <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
                     </button>
 
-                    <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                    <div class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
                       <ul class="py-1">
                         <?php foreach ($dest['categories'] as $cat): ?>
                           <li class="relative group">
@@ -285,7 +291,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                               <?= $cat['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
                             </button>
 
-                            <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                            <div class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
                               <ul class="py-1">
                                 <?php foreach ($cat['subcategories'] as $sub): ?>
                                   <li class="relative group">
@@ -295,7 +301,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                                     </button>
 
                                     <div
-                                      class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                      class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
                                       <ul class="py-1">
                                         <?php foreach ($sub['posts'] as $post): ?>
                                           <li>
@@ -323,14 +329,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
 
           <!-- Other Menu Items -->
-          <a href="/page/booking.html" class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 hover:text-primary transition">Travel
+          <a href="/page/booking.html" class="font-medium text-gray-700 transition hover:text-primary">Booking</a>
+          <a href="/page/travel-guide.html" class="font-medium text-gray-700 transition hover:text-primary">Travel
             Guide</a>
-          <a href="/page/about-us.html" class="font-medium text-gray-700 hover:text-primary transition">About Us</a>
-          <a href="/page/csr.html" class="font-medium text-gray-700 hover:text-primary transition">CSR</a>
-          <a href="/testimonials.html" class="font-medium text-gray-700 hover:text-primary transition">Trip Reviews</a>
-          <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Contact</a>
+          <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
+          <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
+          <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
+          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
+          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
           <!-- Search Button -->
           <button class="p-2 text-gray-600 hover:text-primary">
             <i class="fas fa-search"></i>
@@ -344,29 +350,29 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         </nav>
 
         <!-- Mobile Menu Button -->
-        <button class="lg:hidden text-gray-700 focus:outline-none" id="mobile-menu-button">
-          <i class="fas fa-bars text-2xl"></i>
+        <button class="text-gray-700 lg:hidden focus:outline-none" id="mobile-menu-button">
+          <i class="text-2xl fas fa-bars"></i>
         </button>
       </div>
     </div>
 
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div class="mobile-menu absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-lg overflow-y-auto">
-        <div class="flex justify-between items-center p-4 border-b">
+    <div id="mobile-menu" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 lg:hidden">
+      <div class="absolute top-0 right-0 w-4/5 h-full max-w-sm overflow-y-auto bg-white shadow-lg mobile-menu">
+        <div class="flex items-center justify-between p-4 border-b">
           <img src="https://www.advadventures.com/dist/frontend/img/adv-logo-new.jpg" alt="Advanced Adventures"
             class="h-10">
           <button id="close-mobile-menu" class="text-gray-600">
-            <i class="fas fa-times text-2xl"></i>
+            <i class="text-2xl fas fa-times"></i>
           </button>
         </div>
 
         <div class="p-4 space-y-4">
           <div class="accordion">
-            <button class="flex justify-between items-center w-full py-2 font-medium text-gray-700">
+            <button class="flex items-center justify-between w-full py-2 font-medium text-gray-700">
               Destinations <i class="fas fa-chevron-down"></i>
             </button>
-            <div class="accordion-content hidden pl-4 mt-2 space-y-2">
+            <div class="hidden pl-4 mt-2 space-y-2 accordion-content">
               <a href="/nepal" class="block py-1 hover:text-secondary">Nepal</a>
               <a href="/tibet" class="block py-1 hover:text-secondary">Tibet</a>
               <a href="/bhutan" class="block py-1 hover:text-secondary">Bhutan</a>
@@ -402,32 +408,32 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($r = mysqli_fetch_array($q)) {
           $ct = $r["CategoryId"];
-          ?>
-          <div class="swiper-slide relative">
+        ?>
+          <div class="relative swiper-slide">
             <!-- Background Image -->
-            <div class="absolute inset-0 bg-cover bg-center"
+            <div class="absolute inset-0 bg-center bg-cover"
               style="background-image: url('./admin/postimages/<?php echo htmlspecialchars($r["PostImage"]); ?>');">
               <div class="absolute inset-0 bg-black bg-opacity-40"></div>
             </div>
 
             <!-- Foreground Content -->
-            <div class="relative h-full flex items-center justify-center text-center px-4">
+            <div class="relative flex items-center justify-center h-full px-4 text-center">
               <div class="max-w-4xl text-white">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fadeIn">
+                <h1 class="mb-4 text-4xl font-bold md:text-6xl animate-fadeIn">
                   <?php echo htmlspecialchars($r["PostTitle"]); ?>
                 </h1>
 
-                <p class="text-xl md:text-2xl mb-8 animate-fadeIn delay-100 line-clamp-2">
+                <p class="mb-8 text-xl delay-100 md:text-2xl animate-fadeIn line-clamp-2">
                   <?php echo htmlspecialchars($r["PostDetails"]); ?>
                 </p>
 
                 <!-- Metadata Badges -->
-                <div class="animate-fadeIn delay-200">
-                  <span class="inline-block bg-primary px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
+                <div class="delay-200 animate-fadeIn">
+                  <span class="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold rounded-full bg-primary">
                     <?php echo (int) $r["Days"]; ?> Days
                   </span>
 
-                  <span class="inline-block bg-secondary px-3 py-1 rounded-full text-sm font-semibold mr-2 mb-2">
+                  <span class="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold rounded-full bg-secondary">
                     <?php
                     $catRes = mysqli_query($con, "SELECT CategoryName FROM tblcategory WHERE id = " . (int) $ct);
                     if ($catRow = mysqli_fetch_assoc($catRes)) {
@@ -439,7 +445,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
                 <!-- CTA Button -->
                 <a href="#"
-                  class="mt-8 inline-block bg-white text-primary hover:bg-gray-100 px-8 py-3 rounded-md font-bold text-lg transition animate-fadeIn delay-300">
+                  class="inline-block px-8 py-3 mt-8 text-lg font-bold transition delay-300 bg-white rounded-md text-primary hover:bg-gray-100 animate-fadeIn">
                   Explore This Trek
                 </a>
               </div>
@@ -450,31 +456,31 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- Navigation Arrows -->
-      <div class="swiper-button-next text-white"></div>
-      <div class="swiper-button-prev text-white"></div>
+      <div class="text-white swiper-button-next"></div>
+      <div class="text-white swiper-button-prev"></div>
 
       <!-- Pagination -->
       <div class="swiper-pagination"></div>
     </div>
 
     <!-- Trip Finder Section -->
-    <div class="container mx-auto px-4 -mt-16 relative z-10">
-      <div class="backdrop-blur-lg bg-white/80 rounded-2xl shadow-2xl p-8 border border-gray-200">
-        <h3 class="text-3xl font-bold text-gray-900 text-center mb-6">Find Your Perfect Adventure</h3>
+    <div class="container relative z-10 px-4 mx-auto -mt-16">
+      <div class="p-8 border border-gray-200 shadow-2xl backdrop-blur-lg bg-white/80 rounded-2xl">
+        <h3 class="mb-6 text-3xl font-bold text-center text-gray-900">Find Your Perfect Adventure</h3>
 
         <!-- Search Bar -->
         <div class="mb-6">
           <input type="text" placeholder="Search for a trip..."
-            class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+            class="w-full p-3 transition border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50">
         </div>
 
-        <form class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <form class="grid grid-cols-1 gap-6 md:grid-cols-4">
 
           <!-- Destination Select -->
           <div>
-            <label for="destination" class="block text-sm font-semibold text-gray-700 mb-2">Destination</label>
+            <label for="destination" class="block mb-2 text-sm font-semibold text-gray-700">Destination</label>
             <select id="destination"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+              class="w-full p-3 transition border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50">
               <option value="">All Destinations</option>
               <option value="nepal">Nepal</option>
               <option value="tibet">Tibet</option>
@@ -484,9 +490,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
           <!-- Activity Select -->
           <div>
-            <label for="activity" class="block text-sm font-semibold text-gray-700 mb-2">Activity</label>
+            <label for="activity" class="block mb-2 text-sm font-semibold text-gray-700">Activity</label>
             <select id="activity"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+              class="w-full p-3 transition border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50">
               <option value="">All Activities</option>
               <option value="trekking">Trekking</option>
               <option value="climbing">Peak Climbing</option>
@@ -496,9 +502,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
           <!-- Duration Select -->
           <div>
-            <label for="duration" class="block text-sm font-semibold text-gray-700 mb-2">Duration</label>
+            <label for="duration" class="block mb-2 text-sm font-semibold text-gray-700">Duration</label>
             <select id="duration"
-              class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50 transition">
+              class="w-full p-3 transition border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary bg-gray-50">
               <option value="">Any Duration</option>
               <option value="1-7">1-7 Days</option>
               <option value="8-14">8-14 Days</option>
@@ -509,7 +515,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           <!-- Search Button -->
           <div class="flex items-end">
             <button type="submit"
-              class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold text-lg transition transform hover:scale-105 shadow-lg">
+              class="flex items-center justify-center w-full gap-2 px-6 py-3 text-lg font-semibold text-white transition transform rounded-lg shadow-lg bg-primary hover:bg-blue-700 hover:scale-105">
               <i class="fas fa-search"></i> Search
             </button>
           </div>
@@ -520,25 +526,25 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   </section>
 
   <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Advanced Adventures Nepal?</h2>
-        <div class="w-20 h-1 bg-primary mx-auto"></div>
+      <div class="mb-12 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-gray-800 md:text-4xl">Why Choose Advanced Adventures Nepal?</h2>
+        <div class="w-20 h-1 mx-auto bg-primary"></div>
       </div>
 
       <!-- Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         <!-- Card 1: Nepal Based Company -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-map-marked-alt text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-map-marked-alt text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Nepal Based Company
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Nepal Based Company
                 </h3>
               </div>
               <p class="text-gray-600">Advanced Adventures Nepal is Nepal Based Local Travel and Adventure Leading
@@ -550,13 +556,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 2: 100% Customer Care -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-headset text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-headset text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">100% Customer Care
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">100% Customer Care
                 </h3>
               </div>
               <p class="text-gray-600">We always focus on 100% customer satisfaction. We make sure to provide best
@@ -568,13 +574,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 3: Professionally Guided Team -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-users text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-users text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Professionally
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Professionally
                   Guided Team</h3>
               </div>
               <p class="text-gray-600">Our team consists of local experienced leaders with 12-15 years of route
@@ -586,13 +592,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 4: Carefully Designed Itinerary -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-route text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-route text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Carefully Designed
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Carefully Designed
                   Itinerary</h3>
               </div>
               <p class="text-gray-600">Every trip itinerary is designed to provide real experiences with maximum
@@ -604,13 +610,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 5: Prompt Communication -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-comments text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-comments text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Prompt Communication
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Prompt Communication
                 </h3>
               </div>
               <p class="text-gray-600">We provide quick replies to inquiries and accurate trip information to help you
@@ -622,13 +628,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 6: Guarantee to Run Your Trip -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-check-circle text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-check-circle text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Guaranteed
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Guaranteed
                   Departures</h3>
               </div>
               <p class="text-gray-600">All advertised trips are guaranteed departures. We never cancel once you've
@@ -640,13 +646,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 7: Responsible Travel -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-leaf text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-leaf text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Responsible Travel
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Responsible Travel
                 </h3>
               </div>
               <p class="text-gray-600">Committed to true sustainability - socially and environmentally. Our commitment
@@ -658,13 +664,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Card 8: Corporate Social Responsibility -->
         <a href="https://www.advadventures.com/page/why-us.html" class="group">
           <div
-            class="h-full bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            class="h-full overflow-hidden transition-all duration-300 bg-white shadow-md rounded-xl hover:shadow-lg hover:-translate-y-1">
             <div class="p-6">
               <div class="flex items-center mb-4">
-                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                  <i class="fas fa-hands-helping text-primary text-xl"></i>
+                <div class="p-3 mr-4 rounded-full bg-primary bg-opacity-10">
+                  <i class="text-xl fas fa-hands-helping text-primary"></i>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 group-hover:text-primary transition">Social
+                <h3 class="text-lg font-semibold text-gray-800 transition group-hover:text-primary">Social
                   Responsibility</h3>
               </div>
               <p class="text-gray-600">We support rural Himalayan communities through humanitarian activities in
@@ -675,9 +681,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- CTA Button -->
-      <div class="text-center mt-12">
+      <div class="mt-12 text-center">
         <a href="https://www.advadventures.com/page/why-us.html"
-          class="inline-block bg-primary hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition duration-300 transform hover:scale-105">
+          class="inline-block px-8 py-3 font-semibold text-white transition duration-300 transform rounded-lg bg-primary hover:bg-blue-800 hover:scale-105">
           Learn More About Us
         </a>
       </div>
@@ -685,57 +691,57 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   </section>
 
   <section class="py-16 bg-gray-50" id="featured-treks">
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-2">Top Adventures for 2025/2026</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Our handpicked selection of must-experience Himalayan
+      <div class="mb-12 text-center">
+        <h2 class="mb-2 text-3xl font-bold text-gray-800 md:text-4xl">Top Adventures for 2025/2026</h2>
+        <p class="max-w-2xl mx-auto text-lg text-gray-600">Our handpicked selection of must-experience Himalayan
           journeys</p>
-        <div class="w-20 h-1 bg-primary mx-auto mt-4"></div>
+        <div class="w-20 h-1 mx-auto mt-4 bg-primary"></div>
       </div>
 
       <!-- Trek Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
         <?php
         $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-          ?>
+        ?>
 
-          <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+          <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
               <img src="admin/postimages/<?php echo htmlentities($row['PostImage']); ?>"
                 alt="<?php echo htmlentities($row['PostTitle']); ?>"
-                class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+                class="object-cover w-full h-full transition duration-500 transform group-hover:scale-105">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" style="mask-image: linear-gradient(to bottom, black 0%, transparent 30%), 
       linear-gradient(to right, black 0%, transparent 30%);">
               </div>
               <div
-                class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                class="absolute px-4 py-2 border rounded-full shadow-lg bottom-4 right-4 bg-white/90 backdrop-blur-sm border-white/20">
                 <span class="font-bold text-primary">US $<?php echo htmlentities($row['Price']); ?></span>
               </div>
             </div>
             <div class="p-6 bg-white">
-              <div class="flex justify-between items-start mb-2">
+              <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
-                <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-800 rounded-full"><?php
-                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $r = mysqli_fetch_array($q);
-                echo $r["CategoryName"];
-                ?></span>
+                <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
+                                                                                                    $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $r = mysqli_fetch_array($q);
+                                                                                                    echo $r["CategoryName"];
+                                                                                                    ?></span>
               </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
+              <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
                   <?php echo htmlentities($row['PostTitle']); ?>
                 </a>
               </h3>
-              <p class="text-gray-600 mb-4 line-clamp-3">
+              <p class="mb-4 text-gray-600 line-clamp-3">
                 <?php echo htmlentities(substr($row['PostDetails'], 0, 150)); ?>...
               </p>
               <a href="http://localhost/adv/new_page.php?id=<?php echo urlencode($row['id']); ?>"
-                class="inline-flex items-center font-medium text-primary hover:text-blue-800 transition">
-                Explore This Trek <i class="fas fa-arrow-right ml-2"></i>
+                class="inline-flex items-center font-medium transition text-primary hover:text-blue-800">
+                Explore This Trek <i class="ml-2 fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -744,9 +750,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- CTA -->
-      <div class="text-center mt-12">
+      <div class="mt-12 text-center">
         <a href="/all-treks"
-          class="inline-block bg-primary hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition duration-300 transform hover:scale-105">
+          class="inline-block px-8 py-3 font-semibold text-white transition duration-300 transform rounded-lg bg-primary hover:bg-blue-800 hover:scale-105">
           View All Recommended Adventures
         </a>
       </div>
@@ -754,31 +760,31 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   </section>
 
   <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-16">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-3">Discover Our World</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Journey through the most breathtaking destinations in the
+      <div class="mb-16 text-center">
+        <h2 class="mb-3 text-4xl font-bold text-gray-800 md:text-5xl">Discover Our World</h2>
+        <p class="max-w-3xl mx-auto text-xl text-gray-600">Journey through the most breathtaking destinations in the
           Himalayas and beyond</p>
         <div class="w-24 h-1.5 bg-primary mx-auto mt-6"></div>
       </div>
 
       <!-- Destination Grid - Larger, More Stylish Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
         <!-- Nepal -->
         <div
           class="group relative overflow-hidden rounded-2xl shadow-2xl h-[400px] transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          <div class="absolute inset-0 transition-all duration-700 bg-center bg-cover group-hover:scale-110"
             style="background-image: url('https://www.advadventures.com/dist/frontend1/assets/images/nepal.jpg')">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80"></div>
           </div>
           <a href="https://www.advadventures.com/nepal" class="absolute inset-0 flex flex-col justify-end p-8">
-            <div class="transform transition duration-500 group-hover:-translate-y-2">
-              <h3 class="text-3xl font-bold text-white mb-2">Nepal</h3>
-              <p class="text-gray-200 mb-6">Land of Himalayas & Birth Place Of Lord Buddha</p>
+            <div class="transition duration-500 transform group-hover:-translate-y-2">
+              <h3 class="mb-2 text-3xl font-bold text-white">Nepal</h3>
+              <p class="mb-6 text-gray-200">Land of Himalayas & Birth Place Of Lord Buddha</p>
             </div>
             <div
-              class="opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+              class="transition duration-500 transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
               <div class="flex items-center text-white">
                 <span class="mr-2">Explore Treks</span>
                 <i class="fas fa-arrow-right"></i>
@@ -793,17 +799,17 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Bhutan -->
         <div
           class="group relative overflow-hidden rounded-2xl shadow-2xl h-[400px] transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          <div class="absolute inset-0 transition-all duration-700 bg-center bg-cover group-hover:scale-110"
             style="background-image: url('https://www.advadventures.com/dist/frontend1/assets/images/bhutan.jpg')">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80"></div>
           </div>
           <a href="https://www.advadventures.com/bhutan" class="absolute inset-0 flex flex-col justify-end p-8">
-            <div class="transform transition duration-500 group-hover:-translate-y-2">
-              <h3 class="text-3xl font-bold text-white mb-2">Bhutan</h3>
-              <p class="text-gray-200 mb-6">Land of Thunder Dragon & Lost Himalayan Shangri-La</p>
+            <div class="transition duration-500 transform group-hover:-translate-y-2">
+              <h3 class="mb-2 text-3xl font-bold text-white">Bhutan</h3>
+              <p class="mb-6 text-gray-200">Land of Thunder Dragon & Lost Himalayan Shangri-La</p>
             </div>
             <div
-              class="opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+              class="transition duration-500 transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
               <div class="flex items-center text-white">
                 <span class="mr-2">Explore Culture</span>
                 <i class="fas fa-arrow-right"></i>
@@ -818,17 +824,17 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- Tibet -->
         <div
           class="group relative overflow-hidden rounded-2xl shadow-2xl h-[400px] transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          <div class="absolute inset-0 transition-all duration-700 bg-center bg-cover group-hover:scale-110"
             style="background-image: url('https://www.advadventures.com/dist/frontend1/assets/images/tibet.jpg')">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80"></div>
           </div>
           <a href="https://www.advadventures.com/tibet" class="absolute inset-0 flex flex-col justify-end p-8">
-            <div class="transform transition duration-500 group-hover:-translate-y-2">
-              <h3 class="text-3xl font-bold text-white mb-2">Tibet</h3>
-              <p class="text-gray-200 mb-6">Mysterious Land & "Roof Of The World"</p>
+            <div class="transition duration-500 transform group-hover:-translate-y-2">
+              <h3 class="mb-2 text-3xl font-bold text-white">Tibet</h3>
+              <p class="mb-6 text-gray-200">Mysterious Land & "Roof Of The World"</p>
             </div>
             <div
-              class="opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+              class="transition duration-500 transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
               <div class="flex items-center text-white">
                 <span class="mr-2">Discover</span>
                 <i class="fas fa-arrow-right"></i>
@@ -843,17 +849,17 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <!-- India -->
         <div
           class="group relative overflow-hidden rounded-2xl shadow-2xl h-[400px] transition-all duration-500 hover:-translate-y-2">
-          <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-110"
+          <div class="absolute inset-0 transition-all duration-700 bg-center bg-cover group-hover:scale-110"
             style="background-image: url('https://www.advadventures.com/dist/frontend1/assets/images/india.jpg')">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80"></div>
           </div>
           <a href="https://www.advadventures.com/india" class="absolute inset-0 flex flex-col justify-end p-8">
-            <div class="transform transition duration-500 group-hover:-translate-y-2">
-              <h3 class="text-3xl font-bold text-white mb-2">India</h3>
-              <p class="text-gray-200 mb-6">Land of Taj Mahal, the exotic mystic & fantasy!</p>
+            <div class="transition duration-500 transform group-hover:-translate-y-2">
+              <h3 class="mb-2 text-3xl font-bold text-white">India</h3>
+              <p class="mb-6 text-gray-200">Land of Taj Mahal, the exotic mystic & fantasy!</p>
             </div>
             <div
-              class="opacity-0 group-hover:opacity-100 transition duration-500 transform translate-y-4 group-hover:translate-y-0">
+              class="transition duration-500 transform translate-y-4 opacity-0 group-hover:opacity-100 group-hover:translate-y-0">
               <div class="flex items-center text-white">
                 <span class="mr-2">Explore</span>
                 <i class="fas fa-arrow-right"></i>
@@ -867,47 +873,47 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- CTA -->
-      <div class="text-center mt-16">
+      <div class="mt-16 text-center">
         <a href="/all-destinations"
-          class="inline-block bg-primary hover:bg-blue-800 text-white font-bold px-10 py-4 rounded-xl transition duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          class="inline-block px-10 py-4 font-bold text-white transition duration-300 transform shadow-lg bg-primary hover:bg-blue-800 rounded-xl hover:scale-105 hover:shadow-xl">
           Explore All Destinations
-          <i class="fas fa-arrow-right ml-2"></i>
+          <i class="ml-2 fas fa-arrow-right"></i>
         </a>
       </div>
     </div>
   </section>
 
   <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-16">
-        <span class="inline-block text-primary font-semibold mb-3">EXPLORE NEPAL</span>
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Discover Our Trekking Adventures</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Experience the most breathtaking trails in the Himalayas with
+      <div class="mb-16 text-center">
+        <span class="inline-block mb-3 font-semibold text-primary">EXPLORE NEPAL</span>
+        <h2 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Discover Our Trekking Adventures</h2>
+        <p class="max-w-3xl mx-auto text-xl text-gray-600">Experience the most breathtaking trails in the Himalayas with
           expert guides</p>
         <div class="w-24 h-1.5 bg-primary mx-auto mt-6"></div>
       </div>
 
       <!-- Symmetric 2-Column Grid -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <!-- Left Column - Featured Trek -->
         <div class="group relative overflow-hidden rounded-2xl shadow-2xl h-[500px] transition-all duration-500">
-          <div class="absolute inset-0 bg-cover bg-center transition-all duration-700 group-hover:scale-105"
+          <div class="absolute inset-0 transition-all duration-700 bg-center bg-cover group-hover:scale-105"
             style="background-image: url('https://www.advadventures.com/uploads/packagethumb/1511688063-tengboche-monastery.jpg')">
             <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/70"></div>
           </div>
           <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
             <div class="flex gap-2 mb-3">
-              <span class="bg-primary/90 text-white px-3 py-1 rounded-full text-sm font-bold">14 DAYS</span>
-              <span class="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm">BEST SELLER</span>
+              <span class="px-3 py-1 text-sm font-bold text-white rounded-full bg-primary/90">14 DAYS</span>
+              <span class="px-3 py-1 text-sm text-white rounded-full bg-white/20 backdrop-blur-sm">BEST SELLER</span>
             </div>
-            <h3 class="text-3xl font-bold mb-2">Everest Base Camp Trek</h3>
-            <p class="text-gray-200 mb-6 max-w-lg">Walk in the footsteps of legends to the base of the world's highest
+            <h3 class="mb-2 text-3xl font-bold">Everest Base Camp Trek</h3>
+            <p class="max-w-lg mb-6 text-gray-200">Walk in the footsteps of legends to the base of the world's highest
               peak.</p>
-            <div class="flex items-center justify-between border-t border-white/20 pt-4">
+            <div class="flex items-center justify-between pt-4 border-t border-white/20">
               <span class="text-2xl font-bold">From $1580</span>
-              <a href="/everest-base-camp" class="flex items-center gap-2 font-medium hover:gap-3 transition-all">
-                Explore <i class="fas fa-arrow-right text-sm"></i>
+              <a href="/everest-base-camp" class="flex items-center gap-2 font-medium transition-all hover:gap-3">
+                Explore <i class="text-sm fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
@@ -917,16 +923,16 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <div class="flex flex-col gap-6 h-[500px]">
           <!-- Trek 1 (Top) -->
           <div
-            class="group relative flex-1 overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
-            <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110"
+            class="relative flex-1 overflow-hidden transition-all duration-300 shadow-lg group rounded-2xl hover:-translate-y-1">
+            <div class="absolute inset-0 transition duration-700 bg-center bg-cover group-hover:scale-110"
               style="background-image: url('https://www.advadventures.com/uploads/packagethumb/1511517375-annapurna.jpg')">
               <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/60"></div>
             </div>
             <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
-              <h4 class="text-xl font-bold mb-1">Annapurna Circuit</h4>
-              <div class="flex justify-between items-center border-t border-white/20 pt-3 mt-3">
+              <h4 class="mb-1 text-xl font-bold">Annapurna Circuit</h4>
+              <div class="flex items-center justify-between pt-3 mt-3 border-t border-white/20">
                 <span class="text-sm">From $1090</span>
-                <a href="/annapurna" class="text-white hover:text-primary transition-colors">
+                <a href="/annapurna" class="text-white transition-colors hover:text-primary">
                   <i class="fas fa-arrow-right"></i>
                 </a>
               </div>
@@ -937,16 +943,16 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           <div class="flex gap-6 h-[200px]">
             <!-- Trek 2 -->
             <div
-              class="group relative flex-1 overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110"
+              class="relative flex-1 overflow-hidden transition-all duration-300 shadow-lg group rounded-2xl hover:-translate-y-1">
+              <div class="absolute inset-0 transition duration-700 bg-center bg-cover group-hover:scale-110"
                 style="background-image: url('https://www.advadventures.com/uploads/packagethumb/1511688929-chorten-in-lo-manthang-valley.jpg')">
                 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/60"></div>
               </div>
               <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                 <h4 class="text-lg font-bold">Upper Mustang</h4>
-                <div class="flex justify-between items-center border-t border-white/20 pt-2 mt-2">
+                <div class="flex items-center justify-between pt-2 mt-2 border-t border-white/20">
                   <span class="text-xs">From $2390</span>
-                  <a href="/mustang" class="text-white hover:text-primary transition-colors text-sm">
+                  <a href="/mustang" class="text-sm text-white transition-colors hover:text-primary">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -955,16 +961,16 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
             <!-- Trek 3 -->
             <div
-              class="group relative flex-1 overflow-hidden rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div class="absolute inset-0 bg-cover bg-center transition duration-700 group-hover:scale-110"
+              class="relative flex-1 overflow-hidden transition-all duration-300 shadow-lg group rounded-2xl hover:-translate-y-1">
+              <div class="absolute inset-0 transition duration-700 bg-center bg-cover group-hover:scale-110"
                 style="background-image: url('https://www.advadventures.com/uploads/packagethumb/1515909872-gokyo-valley-trek62.jpeg')">
                 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/60"></div>
               </div>
               <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
                 <h4 class="text-lg font-bold">Gokyo Valley</h4>
-                <div class="flex justify-between items-center border-t border-white/20 pt-2 mt-2">
+                <div class="flex items-center justify-between pt-2 mt-2 border-t border-white/20">
                   <span class="text-xs">From $1570</span>
-                  <a href="/gokyo" class="text-white hover:text-primary transition-colors text-sm">
+                  <a href="/gokyo" class="text-sm text-white transition-colors hover:text-primary">
                     <i class="fas fa-arrow-right"></i>
                   </a>
                 </div>
@@ -975,56 +981,56 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- Centered "View All" Button -->
-      <div class="text-center mt-12">
+      <div class="mt-12 text-center">
         <a href="/all-treks"
           class="inline-flex items-center justify-center px-8 py-3.5 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-lg transition-all duration-300">
           View All Treks
-          <i class="fas fa-arrow-right ml-2"></i>
+          <i class="ml-2 fas fa-arrow-right"></i>
         </a>
       </div>
     </div>
   </section>
 
   <section class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-16">
-        <span class="inline-block text-primary font-semibold mb-3">HIMALAYAN EXPEDITIONS</span>
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Popular Climbing Peaks in Nepal</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Conquer Nepal's most spectacular climbing peaks with expert
+      <div class="mb-16 text-center">
+        <span class="inline-block mb-3 font-semibold text-primary">HIMALAYAN EXPEDITIONS</span>
+        <h2 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Popular Climbing Peaks in Nepal</h2>
+        <p class="max-w-3xl mx-auto text-xl text-gray-600">Conquer Nepal's most spectacular climbing peaks with expert
           guides</p>
         <div class="w-24 h-1.5 bg-primary mx-auto mt-6"></div>
       </div>
 
       <!-- Climbing Packages Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Island Peak -->
         <div
-          class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+          class="relative overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-xl hover:shadow-xl hover:-translate-y-2">
           <figure class="relative h-48 overflow-hidden">
             <img src="https://www.advadventures.com/uploads/packagethumb/1516605172-DSCF1253.JPG"
               alt="Island Peak Climbing"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+              class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" loading="lazy">
             <figcaption
-              class="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full shadow-sm text-sm font-semibold text-primary">
+              class="absolute px-3 py-1 text-sm font-semibold rounded-full shadow-sm bottom-4 right-4 bg-white/90 text-primary">
               $2440
             </figcaption>
           </figure>
           <div class="p-6">
-            <div class="flex justify-between items-start mb-3">
+            <div class="flex items-start justify-between mb-3">
               <span class="text-sm text-gray-500">19 Days</span>
               <span class="text-xs bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full font-medium">Everest Region</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              <a href="/package/island-peak-climbing.html" class="hover:text-primary transition-colors">Island Peak
+            <h3 class="mb-3 text-xl font-bold text-gray-900">
+              <a href="/package/island-peak-climbing.html" class="transition-colors hover:text-primary">Island Peak
                 Climbing</a>
             </h3>
-            <p class="text-gray-600 mb-5 line-clamp-3">Perfect blend of trekking and climbing in the Everest region with
+            <p class="mb-5 text-gray-600 line-clamp-3">Perfect blend of trekking and climbing in the Everest region with
               spectacular views and thrilling ascent.</p>
             <a href="/package/island-peak-climbing.html"
-              class="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors">
+              class="inline-flex items-center font-medium transition-colors text-primary hover:text-primary-dark">
               Explore Details
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                   d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
                   clip-rule="evenodd" />
@@ -1035,32 +1041,32 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Mera Peak -->
         <div
-          class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+          class="relative overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-xl hover:shadow-xl hover:-translate-y-2">
           <figure class="relative h-48 overflow-hidden">
             <img src="https://www.advadventures.com/uploads/packagethumb/1512107235-Mera-summit.jpg"
               alt="Mera Peak Climbing"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+              class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" loading="lazy">
             <figcaption
-              class="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full shadow-sm text-sm font-semibold text-primary">
+              class="absolute px-3 py-1 text-sm font-semibold rounded-full shadow-sm bottom-4 right-4 bg-white/90 text-primary">
               $2590
             </figcaption>
           </figure>
           <div class="p-6">
-            <div class="flex justify-between items-start mb-3">
+            <div class="flex items-start justify-between mb-3">
               <span class="text-sm text-gray-500">18 Days</span>
               <span class="text-xs bg-green-100 text-green-800 px-2.5 py-1 rounded-full font-medium">Highest Trekking
                 Peak</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              <a href="/package/mera-peak-climbing.html" class="hover:text-primary transition-colors">Mera Peak
+            <h3 class="mb-3 text-xl font-bold text-gray-900">
+              <a href="/package/mera-peak-climbing.html" class="transition-colors hover:text-primary">Mera Peak
                 Climbing</a>
             </h3>
-            <p class="text-gray-600 mb-5 line-clamp-3">Climb one of Nepal's highest trekking peaks (6,476m) with three
+            <p class="mb-5 text-gray-600 line-clamp-3">Climb one of Nepal's highest trekking peaks (6,476m) with three
               summits offering breathtaking Himalayan views.</p>
             <a href="/package/mera-peak-climbing.html"
-              class="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors">
+              class="inline-flex items-center font-medium transition-colors text-primary hover:text-primary-dark">
               Explore Details
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                   d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
                   clip-rule="evenodd" />
@@ -1071,32 +1077,32 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Lobuche Peak -->
         <div
-          class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+          class="relative overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-xl hover:shadow-xl hover:-translate-y-2">
           <figure class="relative h-48 overflow-hidden">
             <img src="https://www.advadventures.com/uploads/packagethumb/1512108319-lobuche-peak.jpg"
               alt="Lobuche Peak Climbing"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+              class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" loading="lazy">
             <figcaption
-              class="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full shadow-sm text-sm font-semibold text-primary">
+              class="absolute px-3 py-1 text-sm font-semibold rounded-full shadow-sm bottom-4 right-4 bg-white/90 text-primary">
               $2680
             </figcaption>
           </figure>
           <div class="p-6">
-            <div class="flex justify-between items-start mb-3">
+            <div class="flex items-start justify-between mb-3">
               <span class="text-sm text-gray-500">22 Days</span>
               <span class="text-xs bg-purple-100 text-purple-800 px-2.5 py-1 rounded-full font-medium">Technical
                 Climb</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              <a href="/package/lobuche-peak-climbing.html" class="hover:text-primary transition-colors">Lobuche Peak
+            <h3 class="mb-3 text-xl font-bold text-gray-900">
+              <a href="/package/lobuche-peak-climbing.html" class="transition-colors hover:text-primary">Lobuche Peak
                 Climbing</a>
             </h3>
-            <p class="text-gray-600 mb-5 line-clamp-3">Challenging trekking peak near Everest with spectacular views of
+            <p class="mb-5 text-gray-600 line-clamp-3">Challenging trekking peak near Everest with spectacular views of
               the Khumbu region's giants.</p>
             <a href="/package/lobuche-peak-climbing.html"
-              class="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors">
+              class="inline-flex items-center font-medium transition-colors text-primary hover:text-primary-dark">
               Explore Details
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                   d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
                   clip-rule="evenodd" />
@@ -1107,33 +1113,33 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Pisang Peak -->
         <div
-          class="group relative bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+          class="relative overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-xl hover:shadow-xl hover:-translate-y-2">
           <figure class="relative h-48 overflow-hidden">
             <img
               src="https://www.advadventures.com/uploads/packagethumb/1516604867-pisang%20base%20camp-%20tented%20camp.jpg"
               alt="Pisang Peak Climbing"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+              class="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" loading="lazy">
             <figcaption
-              class="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full shadow-sm text-sm font-semibold text-primary">
+              class="absolute px-3 py-1 text-sm font-semibold rounded-full shadow-sm bottom-4 right-4 bg-white/90 text-primary">
               $2990
             </figcaption>
           </figure>
           <div class="p-6">
-            <div class="flex justify-between items-start mb-3">
+            <div class="flex items-start justify-between mb-3">
               <span class="text-sm text-gray-500">21 Days</span>
               <span class="text-xs bg-orange-100 text-orange-800 px-2.5 py-1 rounded-full font-medium">Annapurna
                 Region</span>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">
-              <a href="/package/pisang-peak-climbing.html" class="hover:text-primary transition-colors">Pisang Peak with
+            <h3 class="mb-3 text-xl font-bold text-gray-900">
+              <a href="/package/pisang-peak-climbing.html" class="transition-colors hover:text-primary">Pisang Peak with
                 Annapurna Circuit</a>
             </h3>
-            <p class="text-gray-600 mb-5 line-clamp-3">Challenging 6,093m climb combined with the classic Annapurna
+            <p class="mb-5 text-gray-600 line-clamp-3">Challenging 6,093m climb combined with the classic Annapurna
               Circuit and Tilicho Lake.</p>
             <a href="/package/pisang-peak-climbing.html"
-              class="inline-flex items-center text-primary font-medium hover:text-primary-dark transition-colors">
+              class="inline-flex items-center font-medium transition-colors text-primary hover:text-primary-dark">
               Explore Details
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                   d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
                   clip-rule="evenodd" />
@@ -1144,11 +1150,11 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- CTA Button -->
-      <div class="text-center mt-16">
+      <div class="mt-16 text-center">
         <a href="/all-climbing-expeditions"
           class="inline-flex items-center justify-center px-8 py-3.5 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105">
           View All Climbing Expeditions
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd"
               d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
               clip-rule="evenodd" />
@@ -1170,19 +1176,19 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
     </div>
 
-    <div class="container mx-auto px-4 relative z-10">
-      <div class="text-center mb-8 animate-slide-up">
+    <div class="container relative z-10 px-4 mx-auto">
+      <div class="mb-8 text-center animate-slide-up">
         <span class="inline-block text-[#ffcc00] font-semibold mb-3 tracking-widest uppercase">Testimonials</span>
         <h2 class="text-4xl md:text-5xl font-bold mb-4 font-serif text-[#fffae3]">Trailblazers' Tales</h2>
         <div class="w-24 h-1.5 bg-[#ffcc00] mx-auto mt-6"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
         <div
-          class="group relative bg-white text-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+          class="relative text-gray-900 transition-all duration-500 bg-white shadow-lg group rounded-2xl hover:shadow-xl hover:-translate-y-2">
           <div class="p-8">
             <div class="mb-6">
-              <p class="text-gray-700 mb-4">"A life-changing journey through the Himalayas. The team's expertise made
+              <p class="mb-4 text-gray-700">"A life-changing journey through the Himalayas. The team's expertise made
                 every step feel safe and magical."</p>
               <div class="border-l-4 border-[#ffcc00] pl-4">
                 <h4 class="font-bold text-gray-800">Sarah Mitchell</h4>
@@ -1193,10 +1199,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         </div>
 
         <div
-          class="group relative bg-white text-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+          class="relative text-gray-900 transition-all duration-500 bg-white shadow-lg group rounded-2xl hover:shadow-xl hover:-translate-y-2">
           <div class="p-8">
             <div class="mb-6">
-              <p class="text-gray-700 mb-4">"Perfect blend of adventure and cultural immersion. Every detail was
+              <p class="mb-4 text-gray-700">"Perfect blend of adventure and cultural immersion. Every detail was
                 meticulously planned yet felt spontaneous."</p>
               <div class="border-l-4 border-[#ffcc00] pl-4">
                 <h4 class="font-bold text-gray-800">James Chen</h4>
@@ -1207,10 +1213,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         </div>
 
         <div
-          class="group relative bg-white text-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 hover:-translate-y-2">
+          class="relative text-gray-900 transition-all duration-500 bg-white shadow-lg group rounded-2xl hover:shadow-xl hover:-translate-y-2">
           <div class="p-8">
             <div class="mb-6">
-              <p class="text-gray-700 mb-4">"The mountain vistas took our breath away, but the genuine care from our
+              <p class="mb-4 text-gray-700">"The mountain vistas took our breath away, but the genuine care from our
                 guides truly touched our hearts."</p>
               <div class="border-l-4 border-[#ffcc00] pl-4">
                 <h4 class="font-bold text-gray-800">Amina Al-Mansoori</h4>
@@ -1221,7 +1227,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         </div>
       </div>
 
-      <div class="text-center mt-12">
+      <div class="mt-12 text-center">
         <a href="/testimonials.html"
           class="inline-flex items-center px-6 py-3 border-2 border-[#ffcc00] text-[#ffcc00] hover:bg-[#ffcc00] hover:text-white font-medium rounded-full transition-all duration-500">
           <span>Explore More Stories</span>
@@ -1232,47 +1238,47 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
   <!-- Certificates Section -->
   <section class="py-10 -mt-5">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-8">
-        <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+    <div class="container px-4 mx-auto">
+      <div class="mb-8 text-center">
+        <h2 class="mb-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">
           TripAdvisor <br />
           <span class="text-green-600">Certificates of Excellence</span>
         </h2>
-        <p class="text-xl text-gray-600 max-w-2xl mx-auto mt-4">
+        <p class="max-w-2xl mx-auto mt-4 text-xl text-gray-600">
           A testament to our unwavering commitment to creating exceptional travel experiences
         </p>
-        <div class="w-32 h-1 bg-green-600 mx-auto mt-6"></div>
+        <div class="w-32 h-1 mx-auto mt-6 bg-green-600"></div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <div class="grid max-w-6xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
+        <div class="overflow-hidden bg-white shadow-lg rounded-2xl">
           <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel17.png"
             alt="TripAdvisor Certificate 2017" class="object-contain w-full h-auto max-h-[400px]">
-          <div class="bg-green-600 text-white text-center py-3">
+          <div class="py-3 text-center text-white bg-green-600">
             2017 Certificate
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="overflow-hidden bg-white shadow-lg rounded-2xl">
           <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel18.png"
             alt="TripAdvisor Certificate 2018" class="object-contain w-full h-auto max-h-[400px]">
-          <div class="bg-green-600 text-white text-center py-3">
+          <div class="py-3 text-center text-white bg-green-600">
             2018 Certificate
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="overflow-hidden bg-white shadow-lg rounded-2xl">
           <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel19.png"
             alt="TripAdvisor Certificate 2019" class="object-contain w-full h-auto max-h-[400px]">
-          <div class="bg-green-600 text-white text-center py-3">
+          <div class="py-3 text-center text-white bg-green-600">
             2019 Certificate
           </div>
         </div>
       </div>
 
-      <div class="text-center mt-12">
+      <div class="mt-12 text-center">
         <a href="#"
-          class="inline-flex items-center px-10 py-4 bg-green-600 hover:bg-green-700 text-white font-bold rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+          class="inline-flex items-center px-10 py-4 font-bold text-white transition-all duration-300 transform bg-green-600 rounded-full shadow-xl hover:bg-green-700 hover:scale-105 hover:shadow-2xl">
           View Our Full TripAdvisor Profile
         </a>
       </div>
@@ -1280,13 +1286,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   </section>
 
   <section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
+    <div class="container px-4 mx-auto">
       <!-- Section Header -->
-      <div class="text-center mb-12">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">Stay Updated with Our Adventures</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Sign up for exclusive deals, discounts, and travel
+      <div class="mb-12 text-center">
+        <h2 class="mb-3 text-3xl font-bold text-gray-900 md:text-4xl">Stay Updated with Our Adventures</h2>
+        <p class="max-w-2xl mx-auto text-lg text-gray-600">Sign up for exclusive deals, discounts, and travel
           inspiration</p>
-        <div class="w-24 h-1 bg-primary mx-auto mt-4"></div>
+        <div class="w-24 h-1 mx-auto mt-4 bg-primary"></div>
       </div>
 
       <!-- Newsletter Form -->
@@ -1294,13 +1300,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <form action="https://www.advadventures.com/newsletter" method="post" class="space-y-6">
           <input type="hidden" name="_token" value="834vxzSWguoqpCyS1zaobUybEUf5qCmhkDwdSkwp">
 
-          <div class="flex flex-col sm:flex-row gap-4">
-            <div class="flex-grow relative">
+          <div class="flex flex-col gap-4 sm:flex-row">
+            <div class="relative flex-grow">
               <label for="sEmail" class="sr-only">Email Address</label>
               <input type="email" id="sEmail" name="email"
-                class="w-full pl-12 pr-6 py-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                class="w-full py-4 pl-12 pr-6 transition-all border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 placeholder="Enter your email address" required>
-              <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+              <svg class="absolute w-5 h-5 text-gray-400 transform -translate-y-1/2 left-4 top-1/2" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
@@ -1308,87 +1314,87 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </div>
             <button type="submit"
-              class="px-8 py-4 bg-primary hover:bg-primary-dark text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg whitespace-nowrap">
+              class="px-8 py-4 font-medium text-white transition-colors rounded-lg shadow-md bg-primary hover:bg-primary-dark hover:shadow-lg whitespace-nowrap">
               Subscribe
             </button>
           </div>
 
-          <p class="text-sm text-gray-500 text-center">
+          <p class="text-sm text-center text-gray-500">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </form>
       </div>
     </div>
   </section>
-  <footer class="bg-gray-900 text-gray-300 py-12">
-    <div class="container mx-auto px-4">
+  <footer class="py-12 text-gray-300 bg-gray-900">
+    <div class="container px-4 mx-auto">
       <!-- Main Footer Content -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+      <div class="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-4">
         <!-- Destinations Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Destinations</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Destinations</h3>
           <ul class="space-y-2">
-            <li><a href="https://www.advadventures.com/nepal" class="hover:text-primary transition-colors">Nepal</a>
+            <li><a href="https://www.advadventures.com/nepal" class="transition-colors hover:text-primary">Nepal</a>
             </li>
-            <li><a href="https://www.advadventures.com/tibet" class="hover:text-primary transition-colors">Tibet</a>
+            <li><a href="https://www.advadventures.com/tibet" class="transition-colors hover:text-primary">Tibet</a>
             </li>
-            <li><a href="https://www.advadventures.com/bhutan" class="hover:text-primary transition-colors">Bhutan</a>
+            <li><a href="https://www.advadventures.com/bhutan" class="transition-colors hover:text-primary">Bhutan</a>
             </li>
-            <li><a href="https://www.advadventures.com/india" class="hover:text-primary transition-colors">India</a>
+            <li><a href="https://www.advadventures.com/india" class="transition-colors hover:text-primary">India</a>
             </li>
             <li><a href="https://www.advadventures.com/package/Explore-the-Magic-of-Nepal-and-Bhutan.html"
-                class="hover:text-primary transition-colors">Nepal/Bhutan</a></li>
+                class="transition-colors hover:text-primary">Nepal/Bhutan</a></li>
             <li><a href="https://www.advadventures.com/package/all-nepal-tour.html"
-                class="hover:text-primary transition-colors">Nepal/Tibet</a></li>
+                class="transition-colors hover:text-primary">Nepal/Tibet</a></li>
             <li><a href="https://www.advadventures.com/package/Nepal-Tibet-&amp;-Bhutan-Introduction-tour%20.html"
-                class="hover:text-primary transition-colors">Nepal/Tibet/Bhutan</a></li>
+                class="transition-colors hover:text-primary">Nepal/Tibet/Bhutan</a></li>
           </ul>
         </div>
 
         <!-- Activities Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Popular Activities</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Popular Activities</h3>
           <ul class="space-y-2">
             <li><a href="https://www.advadventures.com/nepal/trekking-in-nepal.html"
-                class="hover:text-primary transition-colors">Trekking in Nepal</a></li>
+                class="transition-colors hover:text-primary">Trekking in Nepal</a></li>
             <li><a href="https://www.advadventures.com/nepal/tours-in-nepal.html"
-                class="hover:text-primary transition-colors">Tours in Nepal</a></li>
+                class="transition-colors hover:text-primary">Tours in Nepal</a></li>
             <li><a href="https://www.advadventures.com/nepal/peak-climbing-in-nepal.html"
-                class="hover:text-primary transition-colors">Peak Climbing</a></li>
+                class="transition-colors hover:text-primary">Peak Climbing</a></li>
             <li><a href="https://www.advadventures.com/bhutan/bhutan-tours.html"
-                class="hover:text-primary transition-colors">Bhutan Tours</a></li>
+                class="transition-colors hover:text-primary">Bhutan Tours</a></li>
             <li><a href="https://www.advadventures.com/tibet/mt-kailash.html"
-                class="hover:text-primary transition-colors">Mt. Kailash</a></li>
+                class="transition-colors hover:text-primary">Mt. Kailash</a></li>
             <li><a href="https://www.advadventures.com/tibet/tibet-tour.html"
-                class="hover:text-primary transition-colors">Tibet Tours</a></li>
+                class="transition-colors hover:text-primary">Tibet Tours</a></li>
           </ul>
         </div>
 
         <!-- Resources Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Resources</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Resources</h3>
           <ul class="space-y-2">
             <li><a href="https://www.advadventures.com/page/nepal-travel-guide.html"
-                class="hover:text-primary transition-colors">Nepal Travel Guide</a></li>
+                class="transition-colors hover:text-primary">Nepal Travel Guide</a></li>
             <li><a href="https://www.advadventures.com/page/bhutan-travel-guide.html"
-                class="hover:text-primary transition-colors">Bhutan Travel Guide</a></li>
+                class="transition-colors hover:text-primary">Bhutan Travel Guide</a></li>
             <li><a href="https://www.advadventures.com/page/tibet-travel-guide.html"
-                class="hover:text-primary transition-colors">Tibet Travel Guide</a></li>
+                class="transition-colors hover:text-primary">Tibet Travel Guide</a></li>
             <li><a href="https://www.advadventures.com/page/nepal-visa.html"
-                class="hover:text-primary transition-colors">Nepal Visa</a></li>
+                class="transition-colors hover:text-primary">Nepal Visa</a></li>
             <li><a href="https://www.advadventures.com/page/travel-insurance.html"
-                class="hover:text-primary transition-colors">Travel Insurance</a></li>
+                class="transition-colors hover:text-primary">Travel Insurance</a></li>
             <li><a href="https://www.advadventures.com/page/terms-conditions.html"
-                class="hover:text-primary transition-colors">Terms & Conditions</a></li>
+                class="transition-colors hover:text-primary">Terms & Conditions</a></li>
           </ul>
         </div>
 
         <!-- Contact Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Contact Us</h3>
-          <address class="not-italic space-y-2">
+          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Contact Us</h3>
+          <address class="space-y-2 not-italic">
             <div class="flex items-start">
-              <svg class="w-5 h-5 mt-1 mr-2 text-primary flex-shrink-0" fill="none" stroke="currentColor"
+              <svg class="flex-shrink-0 w-5 h-5 mt-1 mr-2 text-primary" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -1420,41 +1426,41 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                 </path>
               </svg>
               <a href="mailto:info@advadventures.com"
-                class="hover:text-primary transition-colors">info@advadventures.com</a>
+                class="transition-colors hover:text-primary">info@advadventures.com</a>
             </div>
           </address>
         </div>
       </div>
 
       <!-- Affiliations & Certifications -->
-      <div class="border-t border-gray-700 pt-8 mb-8">
-        <h3 class="text-lg font-bold text-white mb-4 text-center">Our Affiliations & Certifications</h3>
+      <div class="pt-8 mb-8 border-t border-gray-700">
+        <h3 class="mb-4 text-lg font-bold text-center text-white">Our Affiliations & Certifications</h3>
         <div class="flex flex-wrap justify-center gap-6 mb-6">
           <!-- Replace these with your actual logo images -->
           <img src="https://via.placeholder.com/100x50?text=NTB" alt="NTB"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
+            class="h-10 transition-opacity opacity-80 hover:opacity-100">
           <img src="https://via.placeholder.com/100x50?text=TAAN" alt="TAAN"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
+            class="h-10 transition-opacity opacity-80 hover:opacity-100">
           <img src="https://via.placeholder.com/100x50?text=NMA" alt="NMA"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
+            class="h-10 transition-opacity opacity-80 hover:opacity-100">
           <img src="https://via.placeholder.com/100x50?text=Touristlink" alt="Touristlink"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
+            class="h-10 transition-opacity opacity-80 hover:opacity-100">
           <img src="https://via.placeholder.com/100x50?text=TripAdvisor" alt="TripAdvisor"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
+            class="h-10 transition-opacity opacity-80 hover:opacity-100">
         </div>
       </div>
 
       <!-- Social Media & Copyright -->
-      <div class="border-t border-gray-700 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="pt-8 border-t border-gray-700">
+        <div class="flex flex-col items-center justify-between md:flex-row">
           <div class="mb-4 md:mb-0">
             <p class="text-sm">Copyright © 2025 Advanced Adventures Nepal Pvt Ltd. All Rights Reserved.</p>
-            <p class="text-xs mt-1">Govt. Regd No: 064/065/47694 | NMA Regd No: 833 | NTB Regd No: 1215/067</p>
+            <p class="mt-1 text-xs">Govt. Regd No: 064/065/47694 | NMA Regd No: 833 | NTB Regd No: 1215/067</p>
           </div>
 
           <div class="flex space-x-4">
             <a href="https://www.facebook.com/advadventures.nepal" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
+              class="text-gray-400 transition-colors hover:text-primary">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
@@ -1462,7 +1468,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </a>
             <a href="https://twitter.com/weadvadventures" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
+              class="text-gray-400 transition-colors hover:text-primary">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
@@ -1470,7 +1476,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </a>
             <a href="https://www.instagram.com/advancedadventuresnepal" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
+              class="text-gray-400 transition-colors hover:text-primary">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.467.182.353.301.882.344 1.857.047 1.023.058 1.351.058 3.807v.468c0 2.456-.011 2.784-.058 3.807-.045.975-.207 1.504-.344 1.857-.182.466-.399.8-.748 1.15-.35.35-.683.566-1.15.748-.353.137-.882.3-1.857.344-1.054.048-1.37.058-3.808.058h-.468c-2.456 0-2.784-.011-3.807-.058-.975-.045-1.504-.207-1.857-.344-.466-.182-.8-.399-1.15-.748-.35-.35-.566-.683-.748-1.15-.137-.353-.3-.882-.344-1.857-.048-1.023-.058-1.351-.058-3.807v-.468c0-2.456.011-2.784.058-3.807.045-.975.207-1.504.344-1.857.182-.466.399-.8.748-1.15.35-.35.683-.566 1.15-.748.353-.137.882-.3 1.857-.344 1.023-.047 1.351-.058 3.807-.058h.468c2.456 0 2.784.011 3.807.058.975.045 1.504.207 1.857.344.466.182.8.399 1.15.748.35.35.566.683.748 1.15.137.353.3.882.344 1.857.048 1.023.058 1.351.058 3.807v.468c0 2.456-.011 2.784-.058 3.807-.045.975-.207 1.504-.344 1.857-.182.467-.399.8-.748 1.15-.35.35-.683.566-1.15.748-.353.137-.882.3-1.857.344-1.023.047-1.351.058-3.807.058h-.468z"
@@ -1482,7 +1488,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </a>
             <a href="https://www.youtube.com/@advadventures" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
+              class="text-gray-400 transition-colors hover:text-primary">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418z"
@@ -1497,14 +1503,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <div class="mt-4 text-center md:text-left">
           <p class="text-xs">Crafted with <span class="text-primary">♥</span> by <a href="https://www.cyberpirates.io"
-              class="hover:text-primary transition-colors">Cyber Pirates Pvt. Ltd.</a></p>
+              class="transition-colors hover:text-primary">Cyber Pirates Pvt. Ltd.</a></p>
         </div>
       </div>
     </div>
 
     <!-- Back to Top Button -->
     <button id="goToTop"
-      class="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors opacity-0 invisible transition-all duration-300">
+      class="fixed invisible p-3 text-white transition-all transition-colors duration-300 rounded-full shadow-lg opacity-0 bottom-6 right-6 bg-primary hover:bg-primary-dark">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
       </svg>
@@ -1563,7 +1569,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     });
 
     // Reset animations when slide changes (for main swiper)
-    mainSwiper.on('slideChange', function () {
+    mainSwiper.on('slideChange', function() {
       const slides = document.querySelectorAll('.swiper-slide');
       slides.forEach(slide => {
         const animElements = slide.querySelectorAll('[class*="animate-"]');
@@ -1630,7 +1636,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
     goToTopBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
   </script>
 </body>
