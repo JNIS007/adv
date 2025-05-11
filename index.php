@@ -96,50 +96,6 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function () {
-      const bookingDropdown = document.getElementById('booking-dropdown');
-      const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
-
-      // Show dropdown on hover
-      bookingToggle.addEventListener('mouseenter', () => {
-        bookingDropdown.classList.remove('hidden');
-      });
-
-      // Hide dropdown when mouse leaves both the button and the dropdown
-      bookingToggle.addEventListener('mouseleave', (e) => {
-        setTimeout(() => {
-          if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
-            bookingDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      bookingDropdown.addEventListener('mouseleave', (e) => {
-        setTimeout(() => {
-          if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
-            bookingDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      // Handle submenu hover (optional enhancement)
-      const submenuButtons = document.querySelectorAll('#booking-dropdown button');
-
-      submenuButtons.forEach(button => {
-        const submenu = button.nextElementSibling;
-        if (!submenu) return;
-
-        button.addEventListener('mouseenter', () => {
-          submenu.classList.remove('hidden');
-        });
-
-        button.parentElement.addEventListener('mouseleave', () => {
-          submenu.classList.add('hidden');
-        });
-      });
-    });
-
-
 
     tailwind.config = {
       theme: {
@@ -624,25 +580,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           </div>
 
 
-          <!-- Booking Dropdown -->
-          <div id="booking-container" class="relative inline-block">
-            <!-- Trigger -->
-            <div id="booking-trigger" class="font-medium text-gray-700 transition cursor-pointer hover:text-primary">
-              Booking <i class="fas fa-chevron-down"></i>
-            </div>
-
-            <!-- Dropdown Menu -->
-            <div id="booking-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
-              <a href="booking.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Book Your Trip</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">How to Pay</a>
-              <a href="payOnline.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pay Online</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms & conditions</a>
-              <a href="DiscountOffers.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Discount
-                Offers</a>
-            </div>
-          </div>
-
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 transition hover:text-primary">Travel
+          <!-- Other Menu Items -->
+          <a href="/page/booking.html" class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
+          <a href="/page/travel-guide.html" class="font-medium text-gray-700 hover:text-primary transition">Travel
             Guide</a>
           <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
           <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
