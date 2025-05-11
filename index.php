@@ -5,37 +5,37 @@ $menuData = [];
 
 $dests = mysqli_query($con, "SELECT * FROM tbldest");
 while ($dest = mysqli_fetch_assoc($dests)) {
-    $destId = $dest['Id'];
-    $menuData[$destId] = [
-        'name' => $dest['DestName'],
-        'categories' => []
+  $destId = $dest['Id'];
+  $menuData[$destId] = [
+    'name' => $dest['DestName'],
+    'categories' => []
+  ];
+
+  $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
+  while ($cat = mysqli_fetch_assoc($cats)) {
+    $catId = $cat['id'];
+    $menuData[$destId]['categories'][$catId] = [
+      'name' => $cat['CategoryName'],
+      'subcategories' => []
     ];
 
-    $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
-    while ($cat = mysqli_fetch_assoc($cats)) {
-        $catId = $cat['id'];
-        $menuData[$destId]['categories'][$catId] = [
-            'name' => $cat['CategoryName'],
-            'subcategories' => []
+    $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
+    while ($sub = mysqli_fetch_assoc($subs)) {
+      $subId = $sub['SubCategoryId'];
+      $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [
+        'name' => $sub['Subcategory'],
+        'posts' => []
+      ];
+
+      $posts = mysqli_query($con, "SELECT * FROM tblPosts WHERE CategoryId = $catId AND SubCategoryId = $subId");
+      while ($post = mysqli_fetch_assoc($posts)) {
+        $menuData[$destId]['categories'][$catId]['subcategories'][$subId]['posts'][] = [
+          'id' => $post['id'],
+          'title' => $post['PostTitle']
         ];
-
-        $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
-        while ($sub = mysqli_fetch_assoc($subs)) {
-            $subId = $sub['SubCategoryId'];
-            $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [
-                'name' => $sub['Subcategory'],
-                'posts' => []
-            ];
-
-            $posts = mysqli_query($con, "SELECT * FROM tblPosts WHERE CategoryId = $catId AND SubCategoryId = $subId");
-            while ($post = mysqli_fetch_assoc($posts)) {
-                $menuData[$destId]['categories'][$catId]['subcategories'][$subId]['posts'][] = [
-                    'id' => $post['id'],
-                    'title' => $post['PostTitle']
-                ];
-            }
-        }
+      }
     }
+  }
 }
 ?>
 
@@ -263,58 +263,63 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         <nav class="hidden lg:flex items-center space-x-8">
           <!-- Destinations Mega Menu -->
           <div class="relative">
-    <button id="main-toggle" class="flex items-center font-medium text-gray-700 transition hover:text-primary">
-        Destination <i class="ml-1 text-xs fas fa-chevron-down"></i>
-    </button>
+            <button id="main-toggle" class="flex items-center font-medium text-gray-700 transition hover:text-primary">
+              Destination <i class="ml-1 text-xs fas fa-chevron-down"></i>
+            </button>
 
-    <div id="countries-dropdown" class="absolute left-0 hidden w-48 mt-2 bg-white rounded-md shadow-xl">
-        <ul class="py-1">
-            <?php foreach ($menuData as $dest): ?>
-                <li class="relative group">
-                    <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                        <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+            <div id="countries-dropdown" class="absolute left-0 hidden w-48 mt-2 bg-white rounded-md shadow-xl">
+              <ul class="py-1">
+                <?php foreach ($menuData as $dest): ?>
+                  <li class="relative group">
+                    <button
+                      class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                      <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
                     </button>
 
                     <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
-                        <ul class="py-1">
-                            <?php foreach ($dest['categories'] as $cat): ?>
-                                <li class="relative group">
-                                    <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                        <?= $cat['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                      <ul class="py-1">
+                        <?php foreach ($dest['categories'] as $cat): ?>
+                          <li class="relative group">
+                            <button
+                              class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                              <?= $cat['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                            </button>
+
+                            <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                              <ul class="py-1">
+                                <?php foreach ($cat['subcategories'] as $sub): ?>
+                                  <li class="relative group">
+                                    <button
+                                      class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                      <?= $sub['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
                                     </button>
 
-                                    <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
-                                        <ul class="py-1">
-                                            <?php foreach ($cat['subcategories'] as $sub): ?>
-                                                <li class="relative group">
-                                                    <button class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                                        <?= $sub['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
-                                                    </button>
-
-                                                    <div class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
-                                                        <ul class="py-1">
-                                                            <?php foreach ($sub['posts'] as $post): ?>
-                                                                <li>
-                                                                    <a href="new_page.php?id=<?= $post['id'] ?>" class="block px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                                                        <?= $post['title'] ?>
-                                                                    </a>
-                                                                </li>
-                                                            <?php endforeach; ?>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            <?php endforeach; ?>
-                                        </ul>
+                                    <div
+                                      class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                      <ul class="py-1">
+                                        <?php foreach ($sub['posts'] as $post): ?>
+                                          <li>
+                                            <a href="new_page.php?id=<?= $post['id'] ?>"
+                                              class="block px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                              <?= $post['title'] ?>
+                                            </a>
+                                          </li>
+                                        <?php endforeach; ?>
+                                      </ul>
                                     </div>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                                  </li>
+                                <?php endforeach; ?>
+                              </ul>
+                            </div>
+                          </li>
+                        <?php endforeach; ?>
+                      </ul>
                     </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-</div>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+          </div>
 
 
           <!-- Other Menu Items -->
