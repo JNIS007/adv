@@ -54,7 +54,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const dropdown = document.getElementById('countries-dropdown');
       const mainToggle = document.getElementById('main-toggle');
 
@@ -96,7 +96,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const bookingDropdown = document.getElementById('booking-dropdown');
       const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
 
@@ -166,6 +166,22 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         }
       }
     }
+    const goToTopButton = document.getElementById('goToTop');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        goToTopButton.classList.add('visible');
+      } else {
+        goToTopButton.classList.remove('visible');
+      }
+    });
+
+    goToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 
   <style>
@@ -278,6 +294,242 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         display: none;
       }
     }
+
+    .footer-main {
+      background-color: #1F2937;
+      color: #D1D5DB;
+      padding: 3rem 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Main content grid */
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* Column heading and links */
+    .footer-column h3 {
+      color: white;
+      font-size: 1.125rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #4F46E5;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-column a {
+      color: #D1D5DB;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-column a:hover {
+      color: #4F46E5;
+    }
+
+    /* Contact info */
+    .contact-info {
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .contact-info svg {
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+      color: #4F46E5;
+    }
+
+    /* Affiliations, Partners & Recommendations */
+    .footer-section {
+      border-top: 1px solid #374151;
+      padding-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.125rem;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .logo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-item {
+      height: 50px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .logo-item:hover {
+      opacity: 1;
+    }
+
+    /* Bottom section */
+    .footer-bottom {
+      border-top: 1px solid #374151;
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .footer-bottom-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+    }
+
+    .copyright {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .copyright {
+        margin-bottom: 0;
+        text-align: left;
+      }
+    }
+
+    .copyright p {
+      font-size: 0.875rem;
+      margin: 0;
+    }
+
+    .copyright .reg-numbers {
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Social media icons */
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icon {
+      color: #9CA3AF;
+      transition: color 0.3s;
+    }
+
+    .social-icon:hover {
+      color: #4F46E5;
+    }
+
+    /* Crafted by */
+    .crafted-by {
+      margin-top: 1rem;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+
+
+    .crafted-by a {
+      color: #D1D5DB;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .crafted-by a:hover {
+      color: #4F46E5;
+    }
+
+    .heart-icon {
+      color: #4F46E5;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background-color: #4F46E5;
+      color: white;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    .back-to-top:hover {
+      background-color: #4338CA;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Ask Us Now button */
+    .ask-us-button {
+      display: inline-block;
+      background-color: #1D4ED8;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.25rem;
+      text-decoration: none;
+      transition: background-color 0.3s;
+      font-weight: bold;
+      position: fixed;
+      bottom: 2rem;
+      right: 6rem;
+    }
+
+    .ask-us-button:hover {
+      background-color: #1E40AF;
+    }
   </style>
 </head>
 
@@ -380,13 +632,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             </div>
 
             <!-- Dropdown Menu -->
-            <div id="booking-dropdown"
-              class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
+            <div id="booking-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
               <a href="booking.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Book Your Trip</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">How to Pay</a>
               <a href="payOnline.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pay Online</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms & conditions</a>
-              <a href="DiscountOffers.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Discount Offers</a>
+              <a href="DiscountOffers.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Discount
+                Offers</a>
             </div>
           </div>
 
@@ -468,7 +720,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($r = mysqli_fetch_array($q)) {
           $ct = $r["CategoryId"];
-        ?>
+          ?>
           <div class="relative swiper-slide">
             <!-- Background Image -->
             <div class="absolute inset-0 bg-center bg-cover"
@@ -767,7 +1019,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-        ?>
+          ?>
 
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
@@ -786,10 +1038,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                                                                                                    $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                                                                                                    $r = mysqli_fetch_array($q);
-                                                                                                    echo $r["CategoryName"];
-                                                                                                    ?></span>
+                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                $r = mysqli_fetch_array($q);
+                echo $r["CategoryName"];
+                ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
@@ -1386,75 +1638,75 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
     </div>
   </section>
-  <footer class="py-12 text-gray-300 bg-gray-900">
-    <div class="container px-4 mx-auto">
+  <footer class="bg-gray-900 text-gray-300 py-12">
+    <div class="container mx-auto px-4">
       <!-- Main Footer Content -->
-      <div class="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         <!-- Destinations Column -->
         <div>
-          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Destinations</h3>
+          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Destinations</h3>
           <ul class="space-y-2">
-            <li><a href="https://www.advadventures.com/nepal" class="transition-colors hover:text-primary">Nepal</a>
+            <li><a href="https://www.advadventures.com/nepal" class="hover:text-primary transition-colors">Nepal</a>
             </li>
-            <li><a href="https://www.advadventures.com/tibet" class="transition-colors hover:text-primary">Tibet</a>
+            <li><a href="https://www.advadventures.com/tibet" class="hover:text-primary transition-colors">Tibet</a>
             </li>
-            <li><a href="https://www.advadventures.com/bhutan" class="transition-colors hover:text-primary">Bhutan</a>
+            <li><a href="https://www.advadventures.com/bhutan" class="hover:text-primary transition-colors">Bhutan</a>
             </li>
-            <li><a href="https://www.advadventures.com/india" class="transition-colors hover:text-primary">India</a>
+            <li><a href="https://www.advadventures.com/india" class="hover:text-primary transition-colors">India</a>
             </li>
             <li><a href="https://www.advadventures.com/package/Explore-the-Magic-of-Nepal-and-Bhutan.html"
-                class="transition-colors hover:text-primary">Nepal/Bhutan</a></li>
+                class="hover:text-primary transition-colors">Nepal/Bhutan</a></li>
             <li><a href="https://www.advadventures.com/package/all-nepal-tour.html"
-                class="transition-colors hover:text-primary">Nepal/Tibet</a></li>
+                class="hover:text-primary transition-colors">Nepal/Tibet</a></li>
             <li><a href="https://www.advadventures.com/package/Nepal-Tibet-&amp;-Bhutan-Introduction-tour%20.html"
-                class="transition-colors hover:text-primary">Nepal/Tibet/Bhutan</a></li>
+                class="hover:text-primary transition-colors">Nepal/Tibet/Bhutan</a></li>
           </ul>
         </div>
 
-        <!-- Activities Column -->
+        <!-- Popular Activities -->
         <div>
-          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Popular Activities</h3>
+          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Popular Activities</h3>
           <ul class="space-y-2">
             <li><a href="https://www.advadventures.com/nepal/trekking-in-nepal.html"
-                class="transition-colors hover:text-primary">Trekking in Nepal</a></li>
+                class="hover:text-primary transition-colors">Trekking in Nepal</a></li>
             <li><a href="https://www.advadventures.com/nepal/tours-in-nepal.html"
-                class="transition-colors hover:text-primary">Tours in Nepal</a></li>
+                class="hover:text-primary transition-colors">Tours in Nepal</a></li>
             <li><a href="https://www.advadventures.com/nepal/peak-climbing-in-nepal.html"
-                class="transition-colors hover:text-primary">Peak Climbing</a></li>
+                class="hover:text-primary transition-colors">Peak Climbing</a></li>
             <li><a href="https://www.advadventures.com/bhutan/bhutan-tours.html"
-                class="transition-colors hover:text-primary">Bhutan Tours</a></li>
+                class="hover:text-primary transition-colors">Bhutan Tours</a></li>
             <li><a href="https://www.advadventures.com/tibet/mt-kailash.html"
-                class="transition-colors hover:text-primary">Mt. Kailash</a></li>
+                class="hover:text-primary transition-colors">Mt. Kailash</a></li>
             <li><a href="https://www.advadventures.com/tibet/tibet-tour.html"
-                class="transition-colors hover:text-primary">Tibet Tours</a></li>
+                class="hover:text-primary transition-colors">Tibet Tours</a></li>
           </ul>
         </div>
 
-        <!-- Resources Column -->
+        <!-- Resources -->
         <div>
-          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Resources</h3>
+          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Resources</h3>
           <ul class="space-y-2">
             <li><a href="https://www.advadventures.com/page/nepal-travel-guide.html"
-                class="transition-colors hover:text-primary">Nepal Travel Guide</a></li>
+                class="hover:text-primary transition-colors">Nepal Travel Guide</a></li>
             <li><a href="https://www.advadventures.com/page/bhutan-travel-guide.html"
-                class="transition-colors hover:text-primary">Bhutan Travel Guide</a></li>
+                class="hover:text-primary transition-colors">Bhutan Travel Guide</a></li>
             <li><a href="https://www.advadventures.com/page/tibet-travel-guide.html"
-                class="transition-colors hover:text-primary">Tibet Travel Guide</a></li>
+                class="hover:text-primary transition-colors">Tibet Travel Guide</a></li>
             <li><a href="https://www.advadventures.com/page/nepal-visa.html"
-                class="transition-colors hover:text-primary">Nepal Visa</a></li>
+                class="hover:text-primary transition-colors">Nepal Visa</a></li>
             <li><a href="https://www.advadventures.com/page/travel-insurance.html"
-                class="transition-colors hover:text-primary">Travel Insurance</a></li>
+                class="hover:text-primary transition-colors">Travel Insurance</a></li>
             <li><a href="https://www.advadventures.com/page/terms-conditions.html"
-                class="transition-colors hover:text-primary">Terms & Conditions</a></li>
+                class="hover:text-primary transition-colors">Terms & Conditions</a></li>
           </ul>
         </div>
 
-        <!-- Contact Column -->
+        <!-- Contact Us -->
         <div>
-          <h3 class="pb-2 mb-4 text-lg font-bold text-white border-b border-primary">Contact Us</h3>
-          <address class="space-y-2 not-italic">
+          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Contact Us</h3>
+          <address class="not-italic space-y-2">
             <div class="flex items-start">
-              <svg class="flex-shrink-0 w-5 h-5 mt-1 mr-2 text-primary" fill="none" stroke="currentColor"
+              <svg class="w-5 h-5 mt-1 mr-2 text-primary flex-shrink-0" fill="none" stroke="currentColor"
                 viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                   d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
@@ -1486,41 +1738,41 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                 </path>
               </svg>
               <a href="mailto:info@advadventures.com"
-                class="transition-colors hover:text-primary">info@advadventures.com</a>
+                class="hover:text-primary transition-colors">info@advadventures.com</a>
             </div>
           </address>
         </div>
       </div>
 
       <!-- Affiliations & Certifications -->
-      <div class="pt-8 mb-8 border-t border-gray-700">
-        <h3 class="mb-4 text-lg font-bold text-center text-white">Our Affiliations & Certifications</h3>
+      <div class="border-t border-gray-700 pt-8 mb-8">
+        <h3 class="text-lg font-bold text-white mb-4 text-center">Our Affiliations & Certifications</h3>
         <div class="flex flex-wrap justify-center gap-6 mb-6">
           <!-- Replace these with your actual logo images -->
           <img src="https://via.placeholder.com/100x50?text=NTB" alt="NTB"
-            class="h-10 transition-opacity opacity-80 hover:opacity-100">
+            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
           <img src="https://via.placeholder.com/100x50?text=TAAN" alt="TAAN"
-            class="h-10 transition-opacity opacity-80 hover:opacity-100">
+            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
           <img src="https://via.placeholder.com/100x50?text=NMA" alt="NMA"
-            class="h-10 transition-opacity opacity-80 hover:opacity-100">
+            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
           <img src="https://via.placeholder.com/100x50?text=Touristlink" alt="Touristlink"
-            class="h-10 transition-opacity opacity-80 hover:opacity-100">
+            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
           <img src="https://via.placeholder.com/100x50?text=TripAdvisor" alt="TripAdvisor"
-            class="h-10 transition-opacity opacity-80 hover:opacity-100">
+            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
         </div>
       </div>
 
       <!-- Social Media & Copyright -->
-      <div class="pt-8 border-t border-gray-700">
-        <div class="flex flex-col items-center justify-between md:flex-row">
+      <div class="border-t border-gray-700 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="mb-4 md:mb-0">
             <p class="text-sm">Copyright © 2025 Advanced Adventures Nepal Pvt Ltd. All Rights Reserved.</p>
-            <p class="mt-1 text-xs">Govt. Regd No: 064/065/47694 | NMA Regd No: 833 | NTB Regd No: 1215/067</p>
+            <p class="text-xs mt-1">Govt. Regd No: 064/065/47694 | NMA Regd No: 833 | NTB Regd No: 1215/067</p>
           </div>
 
           <div class="flex space-x-4">
             <a href="https://www.facebook.com/advadventures.nepal" target="_blank"
-              class="text-gray-400 transition-colors hover:text-primary">
+              class="text-gray-400 hover:text-primary transition-colors">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
@@ -1528,7 +1780,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </a>
             <a href="https://twitter.com/weadvadventures" target="_blank"
-              class="text-gray-400 transition-colors hover:text-primary">
+              class="text-gray-400 hover:text-primary transition-colors">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
@@ -1536,7 +1788,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </a>
             <a href="https://www.instagram.com/advancedadventuresnepal" target="_blank"
-              class="text-gray-400 transition-colors hover:text-primary">
+              class="text-gray-400 hover:text-primary transition-colors">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.467.182.353.301.882.344 1.857.047 1.023.058 1.351.058 3.807v.468c0 2.456-.011 2.784-.058 3.807-.045.975-.207 1.504-.344 1.857-.182.466-.399.8-.748 1.15-.35.35-.683.566-1.15.748-.353.137-.882.3-1.857.344-1.054.048-1.37.058-3.808.058h-.468c-2.456 0-2.784-.011-3.807-.058-.975-.045-1.504-.207-1.857-.344-.466-.182-.8-.399-1.15-.748-.35-.35-.566-.683-.748-1.15-.137-.353-.3-.882-.344-1.857-.048-1.023-.058-1.351-.058-3.807v-.468c0-2.456.011-2.784.058-3.807.045-.975.207-1.504.344-1.857.182-.466.399-.8.748-1.15.35-.35.683-.566 1.15-.748.353-.137.882-.3 1.857-.344 1.023-.047 1.351-.058 3.807-.058h.468c2.456 0 2.784.011 3.807.058.975.045 1.504.207 1.857.344.466.182.8.399 1.15.748.35.35.566.683.748 1.15.137.353.3.882.344 1.857.048 1.023.058 1.351.058 3.807v.468c0 2.456-.011 2.784-.058 3.807-.045.975-.207 1.504-.344 1.857-.182.467-.399.8-.748 1.15-.35.35-.683.566-1.15.748-.353.137-.882.3-1.857.344-1.023.047-1.351.058-3.807.058h-.468z"
@@ -1548,7 +1800,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </svg>
             </a>
             <a href="https://www.youtube.com/@advadventures" target="_blank"
-              class="text-gray-400 transition-colors hover:text-primary">
+              class="text-gray-400 hover:text-primary transition-colors">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path fill-rule="evenodd"
                   d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418z"
@@ -1563,14 +1815,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <div class="mt-4 text-center md:text-left">
           <p class="text-xs">Crafted with <span class="text-primary">♥</span> by <a href="https://www.cyberpirates.io"
-              class="transition-colors hover:text-primary">Cyber Pirates Pvt. Ltd.</a></p>
+              class="hover:text-primary transition-colors">Cyber Pirates Pvt. Ltd.</a></p>
         </div>
       </div>
     </div>
 
     <!-- Back to Top Button -->
     <button id="goToTop"
-      class="fixed invisible p-3 text-white transition-all transition-colors duration-300 rounded-full shadow-lg opacity-0 bottom-6 right-6 bg-primary hover:bg-primary-dark">
+      class="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors opacity-0 invisible transition-all duration-300">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
       </svg>
@@ -1629,7 +1881,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     });
 
     // Reset animations when slide changes (for main swiper)
-    mainSwiper.on('slideChange', function() {
+    mainSwiper.on('slideChange', function () {
       const slides = document.querySelectorAll('.swiper-slide');
       slides.forEach(slide => {
         const animElements = slide.querySelectorAll('[class*="animate-"]');
