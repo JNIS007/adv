@@ -96,6 +96,48 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+      const bookingDropdown = document.getElementById('booking-dropdown');
+      const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
+
+      // Show dropdown on hover
+      bookingToggle.addEventListener('mouseenter', () => {
+        bookingDropdown.classList.remove('hidden');
+      });
+
+      // Hide dropdown when mouse leaves both the button and the dropdown
+      bookingToggle.addEventListener('mouseleave', (e) => {
+        setTimeout(() => {
+          if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
+            bookingDropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+
+      bookingDropdown.addEventListener('mouseleave', (e) => {
+        setTimeout(() => {
+          if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
+            bookingDropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+
+      // Handle submenu hover (optional enhancement)
+      const submenuButtons = document.querySelectorAll('#booking-dropdown button');
+
+      submenuButtons.forEach(button => {
+        const submenu = button.nextElementSibling;
+        if (!submenu) return;
+
+        button.addEventListener('mouseenter', () => {
+          submenu.classList.remove('hidden');
+        });
+
+        button.parentElement.addEventListener('mouseleave', () => {
+          submenu.classList.add('hidden');
+        });
+      });
+    });
 
     tailwind.config = {
       theme: {
@@ -109,14 +151,8 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           },
           keyframes: {
             fadeIn: {
-              'from': {
-                opacity: '0',
-                transform: 'translateY(20px)'
-              },
-              'to': {
-                opacity: '1',
-                transform: 'translateY(0)'
-              }
+              'from': { opacity: '0', transform: 'translateY(20px)' },
+              'to': { opacity: '1', transform: 'translateY(0)' }
             }
           }
         }
@@ -250,242 +286,6 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         display: none;
       }
     }
-
-    .footer-main {
-      background-color: #1F2937;
-      color: #D1D5DB;
-      padding: 3rem 0;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-
-    /* Main content grid */
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      gap: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    @media (min-width: 768px) {
-      .footer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .footer-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    /* Column heading and links */
-    .footer-column h3 {
-      color: white;
-      font-size: 1.125rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #4F46E5;
-    }
-
-    .footer-column ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .footer-column ul li {
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-column a {
-      color: #D1D5DB;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .footer-column a:hover {
-      color: #4F46E5;
-    }
-
-    /* Contact info */
-    .contact-info {
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: flex-start;
-    }
-
-    .contact-info svg {
-      margin-right: 0.5rem;
-      flex-shrink: 0;
-      color: #4F46E5;
-    }
-
-    /* Affiliations, Partners & Recommendations */
-    .footer-section {
-      border-top: 1px solid #374151;
-      padding-top: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .section-title {
-      font-size: 1.125rem;
-      font-weight: bold;
-      color: white;
-      margin-bottom: 1.5rem;
-      text-align: center;
-    }
-
-    .logo-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .logo-item {
-      height: 50px;
-      opacity: 0.8;
-      transition: opacity 0.3s;
-    }
-
-    .logo-item:hover {
-      opacity: 1;
-    }
-
-    /* Bottom section */
-    .footer-bottom {
-      border-top: 1px solid #374151;
-      padding-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    @media (min-width: 768px) {
-      .footer-bottom-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-      }
-    }
-
-    .copyright {
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    @media (min-width: 768px) {
-      .copyright {
-        margin-bottom: 0;
-        text-align: left;
-      }
-    }
-
-    .copyright p {
-      font-size: 0.875rem;
-      margin: 0;
-    }
-
-    .copyright .reg-numbers {
-      font-size: 0.75rem;
-      margin-top: 0.25rem;
-    }
-
-    /* Social media icons */
-    .social-icons {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .social-icon {
-      color: #9CA3AF;
-      transition: color 0.3s;
-    }
-
-    .social-icon:hover {
-      color: #4F46E5;
-    }
-
-    /* Crafted by */
-    .crafted-by {
-      margin-top: 1rem;
-      font-size: 0.75rem;
-      text-align: center;
-    }
-
-
-
-    .crafted-by a {
-      color: #D1D5DB;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .crafted-by a:hover {
-      color: #4F46E5;
-    }
-
-    .heart-icon {
-      color: #4F46E5;
-    }
-
-    /* Back to top button */
-    .back-to-top {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      background-color: #4F46E5;
-      color: white;
-      width: 3rem;
-      height: 3rem;
-      border-radius: 9999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: background-color 0.3s;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-
-    .back-to-top:hover {
-      background-color: #4338CA;
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* Ask Us Now button */
-    .ask-us-button {
-      display: inline-block;
-      background-color: #1D4ED8;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 0.25rem;
-      text-decoration: none;
-      transition: background-color 0.3s;
-      font-weight: bold;
-      position: fixed;
-      bottom: 2rem;
-      right: 6rem;
-    }
-
-    .ask-us-button:hover {
-      background-color: #1E40AF;
-    }
   </style>
 </head>
 
@@ -581,7 +381,23 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
 
           <!-- Other Menu Items -->
-          <a href="/page/booking.html" class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
+          <!-- Booking Dropdown -->
+          <div id="booking-container" class="relative inline-block">
+            <!-- Trigger -->
+            <div id="booking-trigger" class="font-medium text-gray-700 transition cursor-pointer hover:text-primary">
+              Booking <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div id="booking-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
+              <a href="booking.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Book Your Trip</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">How to Pay</a>
+              <a href="payOnline.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pay Online</a>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms & conditions</a>
+              <a href="DiscountOffers.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Discount
+                Offers</a>
+            </div>
+          </div>
           <a href="/page/travel-guide.html" class="font-medium text-gray-700 hover:text-primary transition">Travel
             Guide</a>
           <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
@@ -1578,195 +1394,197 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
     </div>
   </section>
-  <footer class="bg-gray-900 text-gray-300 py-12">
+  <footer class="bg-gray-900 text-white py-8">
     <div class="container mx-auto px-4">
-      <!-- Main Footer Content -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-        <!-- Destinations Column -->
+      <!-- Main sections -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+        <!-- Destinations -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Destinations</h3>
+          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Destinations</h3>
           <ul class="space-y-2">
-            <li><a href="https://www.advadventures.com/nepal" class="hover:text-primary transition-colors">Nepal</a>
-            </li>
-            <li><a href="https://www.advadventures.com/tibet" class="hover:text-primary transition-colors">Tibet</a>
-            </li>
-            <li><a href="https://www.advadventures.com/bhutan" class="hover:text-primary transition-colors">Bhutan</a>
-            </li>
-            <li><a href="https://www.advadventures.com/india" class="hover:text-primary transition-colors">India</a>
-            </li>
-            <li><a href="https://www.advadventures.com/package/Explore-the-Magic-of-Nepal-and-Bhutan.html"
-                class="hover:text-primary transition-colors">Nepal/Bhutan</a></li>
-            <li><a href="https://www.advadventures.com/package/all-nepal-tour.html"
-                class="hover:text-primary transition-colors">Nepal/Tibet</a></li>
-            <li><a href="https://www.advadventures.com/package/Nepal-Tibet-&amp;-Bhutan-Introduction-tour%20.html"
-                class="hover:text-primary transition-colors">Nepal/Tibet/Bhutan</a></li>
+            <li><a href="/nepal" class="hover:text-blue-300">Nepal</a></li>
+            <li><a href="/tibet" class="hover:text-blue-300">Tibet</a></li>
+            <li><a href="/bhutan" class="hover:text-blue-300">Bhutan</a></li>
+            <li><a href="/india" class="hover:text-blue-300">India</a></li>
+            <li><a href="/nepal-bhutan" class="hover:text-blue-300">Nepal/Bhutan</a></li>
+            <li><a href="/nepal-tibet" class="hover:text-blue-300">Nepal/Tibet</a></li>
+            <li><a href="/nepal-tibet-bhutan" class="hover:text-blue-300">Nepal/Tibet/Bhutan</a></li>
           </ul>
         </div>
 
-        <!-- Popular Activities -->
+        <!-- Activities Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Popular Activities</h3>
+          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Popular Activities</h3>
           <ul class="space-y-2">
-            <li><a href="https://www.advadventures.com/nepal/trekking-in-nepal.html"
-                class="hover:text-primary transition-colors">Trekking in Nepal</a></li>
-            <li><a href="https://www.advadventures.com/nepal/tours-in-nepal.html"
-                class="hover:text-primary transition-colors">Tours in Nepal</a></li>
-            <li><a href="https://www.advadventures.com/nepal/peak-climbing-in-nepal.html"
-                class="hover:text-primary transition-colors">Peak Climbing</a></li>
-            <li><a href="https://www.advadventures.com/bhutan/bhutan-tours.html"
-                class="hover:text-primary transition-colors">Bhutan Tours</a></li>
-            <li><a href="https://www.advadventures.com/tibet/mt-kailash.html"
-                class="hover:text-primary transition-colors">Mt. Kailash</a></li>
-            <li><a href="https://www.advadventures.com/tibet/tibet-tour.html"
-                class="hover:text-primary transition-colors">Tibet Tours</a></li>
+            <li><a href="/trekking-in-nepal" class="hover:text-blue-300">Trekking in Nepal</a></li>
+            <li><a href="/tours-in-nepal" class="hover:text-blue-300">Tours in Nepal</a></li>
+            <li><a href="/peak-climbing" class="hover:text-blue-300">Peak Climbing</a></li>
+            <li><a href="/bhutan-tours" class="hover:text-blue-300">Bhutan Tours</a></li>
+            <li><a href="/mt-kailash" class="hover:text-blue-300">Mt. Kailash</a></li>
+            <li><a href="/tibet-tours" class="hover:text-blue-300">Tibet Tours</a></li>
           </ul>
         </div>
 
-        <!-- Resources -->
+        <!-- Resources Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Resources</h3>
+          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Resources</h3>
           <ul class="space-y-2">
-            <li><a href="https://www.advadventures.com/page/nepal-travel-guide.html"
-                class="hover:text-primary transition-colors">Nepal Travel Guide</a></li>
-            <li><a href="https://www.advadventures.com/page/bhutan-travel-guide.html"
-                class="hover:text-primary transition-colors">Bhutan Travel Guide</a></li>
-            <li><a href="https://www.advadventures.com/page/tibet-travel-guide.html"
-                class="hover:text-primary transition-colors">Tibet Travel Guide</a></li>
-            <li><a href="https://www.advadventures.com/page/nepal-visa.html"
-                class="hover:text-primary transition-colors">Nepal Visa</a></li>
-            <li><a href="https://www.advadventures.com/page/travel-insurance.html"
-                class="hover:text-primary transition-colors">Travel Insurance</a></li>
-            <li><a href="https://www.advadventures.com/page/terms-conditions.html"
-                class="hover:text-primary transition-colors">Terms & Conditions</a></li>
+            <li><a href="/nepal-travel-guide" class="hover:text-blue-300">Nepal Travel Guide</a></li>
+            <li><a href="/bhutan-travel-guide" class="hover:text-blue-300">Bhutan Travel Guide</a></li>
+            <li><a href="/tibet-travel-guide" class="hover:text-blue-300">Tibet Travel Guide</a></li>
+            <li><a href="/nepal-visa" class="hover:text-blue-300">Nepal Visa</a></li>
+            <li><a href="/travel-insurance" class="hover:text-blue-300">Travel Insurance</a></li>
+            <li><a href="/terms-conditions" class="hover:text-blue-300">Terms & Conditions</a></li>
           </ul>
         </div>
 
-        <!-- Contact Us -->
+        <!-- Contact Column -->
         <div>
-          <h3 class="text-lg font-bold text-white mb-4 border-b border-primary pb-2">Contact Us</h3>
-          <address class="not-italic space-y-2">
-            <div class="flex items-start">
-              <svg class="w-5 h-5 mt-1 mr-2 text-primary flex-shrink-0" fill="none" stroke="currentColor"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              <span>Advanced Adventures Nepal Pvt. Ltd<br>Bhagwan Bahal, Thamel Kathmandu</span>
-            </div>
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
-                </path>
-              </svg>
-              <span>977-1-4544152</span>
-            </div>
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
-                </path>
-              </svg>
-              <span>+977 9851189771 (WhatsApp)</span>
-            </div>
-            <div class="flex items-center">
-              <svg class="w-5 h-5 mr-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
-                </path>
-              </svg>
-              <a href="mailto:info@advadventures.com"
-                class="hover:text-primary transition-colors">info@advadventures.com</a>
-            </div>
-          </address>
+          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Contact Us</h3>
+          <ul class="space-y-3">
+            <li class="flex items-start">
+              <span class="text-blue-400 mr-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </span>
+              <div>
+                Advanced Adventures Nepal Pvt. Ltd<br>
+                Bhagwan Bahal, Thamel Kathmandu
+              </div>
+            </li>
+            <li class="flex items-center">
+              <span class="text-blue-400 mr-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
+                  </path>
+                </svg>
+              </span>
+              <a href="tel:9771-4544152">977-1-4544152</a>
+            </li>
+            <li class="flex items-center">
+              <span class="text-blue-400 mr-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
+                  </path>
+                </svg>
+              </span>
+              <a href="https://wa.me/9779851189771">+977 9851189771 (WhatsApp)</a>
+            </li>
+            <li class="flex items-center">
+              <span class="text-blue-400 mr-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                </svg>
+              </span>
+              <a href="mailto:info@advadventures.com">info@advadventures.com</a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <!-- Affiliations & Certifications -->
-      <div class="border-t border-gray-700 pt-8 mb-8">
-        <h3 class="text-lg font-bold text-white mb-4 text-center">Our Affiliations & Certifications</h3>
-        <div class="flex flex-wrap justify-center gap-6 mb-6">
-          <!-- Replace these with your actual logo images -->
-          <img src="https://via.placeholder.com/100x50?text=NTB" alt="NTB"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://via.placeholder.com/100x50?text=TAAN" alt="TAAN"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://via.placeholder.com/100x50?text=NMA" alt="NMA"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://via.placeholder.com/100x50?text=Touristlink" alt="Touristlink"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
-          <img src="https://via.placeholder.com/100x50?text=TripAdvisor" alt="TripAdvisor"
-            class="h-10 opacity-80 hover:opacity-100 transition-opacity">
+      <!-- Our Affiliations & Certifications section -->
+      <div class="border-t border-gray-800 pt-8 pb-6">
+        <h2 class="text-xl font-bold text-center mb-8">Our Affiliations & Certifications</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Affiliations Section -->
+          <div class="text-center">
+            <h3 class="font-bold mb-4 text-lg">Our Affiliations</h3>
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-2">
+              <img src="/images/ntb-logo.png" alt="Nepal Tourism Board" class="h-10">
+              <img src="/images/taan-logo.png" alt="TAAN" class="h-10">
+              <img src="/images/nma-logo.png" alt="NMA" class="h-10">
+              <img src="/images/himal-logo.png" alt="Himalayan Rescue" class="h-10">
+              <img src="/images/keep-logo.png" alt="KEEP" class="h-10">
+              <img src="/images/natta-logo.png" alt="NATTA" class="h-10">
+            </div>
+          </div>
+
+          <!-- Partner With Section -->
+          <div class="text-center">
+            <h3 class="font-bold mb-4 text-lg">Partner with</h3>
+            <a href="https://www.touristlink.com/partner/advanced-adventures-nepal.html" target="_blank"
+              class="inline-block">
+              <img src="/images/touristlink-certified.png" alt="Touristlink Certified Partner" class="h-16 mx-auto">
+            </a>
+          </div>
+
+          <!-- Recommended On Section -->
+          <div class="text-center">
+            <h3 class="font-bold mb-4 text-lg">Recommended On</h3>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+              <img src="/images/lonely-planet-logo.png" alt="Lonely Planet" class="h-10">
+              <img src="/images/bookmundi-logo.png" alt="Bookmundi" class="h-10">
+              <img src="/images/trustpilot-logo.png" alt="Trustpilot" class="h-10">
+              <img src="/images/tripadvisor-logo.png" alt="TripAdvisor" class="h-10">
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Social Media & Copyright -->
-      <div class="border-t border-gray-700 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-4 md:mb-0">
-            <p class="text-sm">Copyright © 2025 Advanced Adventures Nepal Pvt Ltd. All Rights Reserved.</p>
-            <p class="text-xs mt-1">Govt. Regd No: 064/065/47694 | NMA Regd No: 833 | NTB Regd No: 1215/067</p>
+      <!-- Copyright & Social Media Section -->
+      <div class="border-t border-gray-800 pt-6 mt-6">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+          <!-- DMCA & Copyright -->
+          <div class="flex items-center space-x-4 mb-4 md:mb-0">
+            <img src="/images/dmca-protected.png" alt="DMCA Protected" class="h-8">
+            <div>
+              <p class="text-sm">Copyright © <?php echo date('Y'); ?> Advanced Adventures Nepal Pvt Ltd. All Rights
+                Reserved.</p>
+              <p class="text-xs">Govt. Regd No: 064/065/47694 | NMA Regd No: 833 | NTB Regd No: 1215/067</p>
+            </div>
           </div>
 
-          <div class="flex space-x-4">
-            <a href="https://www.facebook.com/advadventures.nepal" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd"
-                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-                  clip-rule="evenodd"></path>
-              </svg>
-            </a>
-            <a href="https://twitter.com/weadvadventures" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
-                </path>
-              </svg>
-            </a>
-            <a href="https://www.instagram.com/advancedadventuresnepal" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd"
-                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.467.182.353.301.882.344 1.857.047 1.023.058 1.351.058 3.807v.468c0 2.456-.011 2.784-.058 3.807-.045.975-.207 1.504-.344 1.857-.182.466-.399.8-.748 1.15-.35.35-.683.566-1.15.748-.353.137-.882.3-1.857.344-1.054.048-1.37.058-3.808.058h-.468c-2.456 0-2.784-.011-3.807-.058-.975-.045-1.504-.207-1.857-.344-.466-.182-.8-.399-1.15-.748-.35-.35-.566-.683-.748-1.15-.137-.353-.3-.882-.344-1.857-.048-1.023-.058-1.351-.058-3.807v-.468c0-2.456.011-2.784.058-3.807.045-.975.207-1.504.344-1.857.182-.466.399-.8.748-1.15.35-.35.683-.566 1.15-.748.353-.137.882-.3 1.857-.344 1.023-.047 1.351-.058 3.807-.058h.468c2.456 0 2.784.011 3.807.058.975.045 1.504.207 1.857.344.466.182.8.399 1.15.748.35.35.566.683.748 1.15.137.353.3.882.344 1.857.048 1.023.058 1.351.058 3.807v.468c0 2.456-.011 2.784-.058 3.807-.045.975-.207 1.504-.344 1.857-.182.467-.399.8-.748 1.15-.35.35-.683.566-1.15.748-.353.137-.882.3-1.857.344-1.023.047-1.351.058-3.807.058h-.468z"
-                  clip-rule="evenodd"></path>
-                <path fill-rule="evenodd"
-                  d="M12 6.865a5.135 5.135 0 100 10.27 5.135 5.135 0 000-10.27zM12 15a3 3 0 110-6 3 3 0 010 6z"
-                  clip-rule="evenodd"></path>
-                <path d="M18.406 7.079a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z"></path>
-              </svg>
-            </a>
-            <a href="https://www.youtube.com/@advadventures" target="_blank"
-              class="text-gray-400 hover:text-primary transition-colors">
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill-rule="evenodd"
-                  d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418z"
-                  clip-rule="evenodd"></path>
-                <path
-                  d="M9.546 8.803a.5.5 0 00-.5.5v5.394a.5.5 0 00.764.424l4.723-2.697a.5.5 0 000-.848l-4.723-2.697a.5.5 0 00-.264-.076z">
-                </path>
-              </svg>
-            </a>
+          <!-- Social Media & Creator -->
+          <div class="flex flex-col md:flex-row md:items-center">
+            <!-- Social Media Icons -->
+            <div class="flex space-x-3 md:mr-4 mb-2 md:mb-0">
+              <a href="https://www.facebook.com/advadventures.nepal" target="_blank"
+                class="text-white hover:text-blue-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z">
+                  </path>
+                </svg>
+              </a>
+              <a href="https://twitter.com/weadvadventures" target="_blank" class="text-white hover:text-blue-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+                  </path>
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/advancedadventuresnepal" target="_blank"
+                class="text-white hover:text-blue-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.023.047 1.351.058 3.807.058h.468c2.456 0 2.784-.011 3.807-.058.975-.045 1.504-.207 1.857-.344.466-.182.8-.399 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.047-1.023.058-1.351.058-3.807v-.468c0-2.456-.011-2.784-.058-3.807-.045-.975-.207-1.504-.344-1.857-.182-.466-.399-.8-.748-1.15-.35-.35-.683-.566-1.15-.748-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058h-.468zm.63 3.063a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 8.135a3 3 0 100-6 3 3 0 000 6zm4.243-8.707a1.2 1.2 0 100-2.4 1.2 1.2 0 000 2.4z">
+                  </path>
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/@advadventures" target="_blank" class="text-white hover:text-blue-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 01-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 01-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 011.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418z">
+                  </path>
+                  <path fill="white"
+                    d="M9.546 8.803a.5.5 0 00-.5.5v5.394a.5.5 0 00.764.424l4.723-2.697a.5.5 0 000-.848l-4.723-2.697a.5.5 0 00-.264-.076z">
+                  </path>
+                </svg>
+              </a>
+            </div>
+            <p class="text-xs">Crafted with <span class="text-red-500">♥</span> by <a href="https://www.cyberpirates.io"
+                class="underline hover:text-blue-300">Cyber Pirates Pvt. Ltd.</a></p>
           </div>
-        </div>
-
-        <div class="mt-4 text-center md:text-left">
-          <p class="text-xs">Crafted with <span class="text-primary">♥</span> by <a href="https://www.cyberpirates.io"
-              class="hover:text-primary transition-colors">Cyber Pirates Pvt. Ltd.</a></p>
         </div>
       </div>
     </div>
-
-    <!-- Back to Top Button -->
-    <button id="goToTop"
-      class="fixed bottom-6 right-6 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark transition-colors opacity-0 invisible transition-all duration-300">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-      </svg>
-    </button>
   </footer>
   <!-- Swiper JS -->
   <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
