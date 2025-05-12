@@ -14,7 +14,7 @@ if ($id == '') {
 
   $roo = mysqli_fetch_assoc($result);
 
-
+if(mysqli_num_rows($result) > 0) {
 
   $itineraryText = $roo["Detailed_Itinerary"];
   $inputString = $roo["Useful_Information"];
@@ -188,6 +188,12 @@ if ($id == '') {
 //     echo '</div>';
 //     echo '<hr class="my-4">';
 // }
+}
+
+else {
+echo "No record found";
+exit;
+}
 }
 ?>
 <!DOCTYPE html>
