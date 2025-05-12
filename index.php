@@ -54,7 +54,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const dropdown = document.getElementById('countries-dropdown');
       const mainToggle = document.getElementById('main-toggle');
 
@@ -96,7 +96,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const bookingDropdown = document.getElementById('booking-dropdown');
       const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
 
@@ -151,8 +151,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           },
           keyframes: {
             fadeIn: {
-              'from': { opacity: '0', transform: 'translateY(20px)' },
-              'to': { opacity: '1', transform: 'translateY(0)' }
+              'from': {
+                opacity: '0',
+                transform: 'translateY(20px)'
+              },
+              'to': {
+                opacity: '1',
+                transform: 'translateY(0)'
+              }
             }
           }
         }
@@ -398,7 +404,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                 Offers</a>
             </div>
           </div>
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 hover:text-primary transition">Travel
+          <a href="/page/travel-guide.html" class="font-medium text-gray-700 transition hover:text-primary">Travel
             Guide</a>
           <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
           <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
@@ -476,7 +482,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($r = mysqli_fetch_array($q)) {
           $ct = $r["CategoryId"];
-          ?>
+        ?>
           <div class="relative swiper-slide">
             <!-- Background Image -->
             <div class="absolute inset-0 bg-center bg-cover"
@@ -775,7 +781,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-          ?>
+        ?>
 
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
@@ -794,10 +800,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $r = mysqli_fetch_array($q);
-                echo $r["CategoryName"];
-                ?></span>
+                                                                                                    $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $r = mysqli_fetch_array($q);
+                                                                                                    echo $r["CategoryName"];
+                                                                                                    ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
@@ -1394,13 +1400,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
     </div>
   </section>
-  <footer class="bg-gray-900 text-white py-8">
-    <div class="container mx-auto px-4">
+  <footer class="py-8 text-white bg-gray-900">
+    <div class="container px-4 mx-auto">
       <!-- Main sections -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+      <div class="grid grid-cols-1 gap-8 mb-10 md:grid-cols-4">
         <!-- Destinations -->
         <div>
-          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Destinations</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold border-b border-gray-700">Destinations</h3>
           <ul class="space-y-2">
             <li><a href="/nepal" class="hover:text-blue-300">Nepal</a></li>
             <li><a href="/tibet" class="hover:text-blue-300">Tibet</a></li>
@@ -1414,7 +1420,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Activities Column -->
         <div>
-          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Popular Activities</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold border-b border-gray-700">Popular Activities</h3>
           <ul class="space-y-2">
             <li><a href="/trekking-in-nepal" class="hover:text-blue-300">Trekking in Nepal</a></li>
             <li><a href="/tours-in-nepal" class="hover:text-blue-300">Tours in Nepal</a></li>
@@ -1427,7 +1433,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Resources Column -->
         <div>
-          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Resources</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold border-b border-gray-700">Resources</h3>
           <ul class="space-y-2">
             <li><a href="/nepal-travel-guide" class="hover:text-blue-300">Nepal Travel Guide</a></li>
             <li><a href="/bhutan-travel-guide" class="hover:text-blue-300">Bhutan Travel Guide</a></li>
@@ -1440,10 +1446,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Contact Column -->
         <div>
-          <h3 class="font-bold text-lg mb-4 border-b border-gray-700 pb-2">Contact Us</h3>
+          <h3 class="pb-2 mb-4 text-lg font-bold border-b border-gray-700">Contact Us</h3>
           <ul class="space-y-3">
             <li class="flex items-start">
-              <span class="text-blue-400 mr-2">
+              <span class="mr-2 text-blue-400">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd"
                     d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
@@ -1456,7 +1462,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               </div>
             </li>
             <li class="flex items-center">
-              <span class="text-blue-400 mr-2">
+              <span class="mr-2 text-blue-400">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
@@ -1466,7 +1472,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <a href="tel:9771-4544152">977-1-4544152</a>
             </li>
             <li class="flex items-center">
-              <span class="text-blue-400 mr-2">
+              <span class="mr-2 text-blue-400">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path
                     d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z">
@@ -1476,7 +1482,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <a href="https://wa.me/9779851189771">+977 9851189771 (WhatsApp)</a>
             </li>
             <li class="flex items-center">
-              <span class="text-blue-400 mr-2">
+              <span class="mr-2 text-blue-400">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
@@ -1489,13 +1495,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- Our Affiliations & Certifications section -->
-      <div class="border-t border-gray-800 pt-8 pb-6">
-        <h2 class="text-xl font-bold text-center mb-8">Our Affiliations & Certifications</h2>
+      <div class="pt-8 pb-6 border-t border-gray-800">
+        <h2 class="mb-8 text-xl font-bold text-center">Our Affiliations & Certifications</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
           <!-- Affiliations Section -->
           <div class="text-center">
-            <h3 class="font-bold mb-4 text-lg">Our Affiliations</h3>
+            <h3 class="mb-4 text-lg font-bold">Our Affiliations</h3>
             <div class="flex flex-wrap items-center justify-center gap-4 mb-2">
               <img src="/images/ntb-logo.png" alt="Nepal Tourism Board" class="h-10">
               <img src="/images/taan-logo.png" alt="TAAN" class="h-10">
@@ -1508,7 +1514,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
           <!-- Partner With Section -->
           <div class="text-center">
-            <h3 class="font-bold mb-4 text-lg">Partner with</h3>
+            <h3 class="mb-4 text-lg font-bold">Partner with</h3>
             <a href="https://www.touristlink.com/partner/advanced-adventures-nepal.html" target="_blank"
               class="inline-block">
               <img src="/images/touristlink-certified.png" alt="Touristlink Certified Partner" class="h-16 mx-auto">
@@ -1517,7 +1523,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
           <!-- Recommended On Section -->
           <div class="text-center">
-            <h3 class="font-bold mb-4 text-lg">Recommended On</h3>
+            <h3 class="mb-4 text-lg font-bold">Recommended On</h3>
             <div class="flex flex-wrap items-center justify-center gap-4">
               <img src="/images/lonely-planet-logo.png" alt="Lonely Planet" class="h-10">
               <img src="/images/bookmundi-logo.png" alt="Bookmundi" class="h-10">
@@ -1529,10 +1535,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       </div>
 
       <!-- Copyright & Social Media Section -->
-      <div class="border-t border-gray-800 pt-6 mt-6">
+      <div class="pt-6 mt-6 border-t border-gray-800">
         <div class="flex flex-col md:flex-row md:justify-between md:items-center">
           <!-- DMCA & Copyright -->
-          <div class="flex items-center space-x-4 mb-4 md:mb-0">
+          <div class="flex items-center mb-4 space-x-4 md:mb-0">
             <img src="/images/dmca-protected.png" alt="DMCA Protected" class="h-8">
             <div>
               <p class="text-sm">Copyright © <?php echo date('Y'); ?> Advanced Adventures Nepal Pvt Ltd. All Rights
@@ -1544,7 +1550,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
           <!-- Social Media & Creator -->
           <div class="flex flex-col md:flex-row md:items-center">
             <!-- Social Media Icons -->
-            <div class="flex space-x-3 md:mr-4 mb-2 md:mb-0">
+            <div class="flex mb-2 space-x-3 md:mr-4 md:mb-0">
               <a href="https://www.facebook.com/advadventures.nepal" target="_blank"
                 class="text-white hover:text-blue-300">
                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -1639,7 +1645,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     });
 
     // Reset animations when slide changes (for main swiper)
-    mainSwiper.on('slideChange', function () {
+    mainSwiper.on('slideChange', function() {
       const slides = document.querySelectorAll('.swiper-slide');
       slides.forEach(slide => {
         const animElements = slide.querySelectorAll('[class*="animate-"]');
