@@ -138,6 +138,55 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
+    document.addEventListener('DOMContentLoaded', function() {
+      const travelDropdown = document.getElementById('travel-dropdown');
+      const travelTrigger = document.getElementById('travel-trigger');
+
+      travelTrigger.addEventListener('mouseenter', () => {
+        travelDropdown.classList.remove('hidden');
+      });
+
+      travelTrigger.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+          if (!travelTrigger.matches(':hover') && !travelDropdown.matches(':hover')) {
+            travelDropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+
+      travelDropdown.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+          if (!travelTrigger.matches(':hover') && !travelDropdown.matches(':hover')) {
+            travelDropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+      const csrDropdown = document.getElementById('csr-dropdown');
+      const csrTrigger = document.getElementById('csr-trigger');
+
+      csrTrigger.addEventListener('mouseenter', () => {
+        csrDropdown.classList.remove('hidden');
+      });
+
+      csrTrigger.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+          if (!csrTrigger.matches(':hover') && !csrDropdown.matches(':hover')) {
+            csrDropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+
+      csrDropdown.addEventListener('mouseleave', () => {
+        setTimeout(() => {
+          if (!csrTrigger.matches(':hover') && !csrDropdown.matches(':hover')) {
+            csrDropdown.classList.add('hidden');
+          }
+        }, 200);
+      });
+    });
+
 
     tailwind.config = {
       theme: {
@@ -404,10 +453,47 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                 Offers</a>
             </div>
           </div>
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 transition hover:text-primary">Travel
-            Guide</a>
+          <div id="travel-container" class="relative inline-block">
+            <!-- Trigger -->
+            <div id="travel-trigger" class="font-medium text-gray-700 transition cursor-pointer hover:text-primary">
+              Travel Guide <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div id="travel-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
+              <a href="nepalvisa.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nepali Visa</a>
+              <a href="nepaltravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nepal Travel Guide</a>
+              <a href="equipmentchecklist.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Equipment Check List</a>
+              <a href="travelinsurance.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Travel Insurance</a>
+              <a href="besttimetotravel.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Best Time To Travel Nepal</a>
+              <a href="packinglist.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Packing List</a>
+              <a href="bhutantravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bhutan Travel Guide</a>
+              <a href="tibettravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tibet Travel Guide</a>
+            </div>
+          </div>
+
+
           <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
-          <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
+
+          <div id="csr-container" class="relative inline-block">
+            <!-- Trigger -->
+            <div id="csr-trigger" class="font-medium text-gray-700 transition cursor-pointer hover:text-primary">
+              CSR <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div id="csr-dropdown" class="absolute left-0 z-50 hidden mt-2 bg-white rounded-md shadow-lg w-72">
+              <a href="Responsible_tourism.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Responsible Tourism in Nepal with Advanced Adventures</a>
+              <a href="HealthandposterPolicy.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Health & Porter Policy</a>
+              <a href="Education.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Education</a>
+              <a href="SocialAwareness.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Social Awareness</a>
+              <a href="PostQuakeRelief.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Post-Quake Relief</a>
+              <a href="Environment.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Environment</a>
+              <a href="LearnNepelaseLanguage.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Learn Nepalese Language</a>
+              <a href="VolunteerTeaching.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Volunteer Teaching</a>
+            </div>
+          </div>
+
           <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
           <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
           <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
@@ -1079,48 +1165,48 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       <!-- Climbing Packages Grid -->
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Island Peak -->
-         <?php
+        <?php
         $sql = mysqli_query($con, "SELECT * FROM popularposts WHERE Is_Active = 1");
         while ($ro = mysqli_fetch_array($sql)) {
           $ctid = $ro["CategoryId"];
-          ?>
-         <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+        ?>
+          <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
               <img src="admin/postimages/<?php echo htmlentities($ro['PostImage']); ?>"
                 alt="<?php echo htmlentities($ro['PostTitle']); ?>"
-                class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+                class="object-cover w-full h-full transition duration-500 transform group-hover:scale-105">
               <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" style="mask-image: linear-gradient(to bottom, black 0%, transparent 30%), 
       linear-gradient(to right, black 0%, transparent 30%);">
               </div>
               <div
-                class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                class="absolute px-4 py-2 border rounded-full shadow-lg bottom-4 right-4 bg-white/90 backdrop-blur-sm border-white/20">
                 <span class="font-bold text-primary">US $<?php echo htmlentities($ro['Price']); ?></span>
               </div>
             </div>
             <div class="p-6 bg-white">
-              <div class="flex justify-between items-start mb-2">
+              <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($ro['Days']); ?> Days</span>
-                <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-800 rounded-full"><?php
-                $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $rr = mysqli_fetch_array($qr);
-                echo $rr["CategoryName"];
-                ?></span>
+                <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
+                                                                                                    $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $rr = mysqli_fetch_array($qr);
+                                                                                                    echo $rr["CategoryName"];
+                                                                                                    ?></span>
               </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
+              <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($ro['PostUrl']); ?>">
                   <?php echo htmlentities($ro['PostTitle']); ?>
                 </a>
               </h3>
-              <p class="text-gray-600 mb-4 line-clamp-3">
+              <p class="mb-4 text-gray-600 line-clamp-3">
                 <?php echo htmlentities(substr($ro['PostDetails'], 0, 150)); ?>...
               </p>
               <a href="http://localhost/adv/new_page.php?id=<?php echo urlencode($ro['id']); ?>"
-                class="inline-flex items-center font-medium text-primary hover:text-blue-800 transition">
-                Explore This Trek <i class="fas fa-arrow-right ml-2"></i>
+                class="inline-flex items-center font-medium transition text-primary hover:text-blue-800">
+                Explore This Trek <i class="ml-2 fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
-        <?php }?>
+        <?php } ?>
       </div>
 
       <!-- CTA Button -->
