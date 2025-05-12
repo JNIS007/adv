@@ -1,0 +1,662 @@
+<?php
+include("./admin/includes/config.php");
+
+$menuData = [];
+
+$dests = mysqli_query($con, "SELECT * FROM tbldest");
+while ($dest = mysqli_fetch_assoc($dests)) {
+    $destId = $dest['Id'];
+    $menuData[$destId] = [
+        'name' => $dest['DestName'],
+        'categories' => []
+    ];
+
+    $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
+    while ($cat = mysqli_fetch_assoc($cats)) {
+        $catId = $cat['id'];
+        $menuData[$destId]['categories'][$catId] = [
+            'name' => $cat['CategoryName'],
+            'subcategories' => []
+        ];
+
+        $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
+        while ($sub = mysqli_fetch_assoc($subs)) {
+            $subId = $sub['SubCategoryId'];
+            $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [
+                'name' => $sub['Subcategory'],
+                'posts' => []
+            ];
+
+            $posts = mysqli_query($con, "SELECT * FROM tblPosts WHERE CategoryId = $catId AND SubCategoryId = $subId");
+            while ($post = mysqli_fetch_assoc($posts)) {
+                $menuData[$destId]['categories'][$catId]['subcategories'][$subId]['posts'][] = [
+                    'id' => $post['id'],
+                    'title' => $post['PostTitle']
+                ];
+            }
+        }
+    }
+}
+?>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Adventures - Nepal Trekking & Tours</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dropdown = document.getElementById('countries-dropdown');
+            const mainToggle = document.getElementById('main-toggle');
+
+            // Show dropdown on hover
+            mainToggle.addEventListener('mouseenter', () => {
+                dropdown.classList.remove('hidden');
+            });
+
+            // Hide dropdown when mouse leaves both button and dropdown
+            mainToggle.addEventListener('mouseleave', (e) => {
+                setTimeout(() => {
+                    if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
+                        dropdown.classList.add('hidden');
+                    }
+                }, 200);
+            });
+
+            dropdown.addEventListener('mouseleave', (e) => {
+                setTimeout(() => {
+                    if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
+                        dropdown.classList.add('hidden');
+                    }
+                }, 200);
+            });
+
+            // Handle submenu hover (optional enhancement)
+            const submenuButtons = document.querySelectorAll('#countries-dropdown button');
+
+            submenuButtons.forEach(button => {
+                const submenu = button.nextElementSibling;
+                if (!submenu) return;
+
+                button.addEventListener('mouseenter', () => {
+                    submenu.classList.remove('hidden');
+                });
+
+                button.parentElement.addEventListener('mouseleave', () => {
+                    submenu.classList.add('hidden');
+                });
+            });
+        });
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',  // Deep navy for professionalism
+                        secondary: '#c2410c', // Adventurous orange for accents
+                    },
+                    animation: {
+                        'fadeIn': 'fadeIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Header Dropdowns */
+        .dropdown-content {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+        }
+
+        .dropdown:hover .dropdown-content,
+        .dropdown:focus-within .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu */
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .mobile-menu {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        /* Swiper Overrides */
+        .swiper-button-next,
+        .swiper-button-prev {
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .swiper-button-next::after,
+        .swiper-button-prev::after {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .swiper-pagination-bullet {
+            background: white;
+            opacity: 0.6;
+            width: 12px;
+            height: 12px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #1a365d;
+            opacity: 1;
+        }
+
+        .testimonials-carousel {
+            padding-bottom: 3rem;
+        }
+
+        .testimonials-carousel .swiper-pagination-bullet {
+            width: 12px;
+            height: 12px;
+            background: rgba(26, 54, 93, 0.3);
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+
+        .testimonials-carousel .swiper-pagination-bullet-active {
+            background: #1a365d;
+            width: 30px;
+            border-radius: 6px;
+        }
+
+        [class="dropdown"] {
+            transition: all 0.2s ease;
+        }
+
+        / Prevent layout shift / .relative {
+            position: relative;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        / Better hover effects */ .hover:bg-gray-50:hover {
+            background-color: #f9fafb;
+        }
+
+        .hover:text-secondary:hover {
+            color: #6b7280;
+        }
+
+        @media (max-width: 1024px) {
+
+            .testimonial-prev,
+            .testimonial-next {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<header class="sticky top-0 z-50 bg-white shadow-md">
+    <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-4">
+            <!-- Logo -->
+            <a href="#" class="flex items-center">
+                <img src="assets/logo.png" alt="Advanced Adventures" class="h-12 md:h-16 object-contain">
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden lg:flex items-center space-x-8">
+                <!-- Destinations Mega Menu -->
+                <div class="relative">
+                    <button id="main-toggle"
+                        class="flex items-center font-medium text-gray-700 transition hover:text-primary">
+                        Destination <i class="ml-1 text-xs fas fa-chevron-down"></i>
+                    </button>
+
+                    <div id="countries-dropdown" class="absolute left-0 hidden w-48 mt-2 bg-white rounded-md shadow-xl">
+                        <ul class="py-1">
+                            <?php foreach ($menuData as $dest): ?>
+                                <li class="relative group">
+                                    <button
+                                        class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                        <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                                    </button>
+
+                                    <div
+                                        class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                        <ul class="py-1">
+                                            <?php foreach ($dest['categories'] as $cat): ?>
+                                                <li class="relative group">
+                                                    <button
+                                                        class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                                        <?= $cat['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
+                                                    </button>
+
+                                                    <div
+                                                        class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                                        <ul class="py-1">
+                                                            <?php foreach ($cat['subcategories'] as $sub): ?>
+                                                                <li class="relative group">
+                                                                    <button
+                                                                        class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                                                        <?= $sub['name'] ?> <i
+                                                                            class="ml-2 text-xs fas fa-chevron-right"></i>
+                                                                    </button>
+
+                                                                    <div
+                                                                        class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
+                                                                        <ul class="py-1">
+                                                                            <?php foreach ($sub['posts'] as $post): ?>
+                                                                                <li>
+                                                                                    <a href="new_page.php?id=<?= $post['id'] ?>"
+                                                                                        class="block px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                                                                                        <?= $post['title'] ?>
+                                                                                    </a>
+                                                                                </li>
+                                                                            <?php endforeach; ?>
+                                                                        </ul>
+                                                                    </div>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+
+
+                <!-- Other Menu Items -->
+                <a href="/page/booking.html" class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
+                <a href="/page/travel-guide.html" class="font-medium text-gray-700 hover:text-primary transition">Travel
+                    Guide</a>
+                <a href="/page/about-us.html" class="font-medium text-gray-700 hover:text-primary transition">About
+                    Us</a>
+                <a href="/page/csr.html" class="font-medium text-gray-700 hover:text-primary transition">CSR</a>
+                <a href="/testimonials.html" class="font-medium text-gray-700 hover:text-primary transition">Trip
+                    Reviews</a>
+                <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Travel Blog</a>
+                <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Contact</a>
+                <!-- Search Button -->
+                <button class="p-2 text-gray-600 hover:text-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="/page/book-your-trip.html"
+                    class="bg-primary hover:bg-[#122747] text-white px-4 py-2 rounded-md font-medium transition">
+                    Book Now
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-gray-700 focus:outline-none" id="mobile-menu-button">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
+        <div class="mobile-menu absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-lg overflow-y-auto">
+            <div class="flex justify-between items-center p-4 border-b">
+                <img src="https://www.advadventures.com/dist/frontend/img/adv-logo-new.jpg" alt="Advanced Adventures"
+                    class="h-10">
+                <button id="close-mobile-menu" class="text-gray-600">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+
+            <div class="p-4 space-y-4">
+                <div class="accordion">
+                    <button class="flex justify-between items-center w-full py-2 font-medium text-gray-700">
+                        Destinations <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="accordion-content hidden pl-4 mt-2 space-y-2">
+                        <a href="/nepal" class="block py-1 hover:text-secondary">Nepal</a>
+                        <a href="/tibet" class="block py-1 hover:text-secondary">Tibet</a>
+                        <a href="/bhutan" class="block py-1 hover:text-secondary">Bhutan</a>
+                        <a href="#" class="block py-1 hover:text-secondary">Mt. Kailash</a>
+                        <a href="#" class="block py-1 hover:text-secondary">luxury Travel</a>
+                    </div>
+                </div>
+
+                <a href="/page/booking.html" class="block py-2 font-medium text-gray-700">Booking</a>
+                <a href="/page/travel-guide.html" class="block py-2 font-medium text-gray-700">Travel Guide</a>
+                <a href="/page/about-us.html" class="block py-2 font-medium text-gray-700">About Us</a>
+                <a href="/page/csr.html" class="block py-2 font-medium text-gray-700">CSR</a>
+                <a href="/testimonials.html" class="block py-2 font-medium text-gray-700">Reviews</a>
+
+                <div class="pt-4 border-t">
+                    <a href="/page/book-your-trip.html"
+                        class="block w-full bg-primary hover:bg-[#122747] text-white text-center px-4 py-2 rounded-md font-medium">
+                        Book Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div class="container mx-auto px-4 lg:px-8 py-8">
+    <div class="flex items-center text-gray-600 mb-6">
+        <a href="/" class="hover:text-blue-500">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                    d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                </path>
+            </svg>
+        </a>
+        <span class="mx-2">→</span>
+        <span>Equipment Check List</span>
+    </div>
+    <!-- Main Content and Sidebar Wrapper -->
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Main Content -->
+        <div class="w-full lg:w-3/4">
+            <h1 class="text-3xl font-bold mb-6">Equipment Check List</h1>
+
+            <!-- Featured Image -->
+            <div class="mb-8">
+                <img src="assets/nepaltravelguide.png" alt="Nepal Visa" class="w-full h-auto rounded-lg shadow-md mb-6">
+            </div>
+
+            <!-- Nepal Visa Info -->
+            <div class="space-y-6 text-gray-800 leading-relaxed text-[16px]">
+                <h2 class="text-3xl font-bold mb-6">Equipment Checklist for Trekking in Nepal</h2>
+                <p class="mb-4 text-gray-700">
+                    Correct Clothing & Equipment’s are essential for a safe and enjoyable trek. Experienced trekkers
+                    will often take only a selection of the items based on what has worked in the past.
+
+                    Please find the equipment list below for your personal use during your travel with us.<br><br>
+
+                    We advised to consider the following equipment’s as essentials while packing for the Trek in
+                    Himalaya. Adjustments to the list can be managed according to our requirements, interests, duration
+                    of trip, and season of trip.
+
+                    We can find variety of these gears to buy in Kathmandu. Majority of the
+                    gears which are in sale in Kathmandu are locally is much cheaper and must be tried on carefully and
+                    checked carefully for quality, but on the whole, it is OK.
+
+                    We can find very high quality branded
+                    gears too in some famous stores in Kathmandu; mostly top notch imported gear, Mountain Hardware, The
+                    North Face, Marmot, Black Diamond climbing gear and others, and prices are reasonable.<br><br>
+
+                    The hotel stores free of cost whatever you don't take for trekking, and of course they have a
+                    laundry service. You might want to plan with a clean set of clothes for your return from the
+                    trek.<br><br>
+
+                    We Advanced Adventures Nepal will provide sleeping bag, trek duffel bag, and down jacket (for all
+                    seasons) in during your trek.
+
+                    Our porters are limited to carrying 33 lbs. (15 kg) of your personal.
+                    Be selective in what you take.
+
+                    This is just a guide of what we recommend you to bring, you may have
+                    other personal items you need to add to your kit.
+                </p>
+
+
+                <div class="space-y-4">
+                    <!-- Travel Documents -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Travel Documents</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Passport (6+ months validity)</li>
+                            <li>4 Passport-size photos</li>
+                            <li>Visa (on arrival at Kathmandu Airport)</li>
+                            <li>Insurance (medical, flight & trip cancellation, rescue, air ambulance)</li>
+                            <li>Cash for personal expenses</li>
+                        </ul>
+                    </details>
+
+                    <!-- Headwear -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Headwear</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Sun Cap or Brimmed Hat</li>
+                            <li>Bandana or Headscarf</li>
+                            <li>Knit Hat</li>
+                            <li>Buff / Neck Gaiter</li>
+                            <li>Balaclava (optional)</li>
+                            <li>Headlamp with extra batteries</li>
+                            <li>Sunglasses or Goggles</li>
+                        </ul>
+                    </details>
+
+                    <!-- Bodywear -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Bodywear</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Long & Short Sleeve Shirts (moisture-wicking)</li>
+                            <li>Thermal Tops</li>
+                            <li>Fleece Jacket / Wind-stopper</li>
+                            <li>Soft Shell Jacket</li>
+                            <li>Down Jacket (provided by us)</li>
+                            <li>Waterproof Jacket with Hood</li>
+                            <li>Insulated Jacket</li>
+                            <li>Sports Bra (women)</li>
+                        </ul>
+                    </details>
+
+                    <!-- Handwear -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Handwear</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Warm Gloves (waterproof recommended)</li>
+                            <li>Light Gloves (wool or fleece)</li>
+                        </ul>
+                    </details>
+
+                    <!-- Lower Bodywear -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Lower Bodywear</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Waterproof Hiking Pants</li>
+                            <li>Hiking Shorts</li>
+                            <li>Fleece Pants</li>
+                            <li>Light Thermal Trouser</li>
+                            <li>Woolen Pants</li>
+                            <li>Moisture-wicking Underwear</li>
+                        </ul>
+                    </details>
+
+                    <!-- Footwear -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Footwear</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Hiking Boots (with spare laces)</li>
+                            <li>Trainers / Running Shoes</li>
+                            <li>Thin Socks (3–4 pairs)</li>
+                            <li>Thick Socks (2–3 pairs)</li>
+                            <li>Cotton Socks (optional)</li>
+                            <li>Gaiters (optional, for snow/mud)</li>
+                        </ul>
+                    </details>
+
+                    <!-- Trekking Equipment -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Trekking Equipment</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Duffel Bag (provided by us)</li>
+                            <li>Sleeping Bag (provided by us)</li>
+                            <li>Fleece Sleeping Bag Liner (optional)</li>
+                            <li>Trekking Poles (collapsible)</li>
+                            <li>Daypack (30–35L)</li>
+                        </ul>
+                    </details>
+
+                    <!-- Accessories -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Accessories</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Backpack Rain Cover</li>
+                            <li>Garbage Bags / Dry Bags / Ziploc Bags</li>
+                            <li>Water Bottle (Nalgene)</li>
+                            <li>Water Bladder (Camelback type)</li>
+                            <li>Book or Diary</li>
+                        </ul>
+                    </details>
+
+                    <!-- Medicine -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Medicine</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Antibiotics (chest + abdominal)</li>
+                            <li>Painkillers (Paracetamol, Ibuprofen)</li>
+                            <li>Cough Lozenges, Diarrhea Pills</li>
+                            <li>Foot Powder, Anti-inflammatory Tabs</li>
+                            <li>Skin-blister Kit, Altitude Sickness Tablets (Diamox)</li>
+                            <li>Water Purification Tablets or Filters</li>
+                            <li>Earplugs, Sunscreen (SPF 50+), Lip Balm</li>
+                            <li>Insect Repellent (with DEET)</li>
+                            <li>Hand Sanitizer, Wet Wipes</li>
+                            <li>Snacks, Electrolytes (optional)</li>
+                        </ul>
+                        <p>Our Trek Leader will be carrying a group medical kit that will contain more of the above plus
+                            extensive supplies for a wide range of medical problems and emergencies. But we recommend
+                            you bring along the items mentioned above and keep your medical kit with you daily on the
+                            trail.</p>
+                    </details>
+
+                    <!-- Toiletries -->
+                    <details class="bg-gray-100 p-4 rounded-lg shadow-sm">
+                        <summary class="font-semibold cursor-pointer">Toiletries</summary>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>Quick-dry Towel</li>
+                            <li>Toothbrush & Paste (bio-degradable)</li>
+                            <li>Multi-purpose Soap (bio-degradable)</li>
+                            <li>Toilet Paper, Deodorant, Moisturizer</li>
+                            <li>Nail Clippers, Small Mirror (optional)</li>
+                            <li>Feminine Products</li>
+                            <li>Contact Lenses/Glasses</li>
+                        </ul>
+                        <p>This Trekking Packing list will help you pack for your trips to the Himalayas. In case of any
+                            queries and confusions, you can always contact us. Our customer services are available 24/7,
+                            please WhatsApp +977 9851189771 or email us any time for more information.</p>
+                    </details>
+                </div>
+            </div>
+
+
+
+            <!-- Newsletter -->
+            <div class="mt-10">
+                <div class="bg-indigo-50 p-6 rounded-lg shadow-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+                        <div class="mb-4 sm:mb-0">
+                            <p class="text-gray-800 font-medium text-lg">Sign Up for Newsletter for Special Deals &
+                                Discounts</p>
+                            <p class="text-gray-600 text-sm mt-1">Stay updated with our latest offers and travel
+                                packages</p>
+                        </div>
+                        <div class="sm:ml-4 flex-shrink-0">
+                            <form class="flex w-full sm:w-auto">
+                                <input type="email" placeholder="Your Email Address"
+                                    class="px-4 py-2 w-full sm:w-64 rounded-l border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                    required>
+                                <button type="submit"
+                                    class="bg-indigo-600 text-white px-4 py-2 rounded-r hover:bg-indigo-700 transition-colors whitespace-nowrap">
+                                    Subscribe
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="w-full lg:w-1/4">
+            <div class="sticky top-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Related Pages</h3>
+                    <ul class="space-y-3">
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Travel Insurance</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Nepal Travel
+                                Guide</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Packing List</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Nepal Visa</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Equipment Check
+                                List</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Best Time to
+                                Travel</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Bhutan Travel
+                                Guide</a>
+                        </li>
+                        <li class="border-b pb-3">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Tibet Travel
+                                Guide</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
+
+
+
+<body>
+
+</body>
+
+</html>

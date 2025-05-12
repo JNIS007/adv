@@ -778,7 +778,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
         <?php
-        $query = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
+        $query = mysqli_query($con, "SELECT * FROM topposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
         ?>
@@ -1079,6 +1079,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       <!-- Climbing Packages Grid -->
       <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
         <!-- Island Peak -->
+<<<<<<< HEAD
         <div
           class="relative overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-xl hover:shadow-xl hover:-translate-y-2">
           <figure class="relative h-48 overflow-hidden">
@@ -1221,6 +1222,50 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             </a>
           </div>
         </div>
+=======
+         <?php
+        $sql = mysqli_query($con, "SELECT * FROM popularposts WHERE Is_Active = 1");
+        while ($ro = mysqli_fetch_array($sql)) {
+          $ctid = $ro["CategoryId"];
+          ?>
+         <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="relative h-64 overflow-hidden">
+              <img src="admin/postimages/<?php echo htmlentities($ro['PostImage']); ?>"
+                alt="<?php echo htmlentities($ro['PostTitle']); ?>"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" style="mask-image: linear-gradient(to bottom, black 0%, transparent 30%), 
+      linear-gradient(to right, black 0%, transparent 30%);">
+              </div>
+              <div
+                class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg border border-white/20">
+                <span class="font-bold text-primary">US $<?php echo htmlentities($ro['Price']); ?></span>
+              </div>
+            </div>
+            <div class="p-6 bg-white">
+              <div class="flex justify-between items-start mb-2">
+                <span class="text-sm text-gray-500"><?php echo htmlentities($ro['Days']); ?> Days</span>
+                <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-800 rounded-full"><?php
+                $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                $rr = mysqli_fetch_array($qr);
+                echo $rr["CategoryName"];
+                ?></span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-3 group-hover:text-primary transition">
+                <a href="package/<?php echo htmlentities($ro['PostUrl']); ?>">
+                  <?php echo htmlentities($ro['PostTitle']); ?>
+                </a>
+              </h3>
+              <p class="text-gray-600 mb-4 line-clamp-3">
+                <?php echo htmlentities(substr($ro['PostDetails'], 0, 150)); ?>...
+              </p>
+              <a href="http://localhost/adv/new_page.php?id=<?php echo urlencode($ro['id']); ?>"
+                class="inline-flex items-center font-medium text-primary hover:text-blue-800 transition">
+                Explore This Trek <i class="fas fa-arrow-right ml-2"></i>
+              </a>
+            </div>
+          </div>
+        <?php }?>
+>>>>>>> 7bce92b (Home page change-Alows to add advanture from admin panel)
       </div>
 
       <!-- CTA Button -->
