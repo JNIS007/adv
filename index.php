@@ -54,7 +54,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const dropdown = document.getElementById('countries-dropdown');
       const mainToggle = document.getElementById('main-toggle');
 
@@ -96,7 +96,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const bookingDropdown = document.getElementById('booking-dropdown');
       const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
 
@@ -138,7 +138,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const travelDropdown = document.getElementById('travel-dropdown');
       const travelTrigger = document.getElementById('travel-trigger');
 
@@ -162,7 +162,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         }, 200);
       });
     });
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const csrDropdown = document.getElementById('csr-dropdown');
       const csrTrigger = document.getElementById('csr-trigger');
 
@@ -448,7 +448,8 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <a href="booking.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Book Your Trip</a>
               <a href="how_to_pay.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">How to Pay</a>
               <a href="payOnline.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pay Online</a>
-              <a href="termsandconditions.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms & conditions</a>
+              <a href="termsandconditions.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms &
+                conditions</a>
               <a href="DiscountOffers.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Discount
                 Offers</a>
             </div>
@@ -462,13 +463,19 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             <!-- Dropdown Menu -->
             <div id="travel-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
               <a href="nepalvisa.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nepali Visa</a>
-              <a href="nepaltravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nepal Travel Guide</a>
-              <a href="equipmentchecklist.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Equipment Check List</a>
-              <a href="travelinsurance.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Travel Insurance</a>
-              <a href="besttimetotravel.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Best Time To Travel Nepal</a>
+              <a href="nepaltravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Nepal
+                Travel Guide</a>
+              <a href="equipmentchecklist.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Equipment
+                Check List</a>
+              <a href="travelinsurance.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Travel
+                Insurance</a>
+              <a href="besttimetotravel.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Best Time
+                To Travel Nepal</a>
               <a href="packinglist.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Packing List</a>
-              <a href="bhutantravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bhutan Travel Guide</a>
-              <a href="tibettravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tibet Travel Guide</a>
+              <a href="bhutantravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bhutan
+                Travel Guide</a>
+              <a href="tibettravelguide.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Tibet
+                Travel Guide</a>
             </div>
           </div>
 
@@ -483,20 +490,27 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
             <!-- Dropdown Menu -->
             <div id="csr-dropdown" class="absolute left-0 z-50 hidden mt-2 bg-white rounded-md shadow-lg w-72">
-              <a href="Responsible_tourism.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Responsible Tourism in Nepal with Advanced Adventures</a>
-              <a href="HealthandposterPolicy.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Health & Porter Policy</a>
+              <a href="Responsible_tourism.php"
+                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Responsible Tourism in Nepal with
+                Advanced Adventures</a>
+              <a href="HealthandposterPolicy.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Health
+                & Porter Policy</a>
               <a href="Education.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Education</a>
-              <a href="SocialAwareness.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Social Awareness</a>
-              <a href="PostQuakeRelief.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Post-Quake Relief</a>
+              <a href="SocialAwareness.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Social
+                Awareness</a>
+              <a href="PostQuakeRelief.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Post-Quake
+                Relief</a>
               <a href="Environment.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Environment</a>
-              <a href="LearnNepelaseLanguage.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Learn Nepalese Language</a>
-              <a href="VolunteerTeaching.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Volunteer Teaching</a>
+              <a href="LearnNepelaseLanguage.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Learn
+                Nepalese Language</a>
+              <a href="VolunteerTeaching.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Volunteer
+                Teaching</a>
             </div>
           </div>
 
           <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
           <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
+          <a href="contact.php" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
           <!-- Search Button -->
           <button class="p-2 text-gray-600 hover:text-primary">
             <i class="fas fa-search"></i>
@@ -568,7 +582,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($r = mysqli_fetch_array($q)) {
           $ct = $r["CategoryId"];
-        ?>
+          ?>
           <div class="relative swiper-slide">
             <!-- Background Image -->
             <div class="absolute inset-0 bg-center bg-cover"
@@ -867,7 +881,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $query = mysqli_query($con, "SELECT * FROM topposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-        ?>
+          ?>
 
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
@@ -886,10 +900,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                                                                                                    $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                                                                                                    $r = mysqli_fetch_array($q);
-                                                                                                    echo $r["CategoryName"];
-                                                                                                    ?></span>
+                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                $r = mysqli_fetch_array($q);
+                echo $r["CategoryName"];
+                ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
@@ -1169,7 +1183,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
         $sql = mysqli_query($con, "SELECT * FROM popularposts WHERE Is_Active = 1");
         while ($ro = mysqli_fetch_array($sql)) {
           $ctid = $ro["CategoryId"];
-        ?>
+          ?>
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
               <img src="admin/postimages/<?php echo htmlentities($ro['PostImage']); ?>"
@@ -1187,10 +1201,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($ro['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                                                                                                    $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                                                                                                    $rr = mysqli_fetch_array($qr);
-                                                                                                    echo $rr["CategoryName"];
-                                                                                                    ?></span>
+                $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                $rr = mysqli_fetch_array($qr);
+                echo $rr["CategoryName"];
+                ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($ro['PostUrl']); ?>">
@@ -1631,7 +1645,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     });
 
     // Reset animations when slide changes (for main swiper)
-    mainSwiper.on('slideChange', function() {
+    mainSwiper.on('slideChange', function () {
       const slides = document.querySelectorAll('.swiper-slide');
       slides.forEach(slide => {
         const animElements = slide.querySelectorAll('[class*="animate-"]');
