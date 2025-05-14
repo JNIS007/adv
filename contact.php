@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title> <i class="fas fa-file-contract "></i> | Advanced Adventures</title>
+  <title> Contact us| Advanced Adventures</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -316,5 +316,8 @@
       <i class="text-2xl fab fa-whatsapp"></i>
     </a>
   </div>
+  <?php
+  include("footer.php");
+  ?>
 
 </body>

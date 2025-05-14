@@ -15,42 +15,6 @@ $relatedPages = [
 <?php
 include("./admin/includes/config.php");
 
-$menuData = [];
-
-$dests = mysqli_query($con, "SELECT * FROM tbldest");
-while ($dest = mysqli_fetch_assoc($dests)) {
-  $destId = $dest['Id'];
-  $menuData[$destId] = [
-    'name' => $dest['DestName'],
-    'categories' => []
-  ];
-
-  $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
-  while ($cat = mysqli_fetch_assoc($cats)) {
-    $catId = $cat['id'];
-    $menuData[$destId]['categories'][$catId] = [
-      'name' => $cat['CategoryName'],
-      'subcategories' => []
-    ];
-
-    $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
-    while ($sub = mysqli_fetch_assoc($subs)) {
-      $subId = $sub['SubCategoryId'];
-      $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [
-        'name' => $sub['Subcategory'],
-        'posts' => []
-      ];
-
-      $posts = mysqli_query($con, "SELECT * FROM tblPosts WHERE CategoryId = $catId AND SubCategoryId = $subId");
-      while ($post = mysqli_fetch_assoc($posts)) {
-        $menuData[$destId]['categories'][$catId]['subcategories'][$subId]['posts'][] = [
-          'id' => $post['id'],
-          'title' => $post['PostTitle']
-        ];
-      }
-    }
-  }
-}
 ?>
 
 <!DOCTYPE html>
@@ -60,203 +24,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Advanced Adventures - Nepal Trekking & Tours</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const dropdown = document.getElementById('countries-dropdown');
-      const mainToggle = document.getElementById('main-toggle');
-
-      mainToggle.addEventListener('mouseenter', () => {
-        dropdown.classList.remove('hidden');
-      });
-
-      mainToggle.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-          if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
-            dropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      dropdown.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-          if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
-            dropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      const submenuButtons = document.querySelectorAll('#countries-dropdown button');
-
-      submenuButtons.forEach(button => {
-        const submenu = button.nextElementSibling;
-        if (!submenu) return;
-
-        button.addEventListener('mouseenter', () => {
-          submenu.classList.remove('hidden');
-        });
-
-        button.parentElement.addEventListener('mouseleave', () => {
-          submenu.classList.add('hidden');
-        });
-      });
-    });
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'brand-green': '#2ecc71',
-            'brand-blue': '#3498db',
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    .dropdown-content {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: all 0.2s ease;
-    }
-
-    .dropdown:hover .dropdown-content,
-    .dropdown:focus-within .dropdown-content {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .whatsapp-float {
-      position: fixed;
-      bottom: 40px;
-      right: 40px;
-      z-index: 50;
-    }
-  </style>
-</head>
-
-<body class="font-sans antialiased">
-  <!-- Top info bar -->
-  <div class="py-2 text-sm text-white bg-gray-800">
-    <div class="container flex items-center justify-between px-4 mx-auto text-sm md:text-base">
-      <span><i class="mr-1 fas fa-medal"></i> 15 Years Experience</span>
-      <div>
-        <div class="flex items-center space-x-4">
-          <span><i class="mr-1 fas fa-phone-alt"></i> +977-9851189771</span>
-          <a href="https://api.whatsapp.com/send?phone=9779851189771" target="_blank" class="hover:text-secondary">
-            <i class="mr-1 fab fa-whatsapp"></i> WhatsApp
-          </a>
-          <a href="viber://contact?number=9779851189771" target="_blank" class="hover:text-secondary">
-            <i class="mr-1 fab fa-viber"></i> Viber
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main header -->
-  <header class="sticky top-0 z-50 bg-white shadow-md">
-    <div class="container px-4 mx-auto">
-      <div class="flex items-center justify-between py-4">
-        <!-- Logo -->
-        <a href="#" class="flex items-center">
-          <img src="assets/logo.png" alt="Advanced Adventures" class="object-contain h-12 md:h-16">
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="items-center hidden space-x-8 lg:flex">
-          <!-- Destinations Mega Menu -->
-          <div class="relative">
-            <button id="main-toggle" class="flex items-center font-medium text-gray-700 transition hover:text-primary">
-              Destination <i class="ml-1 text-xs fas fa-chevron-down"></i>
-            </button>
-
-            <div id="countries-dropdown" class="absolute left-0 hidden w-48 mt-2 bg-white rounded-md shadow-xl">
-              <ul class="py-1">
-                <?php foreach ($menuData as $dest): ?>
-                  <li class="relative group">
-                    <button
-                      class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                      <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
-                    </button>
-
-                    <div class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
-                      <ul class="py-1">
-                        <?php foreach ($dest['categories'] as $cat): ?>
-                          <li class="relative group">
-                            <button
-                              class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                              <?= $cat['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
-                            </button>
-
-                            <div class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
-                              <ul class="py-1">
-                                <?php foreach ($cat['subcategories'] as $sub): ?>
-                                  <li class="relative group">
-                                    <button
-                                      class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                      <?= $sub['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
-                                    </button>
-
-                                    <div
-                                      class="absolute top-0 hidden bg-white rounded-md shadow-xl whitespace-nowrap left-full">
-                                      <ul class="py-1">
-                                        <?php foreach ($sub['posts'] as $post): ?>
-                                          <li>
-                                            <a href="new_page.php?id=<?= $post['id'] ?>"
-                                              class="block px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                              <?= $post['title'] ?>
-                                            </a>
-                                          </li>
-                                        <?php endforeach; ?>
-                                      </ul>
-                                    </div>
-                                  </li>
-                                <?php endforeach; ?>
-                              </ul>
-                            </div>
-                          </li>
-                        <?php endforeach; ?>
-                      </ul>
-                    </div>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-          </div>
-
-
-          <!-- Other Menu Items -->
-          <a href="/page/booking.html" class="font-medium text-gray-700 transition hover:text-primary">Booking</a>
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 transition hover:text-primary">Travel
-            Guide</a>
-          <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
-          <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
-          <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
-          <!-- Search Button -->
-          <button class="p-2 text-gray-600 hover:text-primary">
-            <i class="fas fa-search"></i>
-          </button>
-
-          <!-- CTA Button -->
-          <a href="/page/book-your-trip.html"
-            class="bg-[#122747] hover:bg-[#122560] text-white px-4 py-2 rounded-md font-medium transition">
-            Book Now
-          </a>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <?php
+  include("header.php")
+  ?>
   <div class="container px-4 py-4 mx-auto">
     <nav aria-label="breadcrumb" class="text-sm text-gray-600">
       <ol class="flex items-center space-x-2">
@@ -480,6 +250,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     class="flex items-center justify-center w-16 h-16 text-white transition duration-300 bg-green-500 rounded-full shadow-lg whatsapp-float hover:bg-green-600">
     <i class="text-3xl fab fa-whatsapp"></i>
   </a>
-</body>
+  <?php
+  include("footer.php");
+  ?>
+  </body>
 
 </html>
