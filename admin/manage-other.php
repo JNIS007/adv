@@ -84,16 +84,16 @@ $error="Something went wrong. Please try again.";
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="page-title-box">
-                                    <h4 class="page-title">Manage Other Content</h4>
+                                    <h4 class="page-title">Manage Package Details</h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Admin</a>
                                         </li>
                                         <li>
-                                            <a href="#">Other Content</a>
+                                            <a href="#"> Package Details</a>
                                         </li>
                                         <li class="active">
-                                            Manage Other Content
+                                            Manage Package Details
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>

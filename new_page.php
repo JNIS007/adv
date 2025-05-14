@@ -14,186 +14,184 @@ if ($id == '') {
 
   $roo = mysqli_fetch_assoc($result);
 
-if(mysqli_num_rows($result) > 0) {
+  if (mysqli_num_rows($result) > 0) {
 
-  $itineraryText = $roo["Detailed_Itinerary"];
-  $inputString = $roo["Useful_Information"];
-  $inc = $roo["Inc"];
-  $exe = $roo["Exc"];
-  $altitudeDataJson = $roo["chart_data"]; // Your JSON string: '[{"outline":"Day 01","height":"1350"},{"outline":"Day 04","height":"1560"}]'
-  $Important_Note = $roo["Important_Note"];
-  $Recommended_Package = $roo["Recommended_Package"];
-  // Decode the JSON data
-  $altitudeData = json_decode($altitudeDataJson, true);
+    $itineraryText = $roo["Detailed_Itinerary"];
+    $inputString = $roo["Useful_Information"];
+    $inc = $roo["Inc"];
+    $exe = $roo["Exc"];
+    $altitudeDataJson = $roo["chart_data"]; // Your JSON string: '[{"outline":"Day 01","height":"1350"},{"outline":"Day 04","height":"1560"}]'
+    $Important_Note = $roo["Important_Note"];
+    $Recommended_Package = $roo["Recommended_Package"];
+    // Decode the JSON data
+    $altitudeData = json_decode($altitudeDataJson, true);
 
-  // Prepare arrays for Chart.js
-  $labels = [];
-  $dataPoints = [];
-  $dayDetails = [];
+    // Prepare arrays for Chart.js
+    $labels = [];
+    $dataPoints = [];
+    $dayDetails = [];
 
-  foreach ($altitudeData as $item) {
-    $labels[] = $item['outline'];
-    $dataPoints[] = (int) $item['height'];
-    $dayDetails[] = $item['outline'] . " - " . $item['height'] . "m";
-  }
-
-  // Fill in missing days with null values (if needed)
-  $completeLabels = [];
-  $completeData = [];
-  $completeDetails = [];
-
-  for ($i = 1; $i <= count($altitudeData); $i++) {
-    $dayStr = 'Day ' . str_pad($i, 2, '0', STR_PAD_LEFT);
-    $completeLabels[] = $dayStr;
-
-    $found = false;
     foreach ($altitudeData as $item) {
-      if ($item['outline'] === $dayStr) {
-        $completeData[] = (int) $item['height'];
-        $completeDetails[] = $item['outline'] . " - " . $item['height'] . "m";
-        $found = true;
-        break;
-      }
+      $labels[] = $item['outline'];
+      $dataPoints[] = (int) $item['height'];
+      $dayDetails[] = $item['outline'] . " - " . $item['height'] . "m";
     }
 
-    if (!$found) {
-      $completeData[] = null;
-      $completeDetails[] = $dayStr . " - No data";
-    }
-  }
+    // Fill in missing days with null values (if needed)
+    $completeLabels = [];
+    $completeData = [];
+    $completeDetails = [];
 
-  $it = explode('|', $inc);
+    for ($i = 1; $i <= count($altitudeData); $i++) {
+      $dayStr = 'Day ' . str_pad($i, 2, '0', STR_PAD_LEFT);
+      $completeLabels[] = $dayStr;
 
-  $exit = explode('|', $exe);
-
-  $items = explode('|', $inputString);
-
-  $smtrek = explode('|', $Recommended_Package);
-
-  // Trim whitespace from each item and create an associative array
-  $result = [];
-  foreach ($items as $item) {
-    $item = trim($item);
-    if (!empty($item)) {
-      // Split each item into key-value pairs
-      $parts = explode(':', $item, 2);
-      if (count($parts) === 2) {
-        $key = trim($parts[0]);
-        $value = trim($parts[1]);
-        $result[$key] = $value;
-      }
-    }
-  }
-
-
-  $tripFacts = [];
-
-  // Split by pipe
-  $components = explode('|', $Important_Note);
-
-  foreach ($components as $component) {
-    $component = trim($component);
-    if (strpos($component, ':') !== false) {
-      list($key, $value) = explode(':', $component, 2);
-      $tripFacts[trim($key)] = trim($value);
-    }
-  }
-
-
-
-
-
-
-
-
-
-  // Display the results
-// echo "<ul>";
-// foreach ($result as $key => $value) {
-//     echo "<li><strong>$key:</strong> $value</li>";
-// }
-// echo "</ul>";
-
-  // Parse the text into structured days
-  // Parse itinerary text with pipe delimiter
-  $days = [];
-  if (!empty($itineraryText)) {
-    // Split by day delimiter (assuming each day starts with "Day XX:")
-    $dayEntries = preg_split('/(?=Day \d{2}:)/', $itineraryText, -1, PREG_SPLIT_NO_EMPTY);
-
-    foreach ($dayEntries as $dayEntry) {
-      // Split the day entry into components using pipe delimiter
-      $components = explode('|', $dayEntry);
-
-      // Initialize day array
-      $day = [
-        'day' => '',
-        'title' => '',
-        'altitude' => '',
-        'meals' => '',
-        'description' => ''
-      ];
-
-      // Process each component
-      foreach ($components as $component) {
-        $component = trim($component);
-
-        if (preg_match('/^Day (\d{2}):(.+)$/', $component, $dayMatch)) {
-          $day['day'] = trim($dayMatch[1]);
-          $day['title'] = trim($dayMatch[2]);
-        } elseif (preg_match('/^Altitude:(.+)$/', $component, $altMatch)) {
-          $day['altitude'] = trim($altMatch[1]);
-        } elseif (preg_match('/^Meals:(.+)$/', $component, $mealsMatch)) {
-          $day['meals'] = trim($mealsMatch[1]);
-        } elseif (preg_match('/^Description:(.+)$/', $component, $descMatch)) {
-          $day['description'] = trim($descMatch[1]);
+      $found = false;
+      foreach ($altitudeData as $item) {
+        if ($item['outline'] === $dayStr) {
+          $completeData[] = (int) $item['height'];
+          $completeDetails[] = $item['outline'] . " - " . $item['height'] . "m";
+          $found = true;
+          break;
         }
       }
 
-      // Only add if we have at least a day number and title
-      if (!empty($day['day']) && !empty($day['title'])) {
-        $days[] = $day;
+      if (!$found) {
+        $completeData[] = null;
+        $completeDetails[] = $dayStr . " - No data";
       }
     }
-  }
 
-  // Display the formatted output
-// foreach ($days as $day) {
-//     echo "<div class='itinerary-day'>";
-//     echo "<h3>Day {$day['day']}: {$day['title']}</h3>";
-//     echo "<p><strong>Altitude:</strong> {$day['altitude']}</p>";
-//     echo "<p><strong>Meals:</strong> {$day['meals']}</p>";
-//     echo "<p><strong>Description:</strong> {$day['description']}</p>";
-//     echo "</div><br>";
-// }
-  $data = 1;
-  $qaText = $roo["faq"];
-  $qaPairs = preg_split('/(?<=\.)\s+(?=Q:)/', $qaText);
+    $it = explode('|', $inc);
 
-  $formattedQA = [];
-  foreach ($qaPairs as $pair) {
-    if (preg_match('/Q:\s*(.*?)\s*A:\s*(.*)/', $pair, $matches)) {
-      $formattedQA[] = [
-        'question' => trim($matches[1]),
-        'answer' => trim($matches[2])
-      ];
+    $exit = explode('|', $exe);
+
+    $items = explode('|', $inputString);
+
+    $smtrek = explode('|', $Recommended_Package);
+
+    // Trim whitespace from each item and create an associative array
+    $result = [];
+    foreach ($items as $item) {
+      $item = trim($item);
+      if (!empty($item)) {
+        // Split each item into key-value pairs
+        $parts = explode(':', $item, 2);
+        if (count($parts) === 2) {
+          $key = trim($parts[0]);
+          $value = trim($parts[1]);
+          $result[$key] = $value;
+        }
+      }
     }
+
+
+    $tripFacts = [];
+
+    // Split by pipe
+    $components = explode('|', $Important_Note);
+
+    foreach ($components as $component) {
+      $component = trim($component);
+      if (strpos($component, ':') !== false) {
+        list($key, $value) = explode(':', $component, 2);
+        $tripFacts[trim($key)] = trim($value);
+      }
+    }
+
+
+
+
+
+
+
+
+
+    // Display the results
+    // echo "<ul>";
+    // foreach ($result as $key => $value) {
+    //     echo "<li><strong>$key:</strong> $value</li>";
+    // }
+    // echo "</ul>";
+
+    // Parse the text into structured days
+    // Parse itinerary text with pipe delimiter
+    $days = [];
+    if (!empty($itineraryText)) {
+      // Split by day delimiter (assuming each day starts with "Day XX:")
+      $dayEntries = preg_split('/(?=Day \d{2}:)/', $itineraryText, -1, PREG_SPLIT_NO_EMPTY);
+
+      foreach ($dayEntries as $dayEntry) {
+        // Split the day entry into components using pipe delimiter
+        $components = explode('|', $dayEntry);
+
+        // Initialize day array
+        $day = [
+          'day' => '',
+          'title' => '',
+          'altitude' => '',
+          'meals' => '',
+          'description' => ''
+        ];
+
+        // Process each component
+        foreach ($components as $component) {
+          $component = trim($component);
+
+          if (preg_match('/^Day (\d{2}):(.+)$/', $component, $dayMatch)) {
+            $day['day'] = trim($dayMatch[1]);
+            $day['title'] = trim($dayMatch[2]);
+          } elseif (preg_match('/^Altitude:(.+)$/', $component, $altMatch)) {
+            $day['altitude'] = trim($altMatch[1]);
+          } elseif (preg_match('/^Meals:(.+)$/', $component, $mealsMatch)) {
+            $day['meals'] = trim($mealsMatch[1]);
+          } elseif (preg_match('/^Description:(.+)$/', $component, $descMatch)) {
+            $day['description'] = trim($descMatch[1]);
+          }
+        }
+
+        // Only add if we have at least a day number and title
+        if (!empty($day['day']) && !empty($day['title'])) {
+          $days[] = $day;
+        }
+      }
+    }
+
+    // Display the formatted output
+    // foreach ($days as $day) {
+    //     echo "<div class='itinerary-day'>";
+    //     echo "<h3>Day {$day['day']}: {$day['title']}</h3>";
+    //     echo "<p><strong>Altitude:</strong> {$day['altitude']}</p>";
+    //     echo "<p><strong>Meals:</strong> {$day['meals']}</p>";
+    //     echo "<p><strong>Description:</strong> {$day['description']}</p>";
+    //     echo "</div><br>";
+    // }
+    $data = 1;
+    $qaText = $roo["faq"];
+    $qaPairs = preg_split('/(?<=\.)\s+(?=Q:)/', $qaText);
+
+    $formattedQA = [];
+    foreach ($qaPairs as $pair) {
+      if (preg_match('/Q:\s*(.*?)\s*A:\s*(.*)/', $pair, $matches)) {
+        $formattedQA[] = [
+          'question' => trim($matches[1]),
+          'answer' => trim($matches[2])
+        ];
+      }
+    }
+
+    // Display the formatted Q&A
+    // foreach ($formattedQA as $qa) {
+    //     echo '<div class="qa-item">';
+    //     echo '  <div class="font-bold text-blue-600 question">Q: ' . htmlspecialchars($qa['question']) . '</div>';
+    //     echo '  <div class="mt-2 text-gray-700 answer">A: ' . htmlspecialchars($qa['answer']) . '</div>';
+    //     echo '</div>';
+    //     echo '<hr class="my-4">';
+    // }
+  } else {
+    echo "No record found";
+    exit;
   }
-
-  // Display the formatted Q&A
-// foreach ($formattedQA as $qa) {
-//     echo '<div class="qa-item">';
-//     echo '  <div class="question font-bold text-blue-600">Q: ' . htmlspecialchars($qa['question']) . '</div>';
-//     echo '  <div class="answer text-gray-700 mt-2">A: ' . htmlspecialchars($qa['answer']) . '</div>';
-//     echo '</div>';
-//     echo '<hr class="my-4">';
-// }
-}
-
-else {
-echo "No record found";
-exit;
-}
 }
 ?>
 <!DOCTYPE html>
@@ -202,7 +200,11 @@ exit;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nepal, Tibet & Bhutan Introduction Tour - 12 Days | Advanced Adventures</title>
+  <title><?php echo $row["PostTitle"] ?> | Advanced Adventures</title>
+  <?php
+  include("header.php");
+
+  ?>
 
   <!-- External Dependencies -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -225,8 +227,14 @@ exit;
           },
           keyframes: {
             fadeIn: {
-              from: { opacity: '0', transform: 'translateY(20px)' },
-              to: { opacity: '1', transform: 'translateY(0)' }
+              from: {
+                opacity: '0',
+                transform: 'translateY(20px)'
+              },
+              to: {
+                opacity: '1',
+                transform: 'translateY(0)'
+              }
             }
           }
         }
@@ -347,127 +355,20 @@ exit;
 
 <body class="font-sans antialiased bg-gray-50">
   <!-- Top Info Bar -->
-  <div class="bg-gray-800 text-white text-sm py-2">
-    <div class="container mx-auto px-4 flex justify-between items-center">
-      <span><i class="fas fa-medal mr-1"></i> 15 Years Experience</span>
-      <div class="flex items-center space-x-4">
-        <span><span class="font-bold text-yellow-400"><i class="fas fa-headset mr-1"></i> Talk to Expert</span>
-          <i class="fas fa-phone-alt mr-1"></i> +977-9851189771</span>
-        <a href="https://wa.me/9779851189771" target="_blank"
-          class="fixed right-6 bottom-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
-          <i class="fab fa-whatsapp text-white text-3xl"></i>
-        </a>
-      </div>
-    </div>
-  </div>
 
-  <!-- Main Header -->
-  <header class="sticky top-0 z-50 bg-white shadow-md">
-    <div class="container mx-auto px-4">
-      <div class="flex justify-between items-center py-4">
-        <!-- Logo -->
-        <a href="https://www.advadventures.com" class="flex items-center">
-          <img src="assets/logo.png" alt="Advanced Adventures" class="h-12 md:h-16 object-contain">
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="hidden lg:flex items-center space-x-8">
-          <div class="dropdown relative">
-            <button class="flex items-center font-medium text-gray-700 hover:text-primary transition">
-              Destinations <i class="fas fa-chevron-down ml-1 text-xs"></i>
-            </button>
-            <div
-              class="dropdown-content absolute left-0 mt-2 w-96 bg-white shadow-xl rounded-md p-4 grid grid-cols-2 gap-4">
-              <div>
-                <h3 class="font-bold text-primary mb-2">Trekking</h3>
-                <ul class="space-y-2">
-                  <li><a href="/nepal/everest-region-trekking" class="hover:text-secondary">Everest Region</a></li>
-                  <li><a href="/nepal/annapurna-region-trekking" class="hover:text-secondary">Annapurna Region</a></li>
-                  <li><a href="/nepal/langtang-region-trekking" class="hover:text-secondary">Langtang Region</a></li>
-                  <li><a href="/nepal/manaslu-region-trekking" class="hover:text-secondary">Manaslu Region</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="font-bold text-primary mb-2">Tours</h3>
-                <ul class="space-y-2">
-                  <li><a href="/nepal/tours-in-nepal" class="hover:text-secondary">Cultural Tours</a></li>
-                  <li><a href="/nepal/wildlife-tour-in-nepal" class="hover:text-secondary">Wildlife Tours</a></li>
-                  <li><a href="/nepal/luxury-travel" class="hover:text-secondary">Luxury Travel</a></li>
-                  <li><a href="/nepal/day-tours" class="hover:text-secondary">Day Tours</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <a href="/page/booking.html" class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 hover:text-primary transition">Travel
-            Guide</a>
-          <a href="/page/about-us.html" class="font-medium text-gray-700 hover:text-primary transition">About Us</a>
-          <a href="/page/csr.html" class="font-medium text-gray-700 hover:text-primary transition">CSR</a>
-          <a href="/testimonials.html" class="font-medium text-gray-700 hover:text-primary transition">Trip Reviews</a>
-          <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Contact</a>
-          <button class="p-2 text-gray-600 hover:text-primary">
-            <i class="fas fa-search"></i>
-          </button>
-          <a href="/page/book-your-trip.html"
-            class="bg-primary hover:bg-[#122747] text-white px-4 py-2 rounded-md font-medium transition">Enquiry</a>
-        </nav>
-
-        <!-- Mobile Menu Button -->
-        <button class="lg:hidden text-gray-700" id="mobile-menu-button">
-          <i class="fas fa-bars text-2xl"></i>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div class="mobile-menu absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-lg overflow-y-auto">
-        <div class="flex justify-between items-center p-4 border-b">
-          <img src="assets/logo.png" alt="Advanced Adventures" class="h-10">
-          <button id="close-mobile-menu" class="text-gray-600">
-            <i class="fas fa-times text-2xl"></i>
-          </button>
-        </div>
-        <div class="p-4 space-y-4">
-          <div class="accordion">
-            <button class="flex justify-between items-center w-full py-2 font-medium text-gray-700">
-              Destinations <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content hidden pl-4 mt-2 space-y-2">
-              <a href="/nepal" class="block py-1 hover:text-secondary">Nepal</a>
-              <a href="/tibet" class="block py-1 hover:text-secondary">Tibet</a>
-              <a href="/bhutan" class="block py-1 hover:text-secondary">Bhutan</a>
-              <a href="#" class="block py-1 hover:text-secondary">Mt. Kailash</a>
-              <a href="#" class="block py-1 hover:text-secondary">Luxury Travel</a>
-            </div>
-          </div>
-          <a href="/page/booking.html" class="block py-2 font-medium text-gray-700">Booking</a>
-          <a href="/page/travel-guide.html" class="block py-2 font-medium text-gray-700">Travel Guide</a>
-          <a href="/page/about-us.html" class="block py-2 font-medium text-gray-700">About Us</a>
-          <a href="/page/csr.html" class="block py-2 font-medium text-gray-700">CSR</a>
-          <a href="/testimonials.html" class="block py-2 font-medium text-gray-700">Reviews</a>
-          <div class="pt-4 border-t">
-            <a href="/page/book-your-trip.html"
-              class="block w-full bg-primary hover:bg-[#122747] text-white text-center px-4 py-2 rounded-md font-medium">Enquiry</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
 
   <!-- Main Content Container -->
-  <div class="flex flex-col md:flex-row gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="flex flex-col gap-8 px-4 py-8 mx-auto md:flex-row max-w-7xl sm:px-6 lg:px-8">
     <!-- Main Content (3/4 width) -->
     <main class="w-full md:w-3/4">
       <!-- Featured Image -->
-      <div class="mb-8 rounded-xl overflow-hidden shadow-lg">
+      <div class="mb-8 overflow-hidden shadow-lg rounded-xl">
         <img src='./admin/postimages/<?php echo $row['PostImage']; ?>' alt="Nepal, Tibet & Bhutan Introduction Tour"
-          class="w-full h-96 object-cover">
+          class="object-cover w-full h-96">
       </div>
 
       <!-- Breadcrumb -->
-      <div class="text-sm text-gray-600 py-2">
+      <div class="py-2 text-sm text-gray-600">
         Home - Nepal - <?php echo $row["PostTitle"] ?>
       </div>
 
@@ -476,27 +377,27 @@ exit;
         <h1 class="text-3xl font-bold text-accent-blue"><?php echo $row["PostTitle"] ?> – <?php echo $row["Days"] ?>
           Days
         </h1>
-        <p class="text-yellow-600 font-medium mt-1">★★★★★ 140 reviews on TripAdvisor | Recommended by 99% of travelers
+        <p class="mt-1 font-medium text-yellow-600">★★★★★ 140 reviews on TripAdvisor | Recommended by 99% of travelers
         </p>
       </div>
 
       <!-- Sticky Navigation -->
-      <div class="sticky top-28 z-40 bg-white shadow-md py-2 mb-8">
-        <div class="max-w-7xl mx-auto px-4 flex overflow-x-auto space-x-6">
-          <a href="#facts" class="text-blue-600 font-semibold hover:text-secondary">Trip Facts</a>
-          <a href="#overview" class="text-blue-600 font-semibold hover:text-secondary">Overview</a>
-          <a href="#itinerary" class="text-blue-600 font-semibold hover:text-secondary">Itinerary</a>
-          <a href="#includes" class="text-blue-600 font-semibold hover:text-secondary">Includes/Exclude</a>
-          <a href="#info" class="text-blue-600 font-semibold hover:text-secondary">Useful Info</a>
-          <a href="#faqs" class="text-blue-600 font-semibold hover:text-secondary">FAQs</a>
-          <a href="#reviews" class="text-blue-600 font-semibold hover:text-secondary">Reviews</a>
+      <div class="sticky z-40 py-2 mb-8 bg-white shadow-md top-28">
+        <div class="flex px-4 mx-auto space-x-6 overflow-x-auto max-w-7xl">
+          <a href="#facts" class="font-semibold text-blue-600 hover:text-secondary">Trip Facts</a>
+          <a href="#overview" class="font-semibold text-blue-600 hover:text-secondary">Overview</a>
+          <a href="#itinerary" class="font-semibold text-blue-600 hover:text-secondary">Itinerary</a>
+          <a href="#includes" class="font-semibold text-blue-600 hover:text-secondary">Includes/Exclude</a>
+          <a href="#info" class="font-semibold text-blue-600 hover:text-secondary">Useful Info</a>
+          <a href="#faqs" class="font-semibold text-blue-600 hover:text-secondary">FAQs</a>
+          <a href="#reviews" class="font-semibold text-blue-600 hover:text-secondary">Reviews</a>
         </div>
       </div>
 
       <!-- Trip Facts Section -->
-      <section id="facts" class="bg-blue-50 p-8 rounded-xl shadow-lg mb-10">
-        <h2 class="text-3xl font-bold text-accent-blue mb-8 border-b-2 border-accent-blue pb-4">Trip Facts</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section id="facts" class="p-8 mb-10 shadow-lg bg-blue-50 rounded-xl">
+        <h2 class="pb-4 mb-8 text-3xl font-bold border-b-2 text-accent-blue border-accent-blue">Trip Facts</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           <?php foreach ($tripFacts as $label => $value): ?>
             <div class="flex items-start space-x-4">
               <div class="w-8 mt-1 text-accent-blue">
@@ -509,7 +410,7 @@ exit;
                 </svg>
               </div>
               <div>
-                <h3 class="font-semibold text-lg mb-1"><?= htmlspecialchars($label) ?></h3>
+                <h3 class="mb-1 text-lg font-semibold"><?= htmlspecialchars($label) ?></h3>
                 <p class="text-gray-700"><?= htmlspecialchars($value) ?></p>
               </div>
             </div>
@@ -518,14 +419,14 @@ exit;
       </section>
 
       <!-- Trip Overview Section -->
-      <section id="overview" class="bg-blue-50 p-8 rounded-xl shadow-lg mb-10">
-        <h2 class="text-3xl font-bold text-accent-blue mb-8 border-b-2 border-accent-blue pb-4">Trip Overview</h2>
-        <div class="space-y-6 text-gray-700 leading-relaxed">
+      <section id="overview" class="p-8 mb-10 shadow-lg bg-blue-50 rounded-xl">
+        <h2 class="pb-4 mb-8 text-3xl font-bold border-b-2 text-accent-blue border-accent-blue">Trip Overview</h2>
+        <div class="space-y-6 leading-relaxed text-gray-700">
           <p>
             <?php echo $row["PostDetails"]; ?>
           </p>
-          <div class="bg-white/70 p-6 rounded-lg border-l-4 border-accent-blue">
-            <h3 class="text-xl font-semibold mb-4 text-accent-blue">Key Highlights</h3>
+          <div class="p-6 border-l-4 rounded-lg bg-white/70 border-accent-blue">
+            <h3 class="mb-4 text-xl font-semibold text-accent-blue">Key Highlights</h3>
             <ul class="space-y-2">
               <?php foreach ($result as $key => $value) { ?>
                 <li class="flex items-start space-x-2">
@@ -546,40 +447,40 @@ exit;
       <!-- ... [Remaining content sections would follow here with identical structure] ... -->
 
       <!-- Compact Short Itinerary -->
-      <section class="bg-blue-50 p-6 rounded-xl shadow-sm mb-8">
+      <section class="p-6 mb-8 shadow-sm bg-blue-50 rounded-xl">
         <h2 class="text-3xl font-bold text-[#005FAB] mb-6 border-b-2 border-[#005FAB] pb-4">Short Itinerary</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
           <!-- Day Items -->
           <?php foreach ($days as $day) {
-            ?>
-            <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          ?>
+            <div class="p-4 transition-shadow rounded-lg shadow-sm bg-white/90 hover:shadow-md">
               <div class="flex items-start gap-3">
                 <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">
                   <?php echo $day['day']; ?>
                 </div>
                 <div>
-                  <h3 class="font-semibold text-gray-800 mb-1"><?php echo $day['title']; ?></h3>
+                  <h3 class="mb-1 font-semibold text-gray-800"><?php echo $day['title']; ?></h3>
                 </div>
               </div>
             </div>
           <?php } ?>
-          
+
       </section>
 
 
       <!-- Detailed Itinerary -->
-      <section class="bg-blue-50 p-6 rounded-xl shadow-sm mb-8">
+      <section class="p-6 mb-8 shadow-sm bg-blue-50 rounded-xl">
         <h2 class="text-3xl font-bold text-[#005FAB] mb-8 border-b-2 border-[#005FAB] pb-4">Detailed Itinerary</h2>
-        <div class="space-y-6 text-gray-700 leading-relaxed">
+        <div class="space-y-6 leading-relaxed text-gray-700">
           <div x-data="{ selected: null }" class="space-y-4">
 
             <!-- Day 01 -->
             <?php
             foreach ($days as $day) {
-              ?>
+            ?>
               <div class="border border-gray-200 rounded-lg">
                 <button @click="selected !== <?php echo $i; ?> ? selected = <?php echo $i; ?> : selected = null"
-                  class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-black">
+                  class="flex items-center justify-between w-full px-4 py-3 font-semibold text-left text-black">
                   <span><strong>Day <?php echo $day['day']; ?>:</strong> <?php echo $day['title']; ?></span>
                   <span x-show="selected !== <?php echo $i; ?>">+</span>
                   <span x-show="selected === <?php echo $i; ?>">−</span>
@@ -591,13 +492,13 @@ exit;
                   <p><?php echo $day['description']; ?></p>
                 </div>
               </div>
-              <?php
+            <?php
               $i++;
             } ?>
           </div>
         </div>
       </section>
-      <section class="bg-blue-50 p-6 rounded-xl shadow-sm mb-8 text-center">
+      <section class="p-6 mb-8 text-center shadow-sm bg-blue-50 rounded-xl">
         <h2 class="text-2xl font-bold text-[#005FAB] mb-4">Not satisfied with this itinerary?</h2>
         <p class="mb-4 text-gray-700">We can customize it to suit your travel needs.</p>
         <a href="#" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-[#122747] transition">
@@ -613,9 +514,9 @@ exit;
 
 
       <!-- Altitude Map -->
-      <section class="bg-blue-50 p-6 rounded-xl shadow-sm">
+      <section class="p-6 shadow-sm bg-blue-50 rounded-xl">
         <h2 class="text-3xl font-bold text-[#005FAB] mb-8 border-b-2 border-[#005FAB] pb-4">Altitude Map</h2>
-        <div class="bg-gray-100 h-96 rounded-lg flex items-center justify-center">
+        <div class="flex items-center justify-center bg-gray-100 rounded-lg h-96">
           <canvas id="altitudeChart" class="w-full h-full"></canvas>
         </div>
       </section>
@@ -655,10 +556,10 @@ exit;
                   weight: 'bold'
                 },
                 callbacks: {
-                  title: function (context) {
+                  title: function(context) {
                     return context[0].label;
                   },
-                  label: function (context) {
+                  label: function(context) {
                     const dayDetails = <?php echo json_encode($completeDetails); ?>;
                     return dayDetails[context.dataIndex];
                   }
@@ -719,39 +620,39 @@ exit;
       </script>
 
       <!-----------------Includes and Excludes--------------------->
-      <section class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2">What's Included?</h2>
-        <ul class="list-disc pl-6 space-y-4 text-gray-700">
+      <section class="p-6 mt-8 shadow-lg bg-blue-50 rounded-xl">
+        <h2 class="pb-2 mb-6 text-3xl font-bold text-gray-800 border-b-2">What's Included?</h2>
+        <ul class="pl-6 space-y-4 text-gray-700 list-disc">
           <?php
           foreach ($it as $itm) {
             $cleanItem = trim($itm);
 
-            ?>
+          ?>
 
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
-            <?php if (!empty($cleanItem)) {
-              echo "<span>{$cleanItem}</span>";
-            } ?>
-          </li>
+            <li class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 bg-blue-500 rounded-full"></span>
+              <?php if (!empty($cleanItem)) {
+                echo "<span>{$cleanItem}</span>";
+              } ?>
+            </li>
           <?php } ?>
         </ul>
       </section>
 
-      <section class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2">What's Not Included?</h2>
-        <ul class="list-disc pl-6 space-y-4 text-gray-700">
+      <section class="p-6 mt-8 shadow-lg bg-blue-50 rounded-xl">
+        <h2 class="pb-2 mb-6 text-3xl font-bold text-gray-800 border-b-2">What's Not Included?</h2>
+        <ul class="pl-6 space-y-4 text-gray-700 list-disc">
           <?php
           foreach ($exit as $itmm) {
             $cleanItem = trim($itmm);
 
-            ?>
-          <li class="flex items-center space-x-2">
-            <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
-            <?php if (!empty($cleanItem)) {
-              echo "<span>{$cleanItem}</span>";
-            } ?>
-          </li>
+          ?>
+            <li class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 bg-red-500 rounded-full"></span>
+              <?php if (!empty($cleanItem)) {
+                echo "<span>{$cleanItem}</span>";
+              } ?>
+            </li>
 
           <?php } ?>
         </ul>
@@ -760,273 +661,277 @@ exit;
 
 
 
-<!-- Departure Dates Section -->
-<section id="departures" class="bg-white p-6 rounded-xl shadow-lg mt-8 border border-gray-200">
-  <h2 class="text-3xl font-bold text-gray-800 mb-4"><?php echo $row["PostTitle"]; ?></h2>
-  
-  <p class="text-gray-700 mb-6">
-    Choose between joining a fixed departure group or creating your own private trip. 
-    Below are the upcoming group departures for 2025 & 2026.
-  </p>
+      <!-- Departure Dates Section -->
+      <section id="departures" class="p-6 mt-8 bg-white border border-gray-200 shadow-lg rounded-xl">
+        <h2 class="mb-4 text-3xl font-bold text-gray-800"><?php echo $row["PostTitle"]; ?></h2>
 
-  <!-- Tabs -->
-  <div class="flex space-x-2 mb-6">
-    <button id="tab-group" class="tab-button bg-primary text-white px-4 py-2 rounded-md font-medium">Group Departures</button>
-    <button id="tab-private" class="tab-button bg-gray-200 text-gray-800 px-4 py-2 rounded-md font-medium">Private Trip</button>
-  </div>
+        <p class="mb-6 text-gray-700">
+          Choose between joining a fixed departure group or creating your own private trip.
+          Below are the upcoming group departures for 2025 & 2026.
+        </p>
 
-  <!-- Date Filters -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-    <div>
-      <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-      <input type="date" id="startDate" class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
-    </div>
-    <div>
-      <label for="endDate" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-      <input type="date" id="endDate" class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
-    </div>
-  </div>
-  <input type="hidden" id="postId" value="<?php echo $id; ?>">
+        <!-- Tabs -->
+        <div class="flex mb-6 space-x-2">
+          <button id="tab-group" class="px-4 py-2 font-medium text-white rounded-md tab-button bg-primary">Group Departures</button>
+          <button id="tab-private" class="px-4 py-2 font-medium text-gray-800 bg-gray-200 rounded-md tab-button">Private Trip</button>
+        </div>
 
-  <!-- Departures Table -->
-  <div class="overflow-x-auto">
-    <table class="min-w-full divide-y divide-gray-200">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trip Starts</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trip Ends</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price Per Person</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Book Now</th>
-        </tr>
-      </thead>
-      <tbody id="departure-data" class="bg-white divide-y divide-gray-200">
-        <!-- Initial data loaded from PHP -->
-        <?php
-        $postQuery = mysqli_query($con, "SELECT * FROM tblpostdetails WHERE post_id = $id");
-        if(mysqli_num_rows($postQuery) > 0) {
-          while($fetch = mysqli_fetch_assoc($postQuery)) {
-            echo '
+        <!-- Date Filters -->
+        <div class="grid grid-cols-1 gap-4 mb-6 md:grid-cols-2">
+          <div>
+            <label for="startDate" class="block mb-1 text-sm font-medium text-gray-700">Start Date</label>
+            <input type="date" id="startDate" class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+          </div>
+          <div>
+            <label for="endDate" class="block mb-1 text-sm font-medium text-gray-700">End Date</label>
+            <input type="date" id="endDate" class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+          </div>
+        </div>
+        <input type="hidden" id="postId" value="<?php echo $id; ?>">
+
+        <!-- Departures Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Trip Starts</th>
+                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Trip Ends</th>
+                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Price Per Person</th>
+                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Status</th>
+                <th class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">Book Now</th>
+              </tr>
+            </thead>
+            <tbody id="departure-data" class="bg-white divide-y divide-gray-200">
+              <!-- Initial data loaded from PHP -->
+              <?php
+              $postQuery = mysqli_query($con, "SELECT * FROM tblpostdetails WHERE post_id = $id");
+              if (mysqli_num_rows($postQuery) > 0) {
+                while ($fetch = mysqli_fetch_assoc($postQuery)) {
+                  echo '
             <tr>
-              <td class="px-6 py-4 whitespace-nowrap">'.date('d M Y', strtotime($fetch["start_date"])).'</td>
-              <td class="px-6 py-4 whitespace-nowrap">'.date('d M Y', strtotime($fetch["end_date"])).'</td>
-              <td class="px-6 py-4 whitespace-nowrap">USD '.$fetch["cost_per_person"].'</td>
+              <td class="px-6 py-4 whitespace-nowrap">' . date('d M Y', strtotime($fetch["start_date"])) . '</td>
+              <td class="px-6 py-4 whitespace-nowrap">' . date('d M Y', strtotime($fetch["end_date"])) . '</td>
+              <td class="px-6 py-4 whitespace-nowrap">USD ' . $fetch["cost_per_person"] . '</td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
                   Available
                 </span>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <button class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium">
+                <button class="px-4 py-2 text-sm font-medium text-white rounded-md bg-primary hover:bg-primary-dark">
                   Book Now
                 </button>
               </td>
             </tr>';
-          }
-        } else {
-          echo '
+                }
+              } else {
+                echo '
           <tr>
             <td colspan="5" class="px-6 py-4 text-center text-gray-500">
               No departures available
             </td>
           </tr>';
-        }
-        ?>
-      </tbody>
-    </table>
-  </div>
+              }
+              ?>
+            </tbody>
+          </table>
+        </div>
 
-  <!-- Private Trip Content -->
-  <div id="private-departures" class="hidden mt-6 bg-blue-50 p-6 rounded-lg">
-    <h3 class="text-xl font-semibold text-gray-800 mb-2">Plan a Private Trip</h3>
-    <p class="text-gray-700 mb-4">
-      Looking for a private departure with your own group, family, or solo? We can customize this trek based on your
-      preferred dates, comfort level, and travel style.
-    </p>
-    <a href="#inquiry-form" class="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-md font-medium">
-      Inquire About a Private Trip
-    </a>
-  </div> <button id="refresh-btn" class="ml-4 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium flex items-center">
-    <i class="fas fa-sync-alt mr-2"></i> Reset Filters
-  </button>
-</section>
+        <!-- Private Trip Content -->
+        <div id="private-departures" class="hidden p-6 mt-6 rounded-lg bg-blue-50">
+          <h3 class="mb-2 text-xl font-semibold text-gray-800">Plan a Private Trip</h3>
+          <p class="mb-4 text-gray-700">
+            Looking for a private departure with your own group, family, or solo? We can customize this trek based on your
+            preferred dates, comfort level, and travel style.
+          </p>
+          <a href="#inquiry-form" class="inline-block px-6 py-2 font-medium text-white rounded-md bg-primary hover:bg-primary-dark">
+            Inquire About a Private Trip
+          </a>
+        </div> <button id="refresh-btn" class="flex items-center px-4 py-2 ml-4 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300">
+          <i class="mr-2 fas fa-sync-alt"></i> Reset Filters
+        </button>
+      </section>
 
-<script>
-// Tab Switching
-document.getElementById('tab-group').addEventListener('click', () => {
-  document.getElementById('departures').querySelector('.overflow-x-auto').classList.remove('hidden');
-  document.getElementById('private-departures').classList.add('hidden');
-  document.getElementById('tab-group').classList.remove('bg-gray-200');
-  document.getElementById('tab-group').classList.add('bg-primary', 'text-white');
-  document.getElementById('tab-private').classList.remove('bg-primary', 'text-white');
-  document.getElementById('tab-private').classList.add('bg-gray-200', 'text-gray-800');
-});
+      <script>
+        // Tab Switching
+        document.getElementById('tab-group').addEventListener('click', () => {
+          document.getElementById('departures').querySelector('.overflow-x-auto').classList.remove('hidden');
+          document.getElementById('private-departures').classList.add('hidden');
+          document.getElementById('tab-group').classList.remove('bg-gray-200');
+          document.getElementById('tab-group').classList.add('bg-primary', 'text-white');
+          document.getElementById('tab-private').classList.remove('bg-primary', 'text-white');
+          document.getElementById('tab-private').classList.add('bg-gray-200', 'text-gray-800');
+        });
 
-document.getElementById('tab-private').addEventListener('click', () => {
-  document.getElementById('private-departures').classList.remove('hidden');
-  document.getElementById('departures').querySelector('.overflow-x-auto').classList.add('hidden');
-  document.getElementById('tab-private').classList.remove('bg-gray-200');
-  document.getElementById('tab-private').classList.add('bg-primary', 'text-white');
-  document.getElementById('tab-group').classList.remove('bg-primary', 'text-white');
-  document.getElementById('tab-group').classList.add('bg-gray-200', 'text-gray-800');
-});
+        document.getElementById('tab-private').addEventListener('click', () => {
+          document.getElementById('private-departures').classList.remove('hidden');
+          document.getElementById('departures').querySelector('.overflow-x-auto').classList.add('hidden');
+          document.getElementById('tab-private').classList.remove('bg-gray-200');
+          document.getElementById('tab-private').classList.add('bg-primary', 'text-white');
+          document.getElementById('tab-group').classList.remove('bg-primary', 'text-white');
+          document.getElementById('tab-group').classList.add('bg-gray-200', 'text-gray-800');
+        });
 
-// Date Filtering with AJAX
-document.getElementById('startDate').addEventListener('change', fetchDepartures);
-document.getElementById('endDate').addEventListener('change', fetchDepartures);
+        // Date Filtering with AJAX
+        document.getElementById('startDate').addEventListener('change', fetchDepartures);
+        document.getElementById('endDate').addEventListener('change', fetchDepartures);
 
-function fetchDepartures() {
-  const startDate = document.getElementById('startDate').value;
-  const endDate = document.getElementById('endDate').value;
-  const postId = document.getElementById('postId').value;
+        function fetchDepartures() {
+          const startDate = document.getElementById('startDate').value;
+          const endDate = document.getElementById('endDate').value;
+          const postId = document.getElementById('postId').value;
 
-  // Only fetch if both dates are selected
-  if (startDate && endDate) {
-    // Show loading state
-    const tbody = document.getElementById('departure-data');
-    tbody.innerHTML = `
+          // Only fetch if both dates are selected
+          if (startDate && endDate) {
+            // Show loading state
+            const tbody = document.getElementById('departure-data');
+            tbody.innerHTML = `
       <tr>
         <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-          <i class="fas fa-spinner fa-spin mr-2"></i> Loading departures...
+          <i class="mr-2 fas fa-spinner fa-spin"></i> Loading departures...
         </td>
       </tr>
     `;
 
-    // Make AJAX request
-    fetch('fetch-departures.php', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `start_date=${startDate}&end_date=${endDate}&post_id=${postId}`
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      updateDepartureTable(data);
-    })
-    .catch(error => {
-      console.error('Error fetching departures:', error);
-      tbody.innerHTML = `
+            // Make AJAX request
+            fetch('fetch-departures.php', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `start_date=${startDate}&end_date=${endDate}&post_id=${postId}`
+              })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+                return response.json();
+              })
+              .then(data => {
+                updateDepartureTable(data);
+              })
+              .catch(error => {
+                console.error('Error fetching departures:', error);
+                tbody.innerHTML = `
         <tr>
           <td colspan="5" class="px-6 py-4 text-center text-red-500">
             Error loading departures. Please try again.
           </td>
         </tr>
       `;
-    });
-  }
-}
+              });
+          }
+        }
 
-function updateDepartureTable(departures) {
-  const tbody = document.getElementById('departure-data');
-  
-  if (departures.length === 0) {
-    tbody.innerHTML = `
+        function updateDepartureTable(departures) {
+          const tbody = document.getElementById('departure-data');
+
+          if (departures.length === 0) {
+            tbody.innerHTML = `
       <tr>
         <td colspan="5" class="px-6 py-4 text-center text-gray-500">
           No departures found for the selected date range
         </td>
       </tr>
     `;
-    return;
-  }
+            return;
+          }
 
-  let html = '';
-  departures.forEach(departure => {
-    const startDate = new Date(departure.start_date);
-    const endDate = new Date(departure.end_date);
-    
-    html += `
+          let html = '';
+          departures.forEach(departure => {
+            const startDate = new Date(departure.start_date);
+            const endDate = new Date(departure.end_date);
+
+            html += `
       <tr>
         <td class="px-6 py-4 whitespace-nowrap">${formatDate(startDate)}</td>
         <td class="px-6 py-4 whitespace-nowrap">${formatDate(endDate)}</td>
         <td class="px-6 py-4 whitespace-nowrap">USD ${departure.cost_per_person}</td>
         <td class="px-6 py-4 whitespace-nowrap">
-          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+          <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
             Available
           </span>
         </td>
         <td class="px-6 py-4 whitespace-nowrap">
-          <button class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium">
+          <button class="px-4 py-2 text-sm font-medium text-white rounded-md bg-primary hover:bg-primary-dark">
             Book Now
           </button>
         </td>
       </tr>
     `;
-  });
-  
-  tbody.innerHTML = html;
-}
+          });
 
-function formatDate(date) {
-  const options = { day: '2-digit', month: 'short', year: 'numeric' };
-  return date.toLocaleDateString('en-US', options);
-}
+          tbody.innerHTML = html;
+        }
 
-// Load initial data when page loads
-document.addEventListener('DOMContentLoaded', () => {
-  // Format initial dates
-  const dateCells = document.querySelectorAll('#departure-data td:nth-child(1), #departure-data td:nth-child(2)');
-  dateCells.forEach(cell => {
-    const date = new Date(cell.textContent);
-    if (!isNaN(date)) {
-      cell.textContent = formatDate(date);
-    }
-  });
-});
+        function formatDate(date) {
+          const options = {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+          };
+          return date.toLocaleDateString('en-US', options);
+        }
 
-// Refresh button functionality
-document.getElementById('refresh-btn').addEventListener('click', function() {
-  // Clear the date inputs
-  document.getElementById('startDate').value = '';
-  document.getElementById('endDate').value = '';
-  
-  // Reset to show all departures
-  fetchAllDepartures();
-});
+        // Load initial data when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+          // Format initial dates
+          const dateCells = document.querySelectorAll('#departure-data td:nth-child(1), #departure-data td:nth-child(2)');
+          dateCells.forEach(cell => {
+            const date = new Date(cell.textContent);
+            if (!isNaN(date)) {
+              cell.textContent = formatDate(date);
+            }
+          });
+        });
 
-function fetchAllDepartures() {
-  const postId = document.getElementById('postId').value;
-  const tbody = document.getElementById('departure-data');
-  
-  // Show loading state
-  tbody.innerHTML = `
+        // Refresh button functionality
+        document.getElementById('refresh-btn').addEventListener('click', function() {
+          // Clear the date inputs
+          document.getElementById('startDate').value = '';
+          document.getElementById('endDate').value = '';
+
+          // Reset to show all departures
+          fetchAllDepartures();
+        });
+
+        function fetchAllDepartures() {
+          const postId = document.getElementById('postId').value;
+          const tbody = document.getElementById('departure-data');
+
+          // Show loading state
+          tbody.innerHTML = `
     <tr>
       <td colspan="5" class="px-6 py-4 text-center text-gray-500">
-        <i class="fas fa-spinner fa-spin mr-2"></i> Loading all departures...
+        <i class="mr-2 fas fa-spinner fa-spin"></i> Loading all departures...
       </td>
     </tr>
   `;
 
-  // Make AJAX request to get all departures
-  fetch('fetch-another.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `post_id=${postId}&get_all=true`
-  })
-  .then(response => response.json())
-  .then(data => {
-    updateDepartureTable(data);
-  })
-  .catch(error => {
-    console.error('Error fetching departures:', error);
-    tbody.innerHTML = `
+          // Make AJAX request to get all departures
+          fetch('fetch-another.php', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: `post_id=${postId}&get_all=true`
+            })
+            .then(response => response.json())
+            .then(data => {
+              updateDepartureTable(data);
+            })
+            .catch(error => {
+              console.error('Error fetching departures:', error);
+              tbody.innerHTML = `
       <tr>
         <td colspan="5" class="px-6 py-4 text-center text-red-500">
           Error loading departures. Please try again.
         </td>
       </tr>
     `;
-  });
-}
-</script>
+            });
+        }
+      </script>
 
       <script>
         const tabGroup = document.getElementById('tab-group');
@@ -1055,7 +960,7 @@ function fetchAllDepartures() {
       <section id="info" class="..."> <!-- Keep existing classes -->
         <!-- Useful Info content -->
       </section>
-      <section id="similar-treks" class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
+      <section id="similar-treks" class="p-6 mt-8 shadow-lg bg-blue-50 rounded-xl">
         <h2 class="text-2xl font-bold text-[#005FAB] mb-4">Similar Tours</h2>
         <ul class="space-y-3 text-blue-700 list-disc list-inside">
           <?php if (!empty($smtrek)): ?>
@@ -1068,7 +973,7 @@ function fetchAllDepartures() {
         </ul>
       </section>
 
-      <section class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8" id="faqs">
+      <section class="p-6 mt-8 shadow-lg bg-blue-50 rounded-xl" id="faqs">
         <h2 class="text-3xl font-bold text-[#005FAB] mb-6 border-b-2 border-[#005FAB] pb-3">Frequently Asked Questions
         </h2>
 
@@ -1076,10 +981,10 @@ function fetchAllDepartures() {
           <!-- Visa Requirements -->
           <?php
           foreach ($formattedQA as $qa) {
-            ?>
+          ?>
             <div class="border border-gray-200 rounded-lg">
               <button @click="open !== <?php echo $data; ?> ? open = <?php echo $data; ?> : open = null"
-                class="w-full text-left px-4 py-3 flex justify-between items-center font-semibold text-gray-800">
+                class="flex items-center justify-between w-full px-4 py-3 font-semibold text-left text-gray-800">
                 <span><?php echo htmlspecialchars($qa['question']); ?></span>
                 <i class="fas fa-chevron-down text-[#005FAB]"
                   :class="{ 'rotate-180': open === <?php echo $data; ?> }"></i>
@@ -1089,7 +994,7 @@ function fetchAllDepartures() {
               </div>
             </div>
 
-            <?php
+          <?php
             $data++;
           } ?>
       </section>
@@ -1098,32 +1003,32 @@ function fetchAllDepartures() {
     </main>
 
     <!-- Sidebar Area (1/4) -->
-    <aside class="w-full md:w-1/4 space-y-8">
+    <aside class="w-full space-y-8 md:w-1/4">
 
       <!-- Trip Price Box -->
-      <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-200 relative">
+      <div class="relative p-6 bg-white border border-gray-200 shadow-lg rounded-xl">
         <div
-          class="absolute -top-3 -right-3 bg-red-500 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm">
+          class="absolute flex items-center justify-center w-12 h-12 text-sm font-bold text-white bg-red-500 rounded-full -top-3 -right-3">
           10%
         </div>
-        <div class="text-center mb-4">
+        <div class="mb-4 text-center">
           <p class="text-2xl font-bold text-[#005FAB]">US $<?php echo $row['Price']; ?> <span
               class="text-sm font-normal text-gray-600">per
               person</span></p>
         </div>
         <div class="flex flex-col items-center mb-4 space-y-1">
-          <div class="flex text-yellow-400 text-lg">
+          <div class="flex text-lg text-yellow-400">
             <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
               class="fas fa-star"></i><i class="fas fa-star"></i>
           </div>
           <span class="text-sm text-gray-500">based on 0 reviews</span>
         </div>
-        <div class="flex justify-between items-center text-sm text-gray-600 mb-4">
-          <span class="flex items-center"><i class="fas fa-lock mr-1"></i> All inclusive</span>
-          <span class="flex items-center"><i class="fas fa-calendar-alt mr-1"></i> <?php echo $row["Days"]; ?>
+        <div class="flex items-center justify-between mb-4 text-sm text-gray-600">
+          <span class="flex items-center"><i class="mr-1 fas fa-lock"></i> All inclusive</span>
+          <span class="flex items-center"><i class="mr-1 fas fa-calendar-alt"></i> <?php echo $row["Days"]; ?>
             Days</span>
         </div>
-        <ul class="space-y-3 text-sm text-gray-700 border-t border-b border-gray-200 py-4 mb-4">
+        <ul class="py-4 mb-4 space-y-3 text-sm text-gray-700 border-t border-b border-gray-200">
           <li class="flex items-start space-x-2"><i class="fas fa-key text-[#005FAB] mt-1"></i><span>Group & Early
               Booking Discount Available</span></li>
           <li class="flex items-start space-x-2"><i
@@ -1147,74 +1052,74 @@ function fetchAllDepartures() {
 
       <!-- TripAdvisor Badge -->
       <div
-        class="mt-6 p-4 rounded-xl shadow-lg text-center transition-all duration-300 ease-in-out animate-gradient-bg">
+        class="p-4 mt-6 text-center transition-all duration-300 ease-in-out shadow-lg rounded-xl animate-gradient-bg">
         <a href="https://www.tripadvisor.com/Attraction_Review-g293890-d9984262-Reviews-Advanced_Adventures_Nepal-Kathmandu_Kathmandu_Valley_Bagmati_Zone_Central_Region.html"
-          target="_blank" class="inline-block hover:bg-gray-50 rounded-lg transition-colors duration-200 p-2">
+          target="_blank" class="inline-block p-2 transition-colors duration-200 rounded-lg hover:bg-gray-50">
           <div class="flex items-center justify-center space-x-2 text-[#005FAB]">
             <div class="flex items-center">
-              <i class="fab fa-tripadvisor text-2xl transition-all duration-200"></i>
-              <span class="text-lg font-bold ml-1">TripAdvisor</span>
+              <i class="text-2xl transition-all duration-200 fab fa-tripadvisor"></i>
+              <span class="ml-1 text-lg font-bold">TripAdvisor</span>
             </div>
             <div class="flex items-center text-yellow-400">
               <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                 class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
           </div>
-          <p class="text-sm text-gray-600 mt-1">★★★★★ 140 reviews</p>
+          <p class="mt-1 text-sm text-gray-600">★★★★★ 140 reviews</p>
         </a>
       </div>
 
       <!-- Google Reviews Badge -->
       <div
-        class="mt-6 p-4 rounded-xl shadow-lg text-center transition-all duration-300 ease-in-out animate-gradient-bg">
+        class="p-4 mt-6 text-center transition-all duration-300 ease-in-out shadow-lg rounded-xl animate-gradient-bg">
         <a href="https://www.google.com/maps/place/Advanced+Adventures" target="_blank"
-          class="inline-block hover:bg-gray-50 rounded-lg transition-colors duration-200 p-2">
+          class="inline-block p-2 transition-colors duration-200 rounded-lg hover:bg-gray-50">
           <div class="flex items-center justify-center space-x-2 text-[#005FAB]">
-            <i class="fab fa-google text-2xl transition-all duration-200"></i>
-            <span class="text-lg font-bold ml-1">Google Reviews</span>
+            <i class="text-2xl transition-all duration-200 fab fa-google"></i>
+            <span class="ml-1 text-lg font-bold">Google Reviews</span>
           </div>
-          <p class="text-sm text-gray-600 mt-1">★★★★★ 4.9 rating</p>
+          <p class="mt-1 text-sm text-gray-600">★★★★★ 4.9 rating</p>
         </a>
       </div>
 
 
       <!-- Contact Form (Sticky) -->
-      <div class="sticky top-28 bg-white p-6 rounded-xl shadow-lg mt-6">
-        <h3 class="text-xl font-bold text-accent-blue mb-4">Have a question?</h3>
+      <div class="sticky p-6 mt-6 bg-white shadow-lg top-28 rounded-xl">
+        <h3 class="mb-4 text-xl font-bold text-accent-blue">Have a question?</h3>
         <form method="POST" action="https://www.advadventures.com/thanks.html" accept-charset="UTF-8">
           <input type="hidden" name="_token" value="KTDBdgD5J1Of9GYcnR79zJgMdRFDk47b7XWPHUCm">
           <div class="space-y-4">
             <div>
-              <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name <span
+              <label for="name" class="block mb-1 text-sm font-medium text-gray-700">Full Name <span
                   class="text-blue-600">*</span></label>
               <input type="text" id="name" name="name" required placeholder="Enter your name"
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email <span
+              <label for="email" class="block mb-1 text-sm font-medium text-gray-700">Email <span
                   class="text-blue-600">*</span></label>
               <input type="email" id="email" name="email" required placeholder="Enter your email"
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div>
-              <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <label for="phone" class="block mb-1 text-sm font-medium text-gray-700">Phone</label>
               <input type="tel" id="phone" name="phone" placeholder="Enter your phone (Optional)"
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
             </div>
             <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Message <span
+              <label for="message" class="block mb-1 text-sm font-medium text-gray-700">Message <span
                   class="text-blue-600">*</span></label>
               <textarea id="message" name="comment" required placeholder="Enter your query"
-                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 h-32"></textarea>
+                class="w-full h-32 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
             </div>
             <input type="hidden" name="subject" value="Enquiry">
             <div class="pt-2">
               <button type="submit"
-                class="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white py-2 px-4 rounded-md font-semibold hover:from-blue-700 hover:to-blue-900 transition-all">
+                class="w-full px-4 py-2 font-semibold text-white transition-all rounded-md bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900">
                 Send Message
               </button>
             </div>
-            <p class="text-gray-500 text-xs italic mt-3 text-center">
+            <p class="mt-3 text-xs italic text-center text-gray-500">
               We respect your privacy. We never share, sell, publicize or market your personal info in any way, shape,
               or form.
             </p>
@@ -1226,104 +1131,9 @@ function fetchAllDepartures() {
   </div>
   </div>
 
-  <!-- Footer Section -->
-  <footer class="bg-gray-900 text-gray-300 pt-6 text-xs">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-        <!-- Destinations -->
-        <div>
-          <h3 class="text-white font-semibold mb-2 border-b border-primary pb-1">Destinations</h3>
-          <ul class="space-y-1">
-            <li><a href="/nepal" class="hover:text-primary">Nepal</a></li>
-            <li><a href="/tibet" class="hover:text-primary">Tibet</a></li>
-            <li><a href="/bhutan" class="hover:text-primary">Bhutan</a></li>
-            <li><a href="/india" class="hover:text-primary">India</a></li>
-            <li><a href="#" class="hover:text-primary">Nepal/Bhutan</a></li>
-            <li><a href="#" class="hover:text-primary">Nepal/Tibet</a></li>
-            <li><a href="#" class="hover:text-primary">Nepal/Tibet/Bhutan</a></li>
-          </ul>
-        </div>
-
-        <!-- Activities -->
-        <div>
-          <h3 class="text-white font-semibold mb-2 border-b border-primary pb-1">Activities</h3>
-          <ul class="space-y-1">
-            <li><a href="#" class="hover:text-primary">Trekking</a></li>
-            <li><a href="#" class="hover:text-primary">Cultural Tours</a></li>
-            <li><a href="#" class="hover:text-primary">Peak Climbing</a></li>
-            <li><a href="#" class="hover:text-primary">Bhutan Tours</a></li>
-            <li><a href="#" class="hover:text-primary">Mt. Kailash</a></li>
-            <li><a href="#" class="hover:text-primary">Tibet Tours</a></li>
-          </ul>
-        </div>
-
-        <!-- Resources -->
-        <div>
-          <h3 class="text-white font-semibold mb-2 border-b border-primary pb-1">Resources</h3>
-          <ul class="space-y-1">
-            <li><a href="#" class="hover:text-primary">Travel Guide</a></li>
-            <li><a href="#" class="hover:text-primary">Visa Info</a></li>
-            <li><a href="#" class="hover:text-primary">Insurance</a></li>
-            <li><a href="#" class="hover:text-primary">Terms</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact -->
-        <div>
-          <h3 class="text-white font-semibold mb-2 border-b border-primary pb-1">Contact</h3>
-          <address class="not-italic space-y-1 text-xs">
-            <div class="flex items-start">
-              <i class="fas fa-map-marker-alt text-primary mt-1 mr-2 text-xs"></i>
-              <span>Advanced Adventures Nepal Pvt. Ltd<br>Bhagwan Bahal, Thamel</span>
-            </div>
-            <div class="flex items-center"><i class="fas fa-phone-alt text-primary mr-2 text-xs"></i> +977-1-4544152
-            </div>
-            <div class="flex items-center"><i class="fab fa-whatsapp text-primary mr-2 text-xs"></i> +977 9851189771
-            </div>
-            <div class="flex items-center"><i class="fas fa-envelope text-primary mr-2 text-xs"></i> <a
-                href="mailto:info@advadventures.com" class="hover:text-primary">info@advadventures.com</a></div>
-          </address>
-        </div>
-      </div>
-
-      <!-- Certifications -->
-      <div class="border-t border-gray-700 pt-3 mb-3">
-        <h3 class="text-white font-semibold mb-2 text-center">Certifications</h3>
-        <div class="flex justify-center gap-4 flex-wrap">
-          <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel17.png" alt="2017"
-            class="h-10" />
-          <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel18.png" alt="2018"
-            class="h-10" />
-          <img src="https://www.advadventures.com/dist/frontend1/assets/images/cert-excel19.png" alt="2019"
-            class="h-10" />
-        </div>
-      </div>
-
-      <!-- Footer Bottom -->
-      <div class="border-t border-gray-700 pt-3 pb-4">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-2">
-          <div class="text-center md:text-left">
-            <p>© 2025 Advanced Adventures Nepal Pvt. Ltd.</p>
-            <p class="mt-1 text-[11px]">Regd No: 064/065/47694 | NMA: 833 | NTB: 1215/067</p>
-          </div>
-          <div class="flex space-x-3">
-            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-facebook"></i></a>
-            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="text-gray-400 hover:text-primary"><i class="fab fa-youtube"></i></a>
-          </div>
-        </div>
-        <p class="mt-2 text-center text-[11px]">Crafted with <span class="text-primary">♥</span> by <a
-            href="https://www.cyberpirates.io" class="hover:text-primary">Cyber Pirates</a></p>
-      </div>
-    </div>
-
-    <!-- Back to Top Button -->
-    <button id="goToTop"
-      class="fixed bottom-6 right-4 z-50 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-dark">
-      <i class="fas fa-chevron-up text-xs"></i>
-    </button>
-  </footer>
+  <?php
+  include("footer.php");
+  ?>
 
   <!-- Scripts -->
   <script>
@@ -1374,7 +1184,10 @@ function fetchAllDepartures() {
 
     goToTopBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
 
     // Chart.js Implementation
@@ -1402,10 +1215,18 @@ function fetchAllDepartures() {
             backgroundColor: '#ffffff',
             titleColor: '#005FAB',
             bodyColor: '#333333',
-            font: { size: 14, family: 'Arial, sans-serif', weight: 'bold' }
+            font: {
+              size: 14,
+              family: 'Arial, sans-serif',
+              weight: 'bold'
+            }
           },
-          legend: { display: false },
-          title: { display: false }
+          legend: {
+            display: false
+          },
+          title: {
+            display: false
+          }
         },
         scales: {
           y: {
@@ -1413,47 +1234,67 @@ function fetchAllDepartures() {
             title: {
               display: true,
               text: 'Altitude (meters)',
-              font: { size: 16, family: 'Arial, sans-serif', weight: 'bold' },
+              font: {
+                size: 16,
+                family: 'Arial, sans-serif',
+                weight: 'bold'
+              },
               color: '#005FAB'
             },
-            ticks: { font: { size: 14, family: 'Arial, sans-serif' }, color: '#333333' }
+            ticks: {
+              font: {
+                size: 14,
+                family: 'Arial, sans-serif'
+              },
+              color: '#333333'
+            }
           },
           x: {
             title: {
               display: true,
               text: 'Days',
-              font: { size: 16, family: 'Arial, sans-serif', weight: 'bold' },
+              font: {
+                size: 16,
+                family: 'Arial, sans-serif',
+                weight: 'bold'
+              },
               color: '#005FAB'
             },
-            ticks: { font: { size: 14, family: 'Arial, sans-serif' }, color: '#333333' }
+            ticks: {
+              font: {
+                size: 14,
+                family: 'Arial, sans-serif'
+              },
+              color: '#333333'
+            }
           }
         }
       }
     });
 
-document.getElementById('startDate').addEventListener('change', fetchDepartures);
-document.getElementById('endDate').addEventListener('change', fetchDepartures);
+    document.getElementById('startDate').addEventListener('change', fetchDepartures);
+    document.getElementById('endDate').addEventListener('change', fetchDepartures);
 
-function fetchDepartures() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    const postId = document.getElementById('postId').value;
+    function fetchDepartures() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      const postId = document.getElementById('postId').value;
 
-    if (startDate && endDate) {
+      if (startDate && endDate) {
         fetch('fetch-departures.php', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+              'Content-Type': 'application/x-www-form-urlencoded',
             },
             body: `start_date=${startDate}&end_date=${endDate}&post_id=${postId}`
-        })
-        .then(response => response.json())
-        .then(data => {
+          })
+          .then(response => response.json())
+          .then(data => {
             const tbody = document.getElementById('departure-data');
             tbody.innerHTML = '';
-            
+
             if (data.length === 0) {
-                tbody.innerHTML = `
+              tbody.innerHTML = `
                     <tr>
                         <td colspan="5" class="px-4 py-3 text-center text-gray-600">
                             No departures found for the selected date range
@@ -1461,34 +1302,38 @@ function fetchDepartures() {
                     </tr>
                 `;
             } else {
-                data.forEach(row => {
-                    tbody.innerHTML += `
+              data.forEach(row => {
+                tbody.innerHTML += `
                         <tr class="border-t">
                             <td class="px-4 py-3">${formatDate(row.start_date)}</td>
                             <td class="px-4 py-3">${formatDate(row.end_date)}</td>
                             <td class="px-4 py-3">USD ${row.cost_per_person}</td>
-                            <td class="px-4 py-3 text-green-600 font-semibold">Available</td>
+                            <td class="px-4 py-3 font-semibold text-green-600">Available</td>
                             <td class="px-4 py-3">
-                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                                <button class="px-4 py-2 text-white bg-blue-600 rounded-md hover:bg-blue-700">
                                     Book Now
                                 </button>
                             </td>
                         </tr>
                     `;
-                });
+              });
             }
-        })
-        .catch(error => {
+          })
+          .catch(error => {
             console.error('Error:', error);
-        });
+          });
+      }
     }
-}
 
-function formatDate(dateString) {
-    const options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
-}
-</script>
+    function formatDate(dateString) {
+      const options = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      };
+      return new Date(dateString).toLocaleDateString('en-US', options);
+    }
+  </script>
 
 </body>
 

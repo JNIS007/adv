@@ -1,42 +1,5 @@
 <?php
 include("./admin/includes/config.php");
-
-$menuData = [];
-
-$dests = mysqli_query($con, "SELECT * FROM tbldest");
-while ($dest = mysqli_fetch_assoc($dests)) {
-    $destId = $dest['Id'];
-    $menuData[$destId] = [
-        'name' => $dest['DestName'],
-        'categories' => []
-    ];
-
-    $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
-    while ($cat = mysqli_fetch_assoc($cats)) {
-        $catId = $cat['id'];
-        $menuData[$destId]['categories'][$catId] = [
-            'name' => $cat['CategoryName'],
-            'subcategories' => []
-        ];
-
-        $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
-        while ($sub = mysqli_fetch_assoc($subs)) {
-            $subId = $sub['SubCategoryId'];
-            $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [
-                'name' => $sub['Subcategory'],
-                'posts' => []
-            ];
-
-            $posts = mysqli_query($con, "SELECT * FROM tblPosts WHERE CategoryId = $catId AND SubCategoryId = $subId");
-            while ($post = mysqli_fetch_assoc($posts)) {
-                $menuData[$destId]['categories'][$catId]['subcategories'][$subId]['posts'][] = [
-                    'id' => $post['id'],
-                    'title' => $post['PostTitle']
-                ];
-            }
-        }
-    }
-}
 ?>
 
 
@@ -47,346 +10,13 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Adventures - Nepal Trekking & Tours</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const dropdown = document.getElementById('countries-dropdown');
-            const mainToggle = document.getElementById('main-toggle');
-
-            // Show dropdown on hover
-            mainToggle.addEventListener('mouseenter', () => {
-                dropdown.classList.remove('hidden');
-            });
-
-            // Hide dropdown when mouse leaves both button and dropdown
-            mainToggle.addEventListener('mouseleave', (e) => {
-                setTimeout(() => {
-                    if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
-                        dropdown.classList.add('hidden');
-                    }
-                }, 200);
-            });
-
-            dropdown.addEventListener('mouseleave', (e) => {
-                setTimeout(() => {
-                    if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
-                        dropdown.classList.add('hidden');
-                    }
-                }, 200);
-            });
-
-            // Handle submenu hover (optional enhancement)
-            const submenuButtons = document.querySelectorAll('#countries-dropdown button');
-
-            submenuButtons.forEach(button => {
-                const submenu = button.nextElementSibling;
-                if (!submenu) return;
-
-                button.addEventListener('mouseenter', () => {
-                    submenu.classList.remove('hidden');
-                });
-
-                button.parentElement.addEventListener('mouseleave', () => {
-                    submenu.classList.add('hidden');
-                });
-            });
-        });
-
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#1a365d',  // Deep navy for professionalism
-                        secondary: '#c2410c', // Adventurous orange for accents
-                    },
-                    animation: {
-                        'fadeIn': 'fadeIn 0.8s ease-out forwards',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <style>
-        /* Header Dropdowns */
-        .dropdown-content {
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.2s ease;
-        }
-
-        .dropdown:hover .dropdown-content,
-        .dropdown:focus-within .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        /* Mobile Menu */
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        .mobile-menu {
-            animation: slideIn 0.3s ease-out;
-        }
-
-        /* Swiper Overrides */
-        .swiper-button-next,
-        .swiper-button-prev {
-            background-color: rgba(255, 255, 255, 0.2);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-        }
-
-        .swiper-button-next:hover,
-        .swiper-button-prev:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .swiper-button-next::after,
-        .swiper-button-prev::after {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .swiper-pagination-bullet {
-            background: white;
-            opacity: 0.6;
-            width: 12px;
-            height: 12px;
-        }
-
-        .swiper-pagination-bullet-active {
-            background: #1a365d;
-            opacity: 1;
-        }
-
-        .testimonials-carousel {
-            padding-bottom: 3rem;
-        }
-
-        .testimonials-carousel .swiper-pagination-bullet {
-            width: 12px;
-            height: 12px;
-            background: rgba(26, 54, 93, 0.3);
-            opacity: 1;
-            transition: all 0.3s ease;
-        }
-
-        .testimonials-carousel .swiper-pagination-bullet-active {
-            background: #1a365d;
-            width: 30px;
-            border-radius: 6px;
-        }
-
-        [class="dropdown"] {
-            transition: all 0.2s ease;
-        }
-
-        / Prevent layout shift / .relative {
-            position: relative;
-        }
-
-        .absolute {
-            position: absolute;
-        }
-
-        / Better hover effects */ .hover:bg-gray-50:hover {
-            background-color: #f9fafb;
-        }
-
-        .hover:text-secondary:hover {
-            color: #6b7280;
-        }
-
-        @media (max-width: 1024px) {
-
-            .testimonial-prev,
-            .testimonial-next {
-                display: none;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <header class="sticky top-0 z-50 bg-white shadow-md">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <!-- Logo -->
-                <a href="#" class="flex items-center">
-                    <img src="assets/logo.png" alt="Advanced Adventures" class="h-12 md:h-16 object-contain">
-                </a>
-
-                <!-- Desktop Navigation -->
-                <nav class="hidden lg:flex items-center space-x-8">
-                    <!-- Destinations Mega Menu -->
-                    <div class="relative">
-                        <button id="main-toggle"
-                            class="flex items-center font-medium text-gray-700 transition hover:text-primary">
-                            Destination <i class="ml-1 text-xs fas fa-chevron-down"></i>
-                        </button>
-
-                        <div id="countries-dropdown"
-                            class="absolute left-0 hidden w-48 mt-2 bg-white rounded-md shadow-xl">
-                            <ul class="py-1">
-                                <?php foreach ($menuData as $dest): ?>
-                                    <li class="relative group">
-                                        <button
-                                            class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                            <?= $dest['name'] ?> <i class="ml-2 text-xs fas fa-chevron-right"></i>
-                                        </button>
-
-                                        <div
-                                            class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
-                                            <ul class="py-1">
-                                                <?php foreach ($dest['categories'] as $cat): ?>
-                                                    <li class="relative group">
-                                                        <button
-                                                            class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                                            <?= $cat['name'] ?> <i
-                                                                class="ml-2 text-xs fas fa-chevron-right"></i>
-                                                        </button>
-
-                                                        <div
-                                                            class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
-                                                            <ul class="py-1">
-                                                                <?php foreach ($cat['subcategories'] as $sub): ?>
-                                                                    <li class="relative group">
-                                                                        <button
-                                                                            class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                                                            <?= $sub['name'] ?> <i
-                                                                                class="ml-2 text-xs fas fa-chevron-right"></i>
-                                                                        </button>
-
-                                                                        <div
-                                                                            class="absolute top-0 hidden whitespace-nowrap bg-white rounded-md shadow-xl left-full">
-                                                                            <ul class="py-1">
-                                                                                <?php foreach ($sub['posts'] as $post): ?>
-                                                                                    <li>
-                                                                                        <a href="new_page.php?id=<?= $post['id'] ?>"
-                                                                                            class="block px-4 py-2 hover:bg-gray-50 hover:text-secondary">
-                                                                                            <?= $post['title'] ?>
-                                                                                        </a>
-                                                                                    </li>
-                                                                                <?php endforeach; ?>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </li>
-                                                                <?php endforeach; ?>
-                                                            </ul>
-                                                        </div>
-                                                    </li>
-                                                <?php endforeach; ?>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    </div>
+    <?php
+    include("header.php")
+    ?>
 
 
-                    <!-- Other Menu Items -->
-                    <a href="/page/booking.html"
-                        class="font-medium text-gray-700 hover:text-primary transition">Booking</a>
-                    <a href="/page/travel-guide.html"
-                        class="font-medium text-gray-700 hover:text-primary transition">Travel
-                        Guide</a>
-                    <a href="/page/about-us.html" class="font-medium text-gray-700 hover:text-primary transition">About
-                        Us</a>
-                    <a href="/page/csr.html" class="font-medium text-gray-700 hover:text-primary transition">CSR</a>
-                    <a href="/testimonials.html" class="font-medium text-gray-700 hover:text-primary transition">Trip
-                        Reviews</a>
-                    <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Travel Blog</a>
-                    <a href="#" class="font-medium text-gray-700 hover:text-primary transition">Contact</a>
-                    <!-- Search Button -->
-                    <button class="p-2 text-gray-600 hover:text-primary">
-                        <i class="fas fa-search"></i>
-                    </button>
-
-                    <!-- CTA Button -->
-                    <a href="/page/book-your-trip.html"
-                        class="bg-primary hover:bg-[#122747] text-white px-4 py-2 rounded-md font-medium transition">
-                        Book Now
-                    </a>
-                </nav>
-
-                <!-- Mobile Menu Button -->
-                <button class="lg:hidden text-gray-700 focus:outline-none" id="mobile-menu-button">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-            <div class="mobile-menu absolute right-0 top-0 h-full w-4/5 max-w-sm bg-white shadow-lg overflow-y-auto">
-                <div class="flex justify-between items-center p-4 border-b">
-                    <img src="https://www.advadventures.com/dist/frontend/img/adv-logo-new.jpg"
-                        alt="Advanced Adventures" class="h-10">
-                    <button id="close-mobile-menu" class="text-gray-600">
-                        <i class="fas fa-times text-2xl"></i>
-                    </button>
-                </div>
-
-                <div class="p-4 space-y-4">
-                    <div class="accordion">
-                        <button class="flex justify-between items-center w-full py-2 font-medium text-gray-700">
-                            Destinations <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content hidden pl-4 mt-2 space-y-2">
-                            <a href="/nepal" class="block py-1 hover:text-secondary">Nepal</a>
-                            <a href="/tibet" class="block py-1 hover:text-secondary">Tibet</a>
-                            <a href="/bhutan" class="block py-1 hover:text-secondary">Bhutan</a>
-                            <a href="#" class="block py-1 hover:text-secondary">Mt. Kailash</a>
-                            <a href="#" class="block py-1 hover:text-secondary">luxury Travel</a>
-                        </div>
-                    </div>
-
-                    <a href="/page/booking.html" class="block py-2 font-medium text-gray-700">Booking</a>
-                    <a href="/page/travel-guide.html" class="block py-2 font-medium text-gray-700">Travel Guide</a>
-                    <a href="/page/about-us.html" class="block py-2 font-medium text-gray-700">About Us</a>
-                    <a href="/page/csr.html" class="block py-2 font-medium text-gray-700">CSR</a>
-                    <a href="/testimonials.html" class="block py-2 font-medium text-gray-700">Reviews</a>
-
-                    <div class="pt-4 border-t">
-                        <a href="/page/book-your-trip.html"
-                            class="block w-full bg-primary hover:bg-[#122747] text-white text-center px-4 py-2 rounded-md font-medium">
-                            Book Now
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-
-    <div class="mx-auto px-4 lg:px-8 py-8">
-        <div class="flex items-center text-gray-600 mb-6">
+    <div class="px-4 py-8 mx-auto lg:px-8">
+        <div class="flex items-center mb-6 text-gray-600">
             <a href="/" class="hover:text-blue-500">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -397,31 +27,31 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             <span class="mx-2">→</span>
             <span>How to Pay</span>
         </div>
-        <div class="flex flex-col lg:flex-row gap-6">
-            <div class="lg:w-3/4 bg-white rounded-lg shadow-md p-4 sm:p-6">
+        <div class="flex flex-col gap-6 lg:flex-row">
+            <div class="p-4 bg-white rounded-lg shadow-md lg:w-3/4 sm:p-6">
 
-                <h1 class="text-3xl font-bold text-indigo-800 mb-6 border-b pb-4">How to Pay</h1>
+                <h1 class="pb-4 mb-6 text-3xl font-bold text-indigo-800 border-b">How to Pay</h1>
 
                 <!-- Image container - ADDED HERE -->
                 <div class="mb-8">
                     <img src="assets/howtopay.png" alt="Payment Methods" class="w-full h-auto rounded-lg shadow-md">
                 </div>
 
-                <div class="bg-blue-50 p-5 rounded-lg mb-8 border-l-4 border-blue-500">
-                    <p class="mb-3 text-gray-800 leading-relaxed">
+                <div class="p-5 mb-8 border-l-4 border-blue-500 rounded-lg bg-blue-50">
+                    <p class="mb-3 leading-relaxed text-gray-800">
                         Advanced Adventures Nepal offers secure and convenient payment options for your Himalayan
                         adventures across Nepal, Bhutan, and Tibet.
                     </p>
-                    <div class="flex flex-col md:flex-row md:space-x-6 mt-2">
-                        <div class="bg-white p-3 rounded shadow-sm border border-blue-100 mb-3 md:mb-0 flex-1">
+                    <div class="flex flex-col mt-2 md:flex-row md:space-x-6">
+                        <div class="flex-1 p-3 mb-3 bg-white border border-blue-100 rounded shadow-sm md:mb-0">
                             <p class="font-medium text-center">Nepal Trips</p>
-                            <p class="text-center text-2xl font-bold text-indigo-700">20%</p>
-                            <p class="text-center text-sm text-gray-600">Advance Deposit</p>
+                            <p class="text-2xl font-bold text-center text-indigo-700">20%</p>
+                            <p class="text-sm text-center text-gray-600">Advance Deposit</p>
                         </div>
-                        <div class="bg-white p-3 rounded shadow-sm border border-blue-100 flex-1">
+                        <div class="flex-1 p-3 bg-white border border-blue-100 rounded shadow-sm">
                             <p class="font-medium text-center">Bhutan & Tibet Trips</p>
-                            <p class="text-center text-2xl font-bold text-indigo-700">50%</p>
-                            <p class="text-center text-sm text-gray-600">Advance Deposit</p>
+                            <p class="text-2xl font-bold text-center text-indigo-700">50%</p>
+                            <p class="text-sm text-center text-gray-600">Advance Deposit</p>
                         </div>
                     </div>
                 </div>
@@ -429,10 +59,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                 <!-- Payment Options -->
                 <div class="space-y-8">
                     <!-- Option 1 -->
-                    <div class="bg-white p-6 rounded-lg border border-gray-200 transition-all hover:shadow-md">
+                    <div class="p-6 transition-all bg-white border border-gray-200 rounded-lg hover:shadow-md">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none"
+                            <div class="flex items-center justify-center w-12 h-12 mr-4 bg-indigo-100 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
@@ -440,14 +70,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                             </div>
                             <h2 class="text-xl font-semibold text-indigo-700">Option 1: Pay Online</h2>
                         </div>
-                        <p class="ml-16 mb-4">
+                        <p class="mb-4 ml-16">
                             Make a secure online payment using major credit cards including Visa, MasterCard, American
                             Express, and more.
                         </p>
                         <div class="ml-16">
                             <a href="#"
-                                class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none"
+                                class="inline-flex items-center px-4 py-2 text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
@@ -458,10 +88,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                     </div>
 
                     <!-- Option 2 -->
-                    <div class="bg-white p-6 rounded-lg border border-gray-200 transition-all hover:shadow-md">
+                    <div class="p-6 transition-all bg-white border border-gray-200 rounded-lg hover:shadow-md">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none"
+                            <div class="flex items-center justify-center w-12 h-12 mr-4 bg-indigo-100 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -470,8 +100,8 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                             <h2 class="text-xl font-semibold text-indigo-700">Option 2: Bank Wire Transfer</h2>
                         </div>
                         <div class="ml-16">
-                            <div class="bg-gray-50 p-5 rounded-md shadow-sm border border-gray-200">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-5 border border-gray-200 rounded-md shadow-sm bg-gray-50">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                     <div>
                                         <p><span class="font-semibold text-gray-700">Beneficiary Bank:</span> Himalayan
                                             Bank Limited</p>
@@ -493,7 +123,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                                 </div>
                             </div>
                             <p class="mt-3 text-sm text-gray-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline mr-1 text-blue-500"
+                                <svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-1 text-blue-500"
                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -504,10 +134,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                     </div>
 
                     <!-- Option 3 -->
-                    <div class="bg-white p-6 rounded-lg border border-gray-200 transition-all hover:shadow-md">
+                    <div class="p-6 transition-all bg-white border border-gray-200 rounded-lg hover:shadow-md">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none"
+                            <div class="flex items-center justify-center w-12 h-12 mr-4 bg-indigo-100 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -516,8 +146,8 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                             <h2 class="text-xl font-semibold text-indigo-700">Option 3: Western Union / Money Gram</h2>
                         </div>
                         <div class="ml-16">
-                            <div class="bg-gray-50 p-5 rounded-md shadow-sm border border-gray-200">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-5 border border-gray-200 rounded-md shadow-sm bg-gray-50">
+                                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                     <div>
                                         <p><span class="font-semibold text-gray-700">First Name:</span> Keshav</p>
                                         <p><span class="font-semibold text-gray-700">Middle Name:</span> Raj</p>
@@ -529,7 +159,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                                     </div>
                                 </div>
                             </div>
-                            <p class="mt-3 text-sm text-gray-600 flex items-start">
+                            <p class="flex items-start mt-3 text-sm text-gray-600">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="h-4 w-4 mr-1 text-blue-500 mt-0.5 flex-shrink-0" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
@@ -543,10 +173,10 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                     </div>
 
                     <!-- Remaining Payment -->
-                    <div class="bg-white p-6 rounded-lg border border-gray-200 transition-all hover:shadow-md">
+                    <div class="p-6 transition-all bg-white border border-gray-200 rounded-lg hover:shadow-md">
                         <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none"
+                            <div class="flex items-center justify-center w-12 h-12 mr-4 bg-indigo-100 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-indigo-600" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M11 11V9a2 2 0 00-2-2m2 4v4a2 2 0 104 0v-1m-4-3H9m2 0h4m6 1a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -558,7 +188,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                             <p class="text-gray-800">
                                 The remaining trip payment can be made after your arrival in Kathmandu via:
                             </p>
-                            <ul class="mt-2 space-y-1 list-disc list-inside text-gray-700 ml-4">
+                            <ul class="mt-2 ml-4 space-y-1 text-gray-700 list-disc list-inside">
                                 <li>Cash payment (USD, EUR, or NPR)</li>
                                 <li>Bank wire transfer</li>
                                 <li>Credit card (with 4% surcharge)</li>
@@ -568,14 +198,14 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                 </div>
 
                 <!-- Contact Section -->
-                <div class="mt-8 border-t pt-6">
-                    <p class="text-indigo-800 font-semibold text-lg mb-2">
+                <div class="pt-6 mt-8 border-t">
+                    <p class="mb-2 text-lg font-semibold text-indigo-800">
                         Please contact us 24/7 if you have any confusion or questions regarding payment.
                     </p>
                     <div class="flex mt-3">
                         <a href="tel:+9779851232645"
-                            class="flex items-center text-indigo-600 hover:text-indigo-800 mr-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            class="flex items-center mr-6 text-indigo-600 hover:text-indigo-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -584,7 +214,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
                         </a>
                         <a href="mailto:info@advadventures.com"
                             class="flex items-center text-indigo-600 hover:text-indigo-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -596,25 +226,25 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             </div>
 
             <!-- Related Pages Section -->
-            <div class="lg:w-1/4 mt-0">
-                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6">
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Related Pages</h3>
+            <div class="mt-0 lg:w-1/4">
+                <div class="p-4 bg-white rounded-lg shadow-md sm:p-6">
+                    <h3 class="mb-4 text-xl font-bold text-gray-800">Related Pages</h3>
                     <ul class="space-y-3">
-                        <li class="border-b pb-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Discount Offer</a>
+                        <li class="pb-3 border-b">
+                            <a href="#" class="text-blue-600 transition-colors hover:text-blue-800">Discount Offer</a>
                         </li>
-                        <li class="border-b pb-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Terms &
+                        <li class="pb-3 border-b">
+                            <a href="#" class="text-blue-600 transition-colors hover:text-blue-800">Terms &
                                 Conditions</a>
                         </li>
-                        <li class="border-b pb-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">How to Pay</a>
+                        <li class="pb-3 border-b">
+                            <a href="#" class="text-blue-600 transition-colors hover:text-blue-800">How to Pay</a>
                         </li>
-                        <li class="border-b pb-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Book Your Trip</a>
+                        <li class="pb-3 border-b">
+                            <a href="#" class="text-blue-600 transition-colors hover:text-blue-800">Book Your Trip</a>
                         </li>
                         <li>
-                            <a href="#" class="text-blue-600 hover:text-blue-800 transition-colors">Pay Online</a>
+                            <a href="#" class="text-blue-600 transition-colors hover:text-blue-800">Pay Online</a>
                         </li>
                     </ul>
                 </div>
@@ -623,21 +253,21 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
         <!-- Newsletter Section -->
         <div class="mt-6">
-            <div class="bg-indigo-50 p-4 sm:p-6 rounded-lg shadow-sm">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+            <div class="p-4 rounded-lg shadow-sm bg-indigo-50 sm:p-6">
+                <div class="flex flex-col justify-between sm:flex-row sm:items-center">
                     <div class="mb-4 sm:mb-0">
-                        <p class="text-gray-800 font-medium text-lg">Sign Up for Newsletter for Special Deals &
+                        <p class="text-lg font-medium text-gray-800">Sign Up for Newsletter for Special Deals &
                             Discounts</p>
-                        <p class="text-gray-600 text-sm mt-1">Stay updated with our latest offers and travel packages
+                        <p class="mt-1 text-sm text-gray-600">Stay updated with our latest offers and travel packages
                         </p>
                     </div>
-                    <div class="sm:ml-4 flex-shrink-0">
+                    <div class="flex-shrink-0 sm:ml-4">
                         <form class="flex w-full sm:w-auto">
                             <input type="email" placeholder="Your Email Address"
-                                class="px-4 py-2 w-full sm:w-64 rounded-l border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-l sm:w-64 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                                 required>
                             <button type="submit"
-                                class="bg-indigo-600 text-white px-4 py-2 rounded-r hover:bg-indigo-700 transition-colors whitespace-nowrap">
+                                class="px-4 py-2 text-white transition-colors bg-indigo-600 rounded-r hover:bg-indigo-700 whitespace-nowrap">
                                 Subscribe
                             </button>
                         </form>
@@ -646,8 +276,11 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             </div>
         </div>
     </div>
+    <?php
+    include("footer.php");
+    ?>
 
 
-</body>
+    </body>
 
 </html>

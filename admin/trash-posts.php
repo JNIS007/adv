@@ -97,16 +97,16 @@ if($_GET['presid'])
                         <div class="row">
 							<div class="col-xs-12">
 								<div class="page-title-box">
-                                    <h4 class="page-title">Trashed Posts </h4>
+                                    <h4 class="page-title">Trashed Package </h4>
                                     <ol class="breadcrumb p-0 m-0">
                                         <li>
                                             <a href="#">Admin</a>
                                         </li>
                                         <li>
-                                            <a href="#">Posts</a>
+                                            <a href="#">Package</a>
                                         </li>
                                         <li class="active">
-                                          Trashed Posts 
+                                          Trashed Package 
                                         </li>
                                     </ol>
                                     <div class="clearfix"></div>

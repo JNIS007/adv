@@ -157,7 +157,7 @@ if (strlen($_SESSION['login']) == 0) {
             <?php unset($_SESSION["error"]); ?>
             <?php } ?>
 
-            <h4>Other Posts</h4>
+            <h4>Add Package Details</h4>
 
             <form action="save.php" method="POST" id="postForm">
               <div class="tabs">
@@ -180,7 +180,7 @@ if (strlen($_SESSION['login']) == 0) {
                   </div>
                 </div>
                 <div class="card-box">
-                  <h4><b>Important Note:</b></h4>
+                  <h4><b>Trip Facts:</b></h4>
                   <div class="summernote-wrapper" style="display:none;">
                     <textarea class="summernote" name="Nt" required><?php 
                       echo isset($_SESSION['form_data']['Nt']) ? htmlspecialchars($_SESSION['form_data']['Nt']) : ''; 

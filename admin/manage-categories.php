@@ -152,7 +152,7 @@ while($row=mysqli_fetch_array($query))
 <th scope="row"><?php echo htmlentities($cnt);?></th>
 <td><?php echo htmlentities($row['DestName']);?></td>
 <td><?php echo htmlentities($row['CategoryName']);?></td>
-<td><?php echo htmlentities($row['Description']);?></td>
+<td><?php echo $row['Description'];?></td>
 <td><?php echo htmlentities($row['PostingDate']);?></td>
 <td><?php echo htmlentities($row['UpdationDate']);?></td>
 <td><a href="edit-category.php?cid=<?php echo htmlentities($row['id']);?>"><i class="fa fa-pencil" style="color: #29b6f6;"></i></a> 
