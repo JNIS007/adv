@@ -4,7 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title> Contact us| Advanced Adventures</title>
+=======
+  <title> Contact | Advanced Adventures</title>
+>>>>>>> 2659dfdea6fdf04460874648717d75184a845bfe
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
