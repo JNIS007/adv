@@ -971,5 +971,10 @@ include("./admin/includes/config.php")
       });
     });
   </script>
+<<<<<<< HEAD
   </body>
+=======
+</body>
+
+>>>>>>> 23477f9ec870b5ec060139060ace9825745061ae
 </html>
