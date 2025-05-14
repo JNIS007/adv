@@ -1,131 +1,16 @@
+<?php
+include("./admin/includes/config.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
   <title> Contact us| Advanced Adventures</title>
-=======
-  <title> Contact | Advanced Adventures</title>
->>>>>>> 2659dfdea6fdf04460874648717d75184a845bfe
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'brand-green': '#2ecc71',
-            'brand-blue': '#3498db',
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    .whatsapp-float {
-      position: fixed;
-      bottom: 40px;
-      right: 40px;
-      z-index: 50;
-    }
-
-    .map-container {
-      width: 100%;
-      height: 220px;
-      margin-bottom: 20px;
-    }
-
-    .form-input {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 8px 12px;
-      font-size: 14px;
-    }
-
-    .form-input:focus {
-      outline: none;
-      border-color: #3b82f6;
-      box-shadow: 0 0 0 1px #3b82f6;
-    }
-
-    .form-select {
-      width: 100%;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      padding: 8px 12px;
-      font-size: 14px;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-      background-position: right 0.5rem center;
-      background-repeat: no-repeat;
-      background-size: 1.5em 1.5em;
-    }
-
-    .whatsapp-chat {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-  </style>
-</head>
-
-<body class="font-sans antialiased">
-  <!-- Top info bar -->
-  <div class="py-2 text-sm text-white bg-gray-800">
-    <div class="container flex items-center justify-between px-4 mx-auto text-sm md:text-base">
-      <span><i class="mr-1 fas fa-medal"></i> 15 Years Experience</span>
-      <div>
-        <div class="flex items-center space-x-4">
-          <span><i class="mr-1 fas fa-phone-alt"></i> +977-9851189771</span>
-          <a href="https://api.whatsapp.com/send?phone=9779851189771" target="_blank" class="hover:text-secondary">
-            <i class="mr-1 fab fa-whatsapp"></i> WhatsApp
-          </a>
-          <a href="viber://contact?number=9779851189771" target="_blank" class="hover:text-secondary">
-            <i class="mr-1 fab fa-viber"></i> Viber
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main header -->
-  <header class="sticky top-0 z-50 bg-white shadow-md">
-    <div class="container px-4 mx-auto">
-      <div class="flex items-center justify-between py-4">
-        <!-- Logo -->
-        <a href="#" class="flex items-center">
-          <img src="assets/logo.png" alt="Advanced Adventures" class="object-contain h-12 md:h-16">
-        </a>
-
-        <!-- Desktop Navigation -->
-        <nav class="items-center hidden space-x-8 lg:flex">
-          <a href="/page/booking.html" class="font-medium text-gray-700 transition hover:text-primary">Booking</a>
-          <a href="/page/travel-guide.html" class="font-medium text-gray-700 transition hover:text-primary">Travel Guide</a>
-          <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
-          <a href="/page/csr.html" class="font-medium text-gray-700 transition hover:text-primary">CSR</a>
-          <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
-
-          <!-- CTA Button -->
-          <a href="/page/book-your-trip.html"
-            class="bg-[#122747] hover:bg-[#122560] text-white px-4 py-2 rounded-md font-medium transition">
-            Book Now
-          </a>
-        </nav>
-      </div>
-    </div>
-  </header>
+  <?php include("header.php"); ?>
   <div class="container px-4 py-4 mx-auto">
     <!-- Breadcrumb navigation -->
     <div class="flex items-center mb-4 text-sm">
@@ -324,4 +209,4 @@
   include("footer.php");
   ?>
 
-</body>
+  </body>

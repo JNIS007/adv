@@ -487,7 +487,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
           <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
           <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
+          <a href="contact.php" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
           <!-- Search Button -->
           <button class="p-2 text-gray-600 hover:text-primary">
             <i class="fas fa-search"></i>
