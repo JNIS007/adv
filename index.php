@@ -446,9 +446,9 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             <!-- Dropdown Menu -->
             <div id="booking-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
               <a href="booking.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Book Your Trip</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">How to Pay</a>
+              <a href="how_to_pay.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">How to Pay</a>
               <a href="payOnline.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Pay Online</a>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms & conditions</a>
+              <a href="termsandconditions.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Terms & conditions</a>
               <a href="DiscountOffers.php" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Discount
                 Offers</a>
             </div>

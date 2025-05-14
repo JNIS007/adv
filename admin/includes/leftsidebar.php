@@ -66,10 +66,18 @@
                             </li>
 
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Populer Adventure </span> <span class="menu-arrow"></span></a>
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Popular Adventure </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="add-pop.php">Peak  Adventure</a></li>
                                     <li><a href="manage-pop.php">Manage </a></li>
+                                </ul>
+                            </li>
+
+                              <li class="has_sub">
+                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Handle Depature </span> <span class="menu-arrow"></span></a>
+                                <ul class="list-unstyled">
+                                    <li><a href="add-dep.php">Enable Depature</a></li>
+                                    <li><a href="manage-dep.php">Manage </a></li>
                                 </ul>
                             </li>
 

@@ -563,127 +563,7 @@ exit;
               </div>
             </div>
           <?php } ?>
-          <!-- <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">2
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Kathmandu Heritage Tour</h3>
-                <p class="text-sm text-gray-600">4 UNESCO World Heritage Sites</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">3
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Bhaktapur & Nagarkot</h3>
-                <p class="text-sm text-gray-600">Cultural exploration + mountain views</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">4
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Nagarkot Sunrise & Patan</h3>
-                <p class="text-sm text-gray-600">Panoramic Himalayan views</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">5
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Fly to Lhasa</h3>
-                <p class="text-sm text-gray-600">1.5hr flight • Altitude: 3650m/11,980ft</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">6
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Lhasa Highlights</h3>
-                <p class="text-sm text-gray-600">Potala Palace & Barkhor Street</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">7
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Monastery Visits</h3>
-                <p class="text-sm text-gray-600">Drepung & Sera Monasteries</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">8
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Return to Kathmandu</h3>
-                <p class="text-sm text-gray-600">1.5hr flight • Free evening</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">9
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Fly to Bhutan</h3>
-                <p class="text-sm text-gray-600">Thimphu sightseeing</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">10
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Thimphu to Paro</h3>
-                <p class="text-sm text-gray-600">Cultural immersion day</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">11
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Tiger's Nest Hike</h3>
-                <p class="text-sm text-gray-600">5-6hr hike • 3180m/10,430ft</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-white/90 p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-start gap-3">
-              <div class="bg-[#005FAB] text-white w-8 h-8 rounded-full flex items-center justify-center shrink-0">12
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-800 mb-1">Departure</h3>
-                <p class="text-sm text-gray-600">Transfer to Paro Airport</p>
-              </div>
-            </div>
-          </div>
-        </div> -->
+          
       </section>
 
 
@@ -878,101 +758,275 @@ exit;
       </section>
 
 
-      <!----------------------Departure Dates And Price------------------------->
-      <section id="departures" class="bg-blue-50 p-6 rounded-xl shadow-lg mt-8">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">
-          <?php echo $row["PostTitle"] ?>
-        </h2>
 
-        <p class="text-gray-700 mb-4">
-          Choose between joining a fixed departure group or creating your own private trip. Below are the upcoming group
-          departures for 2025 & 2026.
-        </p>
 
-        <!-- Tabs -->
-        <div class="flex space-x-4 mb-6">
-          <button id="tab-group" class="tab-button bg-primary text-white px-4 py-2 rounded-md focus:outline-none">Group
-            Departures</button>
-          <button id="tab-private"
-            class="tab-button bg-gray-300 text-gray-800 px-4 py-2 rounded-md focus:outline-none">Private Trip</button>
-        </div>
+<!-- Departure Dates Section -->
+<section id="departures" class="bg-white p-6 rounded-xl shadow-lg mt-8 border border-gray-200">
+  <h2 class="text-3xl font-bold text-gray-800 mb-4"><?php echo $row["PostTitle"]; ?></h2>
+  
+  <p class="text-gray-700 mb-6">
+    Choose between joining a fixed departure group or creating your own private trip. 
+    Below are the upcoming group departures for 2025 & 2026.
+  </p>
 
-        <!-- Group Departures -->
-        <div id="group-departures">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label for="year" class="block text-sm font-medium text-gray-800 mb-1">Start Date</label>
-              <input type="date" id="year" class="w-full p-2 border rounded-md bg-white">
+  <!-- Tabs -->
+  <div class="flex space-x-2 mb-6">
+    <button id="tab-group" class="tab-button bg-primary text-white px-4 py-2 rounded-md font-medium">Group Departures</button>
+    <button id="tab-private" class="tab-button bg-gray-200 text-gray-800 px-4 py-2 rounded-md font-medium">Private Trip</button>
+  </div>
 
-              </input>
-            </div>
-            <div>
-              <label for="month" class="block text-sm font-medium text-gray-800 mb-1">End Date</label>
-              <input type="date" id="month" class="w-full p-2 border rounded-md bg-white">
+  <!-- Date Filters -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div>
+      <label for="startDate" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+      <input type="date" id="startDate" class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+    </div>
+    <div>
+      <label for="endDate" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+      <input type="date" id="endDate" class="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+    </div>
+  </div>
+  <input type="hidden" id="postId" value="<?php echo $id; ?>">
 
-              </input>
-            </div>
-          </div>
+  <!-- Departures Table -->
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trip Starts</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trip Ends</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price Per Person</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Book Now</th>
+        </tr>
+      </thead>
+      <tbody id="departure-data" class="bg-white divide-y divide-gray-200">
+        <!-- Initial data loaded from PHP -->
+        <?php
+        $postQuery = mysqli_query($con, "SELECT * FROM tblpostdetails WHERE post_id = $id");
+        if(mysqli_num_rows($postQuery) > 0) {
+          while($fetch = mysqli_fetch_assoc($postQuery)) {
+            echo '
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap">'.date('d M Y', strtotime($fetch["start_date"])).'</td>
+              <td class="px-6 py-4 whitespace-nowrap">'.date('d M Y', strtotime($fetch["end_date"])).'</td>
+              <td class="px-6 py-4 whitespace-nowrap">USD '.$fetch["cost_per_person"].'</td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  Available
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <button class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium">
+                  Book Now
+                </button>
+              </td>
+            </tr>';
+          }
+        } else {
+          echo '
+          <tr>
+            <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+              No departures available
+            </td>
+          </tr>';
+        }
+        ?>
+      </tbody>
+    </table>
+  </div>
 
-          <div class="overflow-x-auto">
-            <table class="min-w-full text-left bg-white rounded-lg overflow-hidden border border-gray-200">
-              <thead class="bg-primary text-white">
-                <tr>
-                  <th class="px-4 py-3">Trip Starts</th>
-                  <th class="px-4 py-3">Trip Ends</th>
-                  <th class="px-4 py-3">Price Per Person</th>
-                  <th class="px-4 py-3">Status</th>
-                  <th class="px-4 py-3">Book Now</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-t">
-                  <td class="px-4 py-3">01 Jan 2025</td>
-                  <td class="px-4 py-3">14 Jan 2025</td>
-                  <td class="px-4 py-3">USD 1000</td>
-                  <td class="px-4 py-3 text-green-600 font-semibold">Available</td>
-                  <td class="px-4 py-3">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Book Now</button>
-                  </td>
-                </tr>
-                <tr class="border-t">
-                  <td class="px-4 py-3">15 Jan 2025</td>
-                  <td class="px-4 py-3">28 Jan 2025</td>
-                  <td class="px-4 py-3">USD 1200</td>
-                  <td class="px-4 py-3 text-green-600 font-semibold">Available</td>
-                  <td class="px-4 py-3">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Book Now</button>
-                  </td>
-                </tr>
-                <tr class="border-t">
-                  <td class="px-4 py-3">01 Feb 2025</td>
-                  <td class="px-4 py-3">14 Feb 2025</td>
-                  <td class="px-4 py-3">USD 1100</td>
-                  <td class="px-4 py-3 text-yellow-600 font-semibold">Few Seats</td>
-                  <td class="px-4 py-3">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Book Now</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+  <!-- Private Trip Content -->
+  <div id="private-departures" class="hidden mt-6 bg-blue-50 p-6 rounded-lg">
+    <h3 class="text-xl font-semibold text-gray-800 mb-2">Plan a Private Trip</h3>
+    <p class="text-gray-700 mb-4">
+      Looking for a private departure with your own group, family, or solo? We can customize this trek based on your
+      preferred dates, comfort level, and travel style.
+    </p>
+    <a href="#inquiry-form" class="inline-block bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-md font-medium">
+      Inquire About a Private Trip
+    </a>
+  </div> <button id="refresh-btn" class="ml-4 bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium flex items-center">
+    <i class="fas fa-sync-alt mr-2"></i> Reset Filters
+  </button>
+</section>
 
-        <!-- Private Trip -->
-        <div id="private-departures" class="hidden mt-6">
-          <div class="bg-white p-6 rounded-md shadow border border-gray-200">
-            <h3 class="text-xl font-semibold text-gray-800 mb-4">Plan a Private Trip</h3>
-            <p class="text-gray-700 mb-4">
-              Looking for a private departure with your own group, family, or solo? We can customize this trek based on
-              your
-              preferred dates, comfort level, and travel style.
-            </p>
-            <a href="#inquiry-form" class="inline-block bg-primary hover:bg-[#122747] text-white px-6 py-2 rounded-md">
-              Inquire About a Private Trip
-            </a>
-          </div>
-        </div>
-      </section>
+<script>
+// Tab Switching
+document.getElementById('tab-group').addEventListener('click', () => {
+  document.getElementById('departures').querySelector('.overflow-x-auto').classList.remove('hidden');
+  document.getElementById('private-departures').classList.add('hidden');
+  document.getElementById('tab-group').classList.remove('bg-gray-200');
+  document.getElementById('tab-group').classList.add('bg-primary', 'text-white');
+  document.getElementById('tab-private').classList.remove('bg-primary', 'text-white');
+  document.getElementById('tab-private').classList.add('bg-gray-200', 'text-gray-800');
+});
+
+document.getElementById('tab-private').addEventListener('click', () => {
+  document.getElementById('private-departures').classList.remove('hidden');
+  document.getElementById('departures').querySelector('.overflow-x-auto').classList.add('hidden');
+  document.getElementById('tab-private').classList.remove('bg-gray-200');
+  document.getElementById('tab-private').classList.add('bg-primary', 'text-white');
+  document.getElementById('tab-group').classList.remove('bg-primary', 'text-white');
+  document.getElementById('tab-group').classList.add('bg-gray-200', 'text-gray-800');
+});
+
+// Date Filtering with AJAX
+document.getElementById('startDate').addEventListener('change', fetchDepartures);
+document.getElementById('endDate').addEventListener('change', fetchDepartures);
+
+function fetchDepartures() {
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+  const postId = document.getElementById('postId').value;
+
+  // Only fetch if both dates are selected
+  if (startDate && endDate) {
+    // Show loading state
+    const tbody = document.getElementById('departure-data');
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+          <i class="fas fa-spinner fa-spin mr-2"></i> Loading departures...
+        </td>
+      </tr>
+    `;
+
+    // Make AJAX request
+    fetch('fetch-departures.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `start_date=${startDate}&end_date=${endDate}&post_id=${postId}`
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      updateDepartureTable(data);
+    })
+    .catch(error => {
+      console.error('Error fetching departures:', error);
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="5" class="px-6 py-4 text-center text-red-500">
+            Error loading departures. Please try again.
+          </td>
+        </tr>
+      `;
+    });
+  }
+}
+
+function updateDepartureTable(departures) {
+  const tbody = document.getElementById('departure-data');
+  
+  if (departures.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+          No departures found for the selected date range
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  let html = '';
+  departures.forEach(departure => {
+    const startDate = new Date(departure.start_date);
+    const endDate = new Date(departure.end_date);
+    
+    html += `
+      <tr>
+        <td class="px-6 py-4 whitespace-nowrap">${formatDate(startDate)}</td>
+        <td class="px-6 py-4 whitespace-nowrap">${formatDate(endDate)}</td>
+        <td class="px-6 py-4 whitespace-nowrap">USD ${departure.cost_per_person}</td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+            Available
+          </span>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <button class="bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-md text-sm font-medium">
+            Book Now
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+  
+  tbody.innerHTML = html;
+}
+
+function formatDate(date) {
+  const options = { day: '2-digit', month: 'short', year: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+// Load initial data when page loads
+document.addEventListener('DOMContentLoaded', () => {
+  // Format initial dates
+  const dateCells = document.querySelectorAll('#departure-data td:nth-child(1), #departure-data td:nth-child(2)');
+  dateCells.forEach(cell => {
+    const date = new Date(cell.textContent);
+    if (!isNaN(date)) {
+      cell.textContent = formatDate(date);
+    }
+  });
+});
+
+// Refresh button functionality
+document.getElementById('refresh-btn').addEventListener('click', function() {
+  // Clear the date inputs
+  document.getElementById('startDate').value = '';
+  document.getElementById('endDate').value = '';
+  
+  // Reset to show all departures
+  fetchAllDepartures();
+});
+
+function fetchAllDepartures() {
+  const postId = document.getElementById('postId').value;
+  const tbody = document.getElementById('departure-data');
+  
+  // Show loading state
+  tbody.innerHTML = `
+    <tr>
+      <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+        <i class="fas fa-spinner fa-spin mr-2"></i> Loading all departures...
+      </td>
+    </tr>
+  `;
+
+  // Make AJAX request to get all departures
+  fetch('fetch-another.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `post_id=${postId}&get_all=true`
+  })
+  .then(response => response.json())
+  .then(data => {
+    updateDepartureTable(data);
+  })
+  .catch(error => {
+    console.error('Error fetching departures:', error);
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="5" class="px-6 py-4 text-center text-red-500">
+          Error loading departures. Please try again.
+        </td>
+      </tr>
+    `;
+  });
+}
+</script>
 
       <script>
         const tabGroup = document.getElementById('tab-group');
@@ -1376,7 +1430,66 @@ exit;
         }
       }
     });
-  </script>
+
+document.getElementById('startDate').addEventListener('change', fetchDepartures);
+document.getElementById('endDate').addEventListener('change', fetchDepartures);
+
+function fetchDepartures() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const postId = document.getElementById('postId').value;
+
+    if (startDate && endDate) {
+        fetch('fetch-departures.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `start_date=${startDate}&end_date=${endDate}&post_id=${postId}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.getElementById('departure-data');
+            tbody.innerHTML = '';
+            
+            if (data.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-4 py-3 text-center text-gray-600">
+                            No departures found for the selected date range
+                        </td>
+                    </tr>
+                `;
+            } else {
+                data.forEach(row => {
+                    tbody.innerHTML += `
+                        <tr class="border-t">
+                            <td class="px-4 py-3">${formatDate(row.start_date)}</td>
+                            <td class="px-4 py-3">${formatDate(row.end_date)}</td>
+                            <td class="px-4 py-3">USD ${row.cost_per_person}</td>
+                            <td class="px-4 py-3 text-green-600 font-semibold">Available</td>
+                            <td class="px-4 py-3">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                                    Book Now
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+}
+
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('en-US', options);
+}
+</script>
+
 </body>
 
 </html>
