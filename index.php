@@ -14,302 +14,301 @@ include("./admin/includes/config.php")
   include("header.php");
   ?>
   <!-- Tailwind CSS -->
-<<<<<<< HEAD
-=======
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Swiper CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const dropdown = document.getElementById('countries-dropdown');
-      const mainToggle = document.getElementById('main-toggle');
+  <<<<<<< HEAD=======<script src="https://cdn.tailwindcss.com">
+    </script>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const dropdown = document.getElementById('countries-dropdown');
+        const mainToggle = document.getElementById('main-toggle');
 
-      // Show dropdown on hover
-      mainToggle.addEventListener('mouseenter', () => {
-        dropdown.classList.remove('hidden');
-      });
-
-      // Hide dropdown when mouse leaves both button and dropdown
-      mainToggle.addEventListener('mouseleave', (e) => {
-        setTimeout(() => {
-          if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
-            dropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      dropdown.addEventListener('mouseleave', (e) => {
-        setTimeout(() => {
-          if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
-            dropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      // Handle submenu hover (optional enhancement)
-      const submenuButtons = document.querySelectorAll('#countries-dropdown button');
-
-      submenuButtons.forEach(button => {
-        const submenu = button.nextElementSibling;
-        if (!submenu) return;
-
-        button.addEventListener('mouseenter', () => {
-          submenu.classList.remove('hidden');
+        // Show dropdown on hover
+        mainToggle.addEventListener('mouseenter', () => {
+          dropdown.classList.remove('hidden');
         });
 
-        button.parentElement.addEventListener('mouseleave', () => {
-          submenu.classList.add('hidden');
-        });
-      });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      const bookingDropdown = document.getElementById('booking-dropdown');
-      const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
-
-      // Show dropdown on hover
-      bookingToggle.addEventListener('mouseenter', () => {
-        bookingDropdown.classList.remove('hidden');
-      });
-
-      // Hide dropdown when mouse leaves both the button and the dropdown
-      bookingToggle.addEventListener('mouseleave', (e) => {
-        setTimeout(() => {
-          if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
-            bookingDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      bookingDropdown.addEventListener('mouseleave', (e) => {
-        setTimeout(() => {
-          if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
-            bookingDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      // Handle submenu hover (optional enhancement)
-      const submenuButtons = document.querySelectorAll('#booking-dropdown button');
-
-      submenuButtons.forEach(button => {
-        const submenu = button.nextElementSibling;
-        if (!submenu) return;
-
-        button.addEventListener('mouseenter', () => {
-          submenu.classList.remove('hidden');
+        // Hide dropdown when mouse leaves both button and dropdown
+        mainToggle.addEventListener('mouseleave', (e) => {
+          setTimeout(() => {
+            if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
+              dropdown.classList.add('hidden');
+            }
+          }, 200);
         });
 
-        button.parentElement.addEventListener('mouseleave', () => {
-          submenu.classList.add('hidden');
+        dropdown.addEventListener('mouseleave', (e) => {
+          setTimeout(() => {
+            if (!mainToggle.matches(':hover') && !dropdown.matches(':hover')) {
+              dropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
+
+        // Handle submenu hover (optional enhancement)
+        const submenuButtons = document.querySelectorAll('#countries-dropdown button');
+
+        submenuButtons.forEach(button => {
+          const submenu = button.nextElementSibling;
+          if (!submenu) return;
+
+          button.addEventListener('mouseenter', () => {
+            submenu.classList.remove('hidden');
+          });
+
+          button.parentElement.addEventListener('mouseleave', () => {
+            submenu.classList.add('hidden');
+          });
         });
       });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      const travelDropdown = document.getElementById('travel-dropdown');
-      const travelTrigger = document.getElementById('travel-trigger');
+      document.addEventListener('DOMContentLoaded', function() {
+        const bookingDropdown = document.getElementById('booking-dropdown');
+        const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
 
-      travelTrigger.addEventListener('mouseenter', () => {
-        travelDropdown.classList.remove('hidden');
+        // Show dropdown on hover
+        bookingToggle.addEventListener('mouseenter', () => {
+          bookingDropdown.classList.remove('hidden');
+        });
+
+        // Hide dropdown when mouse leaves both the button and the dropdown
+        bookingToggle.addEventListener('mouseleave', (e) => {
+          setTimeout(() => {
+            if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
+              bookingDropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
+
+        bookingDropdown.addEventListener('mouseleave', (e) => {
+          setTimeout(() => {
+            if (!bookingToggle.matches(':hover') && !bookingDropdown.matches(':hover')) {
+              bookingDropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
+
+        // Handle submenu hover (optional enhancement)
+        const submenuButtons = document.querySelectorAll('#booking-dropdown button');
+
+        submenuButtons.forEach(button => {
+          const submenu = button.nextElementSibling;
+          if (!submenu) return;
+
+          button.addEventListener('mouseenter', () => {
+            submenu.classList.remove('hidden');
+          });
+
+          button.parentElement.addEventListener('mouseleave', () => {
+            submenu.classList.add('hidden');
+          });
+        });
+      });
+      document.addEventListener('DOMContentLoaded', function() {
+        const travelDropdown = document.getElementById('travel-dropdown');
+        const travelTrigger = document.getElementById('travel-trigger');
+
+        travelTrigger.addEventListener('mouseenter', () => {
+          travelDropdown.classList.remove('hidden');
+        });
+
+        travelTrigger.addEventListener('mouseleave', () => {
+          setTimeout(() => {
+            if (!travelTrigger.matches(':hover') && !travelDropdown.matches(':hover')) {
+              travelDropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
+
+        travelDropdown.addEventListener('mouseleave', () => {
+          setTimeout(() => {
+            if (!travelTrigger.matches(':hover') && !travelDropdown.matches(':hover')) {
+              travelDropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
+      });
+      document.addEventListener('DOMContentLoaded', function() {
+        const csrDropdown = document.getElementById('csr-dropdown');
+        const csrTrigger = document.getElementById('csr-trigger');
+
+        csrTrigger.addEventListener('mouseenter', () => {
+          csrDropdown.classList.remove('hidden');
+        });
+
+        csrTrigger.addEventListener('mouseleave', () => {
+          setTimeout(() => {
+            if (!csrTrigger.matches(':hover') && !csrDropdown.matches(':hover')) {
+              csrDropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
+
+        csrDropdown.addEventListener('mouseleave', () => {
+          setTimeout(() => {
+            if (!csrTrigger.matches(':hover') && !csrDropdown.matches(':hover')) {
+              csrDropdown.classList.add('hidden');
+            }
+          }, 200);
+        });
       });
 
-      travelTrigger.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-          if (!travelTrigger.matches(':hover') && !travelDropdown.matches(':hover')) {
-            travelDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
 
-      travelDropdown.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-          if (!travelTrigger.matches(':hover') && !travelDropdown.matches(':hover')) {
-            travelDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-      const csrDropdown = document.getElementById('csr-dropdown');
-      const csrTrigger = document.getElementById('csr-trigger');
-
-      csrTrigger.addEventListener('mouseenter', () => {
-        csrDropdown.classList.remove('hidden');
-      });
-
-      csrTrigger.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-          if (!csrTrigger.matches(':hover') && !csrDropdown.matches(':hover')) {
-            csrDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-
-      csrDropdown.addEventListener('mouseleave', () => {
-        setTimeout(() => {
-          if (!csrTrigger.matches(':hover') && !csrDropdown.matches(':hover')) {
-            csrDropdown.classList.add('hidden');
-          }
-        }, 200);
-      });
-    });
-
-
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#1a365d', // Deep navy for professionalism
-            secondary: '#c2410c', // Adventurous orange for accents
-          },
-          animation: {
-            'fadeIn': 'fadeIn 0.8s ease-out forwards',
-          },
-          keyframes: {
-            fadeIn: {
-              'from': {
-                opacity: '0',
-                transform: 'translateY(20px)'
-              },
-              'to': {
-                opacity: '1',
-                transform: 'translateY(0)'
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1a365d', // Deep navy for professionalism
+              secondary: '#c2410c', // Adventurous orange for accents
+            },
+            animation: {
+              'fadeIn': 'fadeIn 0.8s ease-out forwards',
+            },
+            keyframes: {
+              fadeIn: {
+                'from': {
+                  opacity: '0',
+                  transform: 'translateY(20px)'
+                },
+                'to': {
+                  opacity: '1',
+                  transform: 'translateY(0)'
+                }
               }
             }
           }
         }
       }
-    }
-    const goToTopButton = document.getElementById('goToTop');
+      const goToTopButton = document.getElementById('goToTop');
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        goToTopButton.classList.add('visible');
-      } else {
-        goToTopButton.classList.remove('visible');
-      }
-    });
-
-    goToTopButton.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+          goToTopButton.classList.add('visible');
+        } else {
+          goToTopButton.classList.remove('visible');
+        }
       });
-    });
-  </script>
 
-  <style>
-    /* Header Dropdowns */
-    .dropdown-content {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px);
-      transition: all 0.2s ease;
-    }
+      goToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    </script>
 
-    .dropdown:hover .dropdown-content,
-    .dropdown:focus-within .dropdown-content {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    /* Mobile Menu */
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
+    <style>
+      /* Header Dropdowns */
+      .dropdown-content {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.2s ease;
       }
 
-      to {
-        transform: translateX(0);
+      .dropdown:hover .dropdown-content,
+      .dropdown:focus-within .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
       }
-    }
 
-    .mobile-menu {
-      animation: slideIn 0.3s ease-out;
-    }
+      /* Mobile Menu */
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
 
-    /* Swiper Overrides */
-    .swiper-button-next,
-    .swiper-button-prev {
-      background-color: rgba(255, 255, 255, 0.2);
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-
-    .swiper-button-next:hover,
-    .swiper-button-prev:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-    }
-
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      font-size: 1.5rem;
-      color: white;
-    }
-
-    .swiper-pagination-bullet {
-      background: white;
-      opacity: 0.6;
-      width: 12px;
-      height: 12px;
-    }
-
-    .swiper-pagination-bullet-active {
-      background: #1a365d;
-      opacity: 1;
-    }
-
-    .testimonials-carousel {
-      padding-bottom: 3rem;
-    }
-
-    .testimonials-carousel .swiper-pagination-bullet {
-      width: 12px;
-      height: 12px;
-      background: rgba(26, 54, 93, 0.3);
-      opacity: 1;
-      transition: all 0.3s ease;
-    }
-
-    .testimonials-carousel .swiper-pagination-bullet-active {
-      background: #1a365d;
-      width: 30px;
-      border-radius: 6px;
-    }
-
-    [class="dropdown"] {
-      transition: all 0.2s ease;
-    }
-
-    / Prevent layout shift / .relative {
-      position: relative;
-    }
-
-    .absolute {
-      position: absolute;
-    }
-
-    / Better hover effects */ .hover:bg-gray-50:hover {
-      background-color: #f9fafb;
-    }
-
-    .hover:text-secondary:hover {
-      color: #6b7280;
-    }
-
-    @media (max-width: 1024px) {
-
-      .testimonial-prev,
-      .testimonial-next {
-        display: none;
+        to {
+          transform: translateX(0);
+        }
       }
-    }
-  </style>
+
+      .mobile-menu {
+        animation: slideIn 0.3s ease-out;
+      }
+
+      /* Swiper Overrides */
+      .swiper-button-next,
+      .swiper-button-prev {
+        background-color: rgba(255, 255, 255, 0.2);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        backdrop-filter: blur(5px);
+        transition: all 0.3s ease;
+      }
+
+      .swiper-button-next:hover,
+      .swiper-button-prev:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .swiper-button-next::after,
+      .swiper-button-prev::after {
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .swiper-pagination-bullet {
+        background: white;
+        opacity: 0.6;
+        width: 12px;
+        height: 12px;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: #1a365d;
+        opacity: 1;
+      }
+
+      .testimonials-carousel {
+        padding-bottom: 3rem;
+      }
+
+      .testimonials-carousel .swiper-pagination-bullet {
+        width: 12px;
+        height: 12px;
+        background: rgba(26, 54, 93, 0.3);
+        opacity: 1;
+        transition: all 0.3s ease;
+      }
+
+      .testimonials-carousel .swiper-pagination-bullet-active {
+        background: #1a365d;
+        width: 30px;
+        border-radius: 6px;
+      }
+
+      [class="dropdown"] {
+        transition: all 0.2s ease;
+      }
+
+      / Prevent layout shift / .relative {
+        position: relative;
+      }
+
+      .absolute {
+        position: absolute;
+      }
+
+      / Better hover effects */ .hover:bg-gray-50:hover {
+        background-color: #f9fafb;
+      }
+
+      .hover:text-secondary:hover {
+        color: #6b7280;
+      }
+
+      @media (max-width: 1024px) {
+
+        .testimonial-prev,
+        .testimonial-next {
+          display: none;
+        }
+      }
+    </style>
 </head>
 
 <body class="font-sans antialiased">
@@ -539,7 +538,7 @@ include("./admin/includes/config.php")
       </div>
     </div>
   </header>
->>>>>>> 2659dfdea6fdf04460874648717d75184a845bfe
+  >>>>>>> 2659dfdea6fdf04460874648717d75184a845bfe
 
   <!-- Hero Slider -->
   <section class="relative">
@@ -551,7 +550,7 @@ include("./admin/includes/config.php")
         $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($r = mysqli_fetch_array($q)) {
           $ct = $r["CategoryId"];
-          ?>
+        ?>
           <div class="relative swiper-slide">
             <!-- Background Image -->
             <div class="absolute inset-0 bg-center bg-cover"
@@ -850,7 +849,7 @@ include("./admin/includes/config.php")
         $query = mysqli_query($con, "SELECT * FROM topposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-          ?>
+        ?>
 
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
@@ -869,10 +868,10 @@ include("./admin/includes/config.php")
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $r = mysqli_fetch_array($q);
-                echo $r["CategoryName"];
-                ?></span>
+                                                                                                    $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $r = mysqli_fetch_array($q);
+                                                                                                    echo $r["CategoryName"];
+                                                                                                    ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
@@ -1152,7 +1151,7 @@ include("./admin/includes/config.php")
         $sql = mysqli_query($con, "SELECT * FROM popularposts WHERE Is_Active = 1");
         while ($ro = mysqli_fetch_array($sql)) {
           $ctid = $ro["CategoryId"];
-          ?>
+        ?>
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
               <img src="admin/postimages/<?php echo htmlentities($ro['PostImage']); ?>"
@@ -1170,10 +1169,10 @@ include("./admin/includes/config.php")
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($ro['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $rr = mysqli_fetch_array($qr);
-                echo $rr["CategoryName"];
-                ?></span>
+                                                                                                    $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $rr = mysqli_fetch_array($qr);
+                                                                                                    echo $rr["CategoryName"];
+                                                                                                    ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($ro['PostUrl']); ?>">
@@ -1425,7 +1424,7 @@ include("./admin/includes/config.php")
     });
 
     // Reset animations when slide changes (for main swiper)
-    mainSwiper.on('slideChange', function () {
+    mainSwiper.on('slideChange', function() {
       const slides = document.querySelectorAll('.swiper-slide');
       slides.forEach(slide => {
         const animElements = slide.querySelectorAll('[class*="animate-"]');
@@ -1498,6 +1497,6 @@ include("./admin/includes/config.php")
       });
     });
   </script>
-  </body>
+</body>
 
 </html>
