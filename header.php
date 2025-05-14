@@ -45,7 +45,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const dropdown = document.getElementById('countries-dropdown');
     const mainToggle = document.getElementById('main-toggle');
 
@@ -87,7 +87,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       });
     });
   });
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const bookingDropdown = document.getElementById('booking-dropdown');
     const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
 
@@ -129,7 +129,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       });
     });
   });
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const travelDropdown = document.getElementById('travel-dropdown');
     const travelTrigger = document.getElementById('travel-trigger');
 
@@ -153,7 +153,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       }, 200);
     });
   });
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const csrDropdown = document.getElementById('csr-dropdown');
     const csrTrigger = document.getElementById('csr-trigger');
 
@@ -436,11 +436,20 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
             <!-- Dropdown Menu -->
             <div id="booking-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
-              <a href="booking.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Book Your Trip</a>
-              <a href="how_to_pay.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">How to Pay</a>
-              <a href="payOnline.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Pay Online</a>
-              <a href="termsandconditions.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Terms & conditions</a>
-              <a href="DiscountOffers.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Discount
+              <a href="booking.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Book
+                Your Trip</a>
+              <a href="how_to_pay.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">How to
+                Pay</a>
+              <a href="payOnline.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Pay
+                Online</a>
+              <a href="termsandconditions.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Terms &
+                conditions</a>
+              <a href="DiscountOffers.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Discount
                 Offers</a>
             </div>
           </div>
@@ -452,14 +461,30 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
             <!-- Dropdown Menu -->
             <div id="travel-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
-              <a href="nepalvisa.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Nepali Visa</a>
-              <a href="nepaltravelguide.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Nepal Travel Guide</a>
-              <a href="equipmentchecklist.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Equipment Check List</a>
-              <a href="travelinsurance.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Travel Insurance</a>
-              <a href="besttimetotravel.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Best Time To Travel Nepal</a>
-              <a href="packinglist.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Packing List</a>
-              <a href="bhutantravelguide.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Bhutan Travel Guide</a>
-              <a href="tibettravelguide.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Tibet Travel Guide</a>
+              <a href="nepalvisa.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Nepali
+                Visa</a>
+              <a href="nepaltravelguide.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Nepal
+                Travel Guide</a>
+              <a href="equipmentchecklist.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Equipment
+                Check List</a>
+              <a href="travelinsurance.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Travel
+                Insurance</a>
+              <a href="besttimetotravel.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Best
+                Time To Travel Nepal</a>
+              <a href="packinglist.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Packing
+                List</a>
+              <a href="bhutantravelguide.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Bhutan
+                Travel Guide</a>
+              <a href="tibettravelguide.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Tibet
+                Travel Guide</a>
             </div>
           </div>
 
@@ -474,20 +499,34 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 
             <!-- Dropdown Menu -->
             <div id="csr-dropdown" class="absolute left-0 z-50 hidden mt-2 bg-white rounded-md shadow-lg w-72">
-              <a href="Responsible_tourism.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Responsible Tourism in Nepal with Advanced Adventures</a>
-              <a href="HealthandposterPolicy.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Health & Porter Policy</a>
-              <a href="Education.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Education</a>
-              <a href="SocialAwareness.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Social Awareness</a>
-              <a href="PostQuakeRelief.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Post-Quake Relief</a>
-              <a href="Environment.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Environment</a>
-              <a href="LearnNepelaseLanguage.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Learn Nepalese Language</a>
-              <a href="VolunteerTeaching.php" class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Volunteer Teaching</a>
+              <a href="Responsible_tourism.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Responsible
+                Tourism in Nepal with Advanced Adventures</a>
+              <a href="HealthandposterPolicy.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Health
+                & Porter Policy</a>
+              <a href="Education.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Education</a>
+              <a href="SocialAwareness.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Social
+                Awareness</a>
+              <a href="PostQuakeRelief.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Post-Quake
+                Relief</a>
+              <a href="Environment.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Environment</a>
+              <a href="LearnNepelaseLanguage.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Learn
+                Nepalese Language</a>
+              <a href="VolunteerTeaching.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Volunteer
+                Teaching</a>
             </div>
           </div>
 
           <a href="/testimonials.html" class="font-medium text-gray-700 transition hover:text-primary">Trip Reviews</a>
           <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Travel Blog</a>
-          <a href="#" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
+          <a href="contact.php" class="font-medium text-gray-700 transition hover:text-primary">Contact</a>
           <!-- Search Button -->
           <button class="p-2 text-gray-600 hover:text-primary">
             <i class="fas fa-search"></i>
