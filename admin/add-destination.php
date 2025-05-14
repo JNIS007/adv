@@ -2,201 +2,161 @@
 session_start();
 include('includes/config.php');
 error_reporting(0);
-if(strlen($_SESSION['login'])==0)
-  { 
-header('location:index.php');
-}
-else{
-
-if(isset($_POST['submit']))
-{
-$dest=$_POST['dest'];
-$description=$_POST['description'];
-$status=1;
-$query=mysqli_query($con,"insert into tbldest(DestName,Description,Is_Active) values('$dest','$description','$status')");
-if($query)
-{
-$msg="Category created ";
-}
-else{
-$error="Something went wrong . Please try again.";    
-} 
+if(strlen($_SESSION['login']) == 0) { 
+    header('location:index.php');
+    exit();
 }
 
-
+if(isset($_POST['submit'])) {
+    $dest = mysqli_real_escape_string($con, $_POST['dest']);
+    $description = mysqli_real_escape_string($con, $_POST['description']);
+    $status = 1;
+    
+    $query = mysqli_query($con, "INSERT INTO tbldest(DestName, Description, Is_Active) 
+            VALUES('$dest', '$description', '$status')");
+    
+    if($query) {
+        $msg = "Destination created successfully";
+    } else {
+        $error = "Something went wrong. Please try again.";    
+    } 
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
+    <title>Adventure | Add Destination</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Advanture | Add Destination</title>
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
+    
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+    
+    <script src="assets/js/modernizr.min.js"></script>
+</head>
 
-        <!-- App css -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/components.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/pages.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/menu.css" rel="stylesheet" type="text/css" />
-        <link href="assets/css/responsive.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
-        <script src="assets/js/modernizr.min.js"></script>
+<body class="fixed-left">
+    <div id="wrapper">
+        <!-- Top Bar Start -->
+        <?php include('includes/topheader.php');?>
+        <!-- Top Bar End -->
 
-    </head>
+        <!-- Left Sidebar Start -->
+        <?php include('includes/leftsidebar.php');?>
+        <!-- Left Sidebar End -->
 
+        <div class="content-page">
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Add Destination</h4>
+                                <ol class="breadcrumb p-0 m-0">
+                                    <li><a href="#">Admin</a></li>
+                                    <li><a href="#">Destination</a></li>
+                                    <li class="active">Add Destination</li>
+                                </ol>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
 
-    <body class="fixed-left">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card-box">
+                                <h4 class="m-t-0 header-title"><b>Add Destination</b></h4>
+                                <hr />
 
-        <!-- Begin page -->
-        <div id="wrapper">
+                                <div class="row">
+                                    <div class="col-sm-6">  
+                                        <?php if(isset($msg)) { ?>
+                                            <div class="alert alert-success" role="alert">
+                                                <strong>Well done!</strong> <?php echo htmlentities($msg); ?>
+                                            </div>
+                                        <?php } ?>
 
-<!-- Top Bar Start -->
- <?php include('includes/topheader.php');?>
-<!-- Top Bar End -->
-
-
-<!-- ========== Left Sidebar Start ========== -->
-           <?php include('includes/leftsidebar.php');?>
- <!-- Left Sidebar End -->
-
-            <div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <div class="container">
-
-
-                        <div class="row">
-							<div class="col-xs-12">
-								<div class="page-title-box">
-                                    <h4 class="page-title">Add Destination</h4>
-                                    <ol class="breadcrumb p-0 m-0">
-                                        <li>
-                                            <a href="#">Admin</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Destination </a>
-                                        </li>
-                                        <li class="active">
-                                            Add Destination
-                                        </li>
-                                    </ol>
-                                    <div class="clearfix"></div>
+                                        <?php if(isset($error)) { ?>
+                                            <div class="alert alert-danger" role="alert">
+                                                <strong>Oh snap!</strong> <?php echo htmlentities($error); ?>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
                                 </div>
-							</div>
-						</div>
-                        <!-- end row -->
 
-
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card-box">
-                                    <h4 class="m-t-0 header-title"><b>Add Destination </b></h4>
-                                    <hr />
-                        		
-
-
-<div class="row">
-<div class="col-sm-6">  
-<!---Success Message--->  
-<?php if($msg){ ?>
-<div class="alert alert-success" role="alert">
-<strong>Well done!</strong> <?php echo htmlentities($msg);?>
-</div>
-<?php } ?>
-
-<!---Error Message--->
-<?php if($error){ ?>
-<div class="alert alert-danger" role="alert">
-<strong>Oh snap!</strong> <?php echo htmlentities($error);?></div>
-<?php } ?>
-
-
-</div>
-</div>
-
-
-
-
-
-                        			<div class="row">
-                        				<div class="col-md-6">
-                        					<form class="form-horizontal" name="category" method="post">
-	                                            <div class="form-group">
-	                                                <label class="col-md-2 control-label">Destination</label>
-	                                                <div class="col-md-10">
-	                                                    <input type="text" class="form-control" value="" name="dest" required>
-	                                                </div>
-	                                            </div>
-	                                     
-	                                            <div class="form-group">
-	                                                <label class="col-md-2 control-label">Destination Description</label>
-	                                                <div class="col-md-10">
-	                                                    <textarea class="form-control" rows="5" name="description" required></textarea>
-	                                                </div>
-	                                            </div>
-
-        <div class="form-group">
-                                                    <label class="col-md-2 control-label">&nbsp;</label>
-                                                    <div class="col-md-10">
-                                                  
-                                                <button type="submit" class="btn btn-custom waves-effect waves-light btn-md" name="submit">
-                                                    Submit
-                                                </button>
-                                                    </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <form class="form-horizontal" name="category" method="post">
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Destination Name</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" name="dest" required>
                                                 </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">Description</label>
+                                                <div class="col-md-9">
+                                                    <textarea class="form-control" id="editor1" name="description" required></textarea>
+                                                    <script>
+                                                        CKEDITOR.replace('editor1', {
+                                                            toolbar: [
+                                                                { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ] },
+                                                                { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', 'Blockquote' ] },
+                                                                { name: 'links', items: [ 'Link', 'Unlink' ] },
+                                                                { name: 'tools', items: [ 'Maximize' ] }
+                                                            ],
+                                                            height: 200
+                                                        });
+                                                    </script>
+                                                </div>
+                                            </div>
 
-	                                        </form>
-                        				</div>
-
-
-                        			</div>
-
-
-                        			
-
-
-
-
-           
-                       
-
-
+                                            <div class="form-group">
+                                                <label class="col-md-3 control-label">&nbsp;</label>
+                                                <div class="col-md-9">
+                                                    <button type="submit" class="btn btn-custom waves-effect waves-light btn-md" name="submit">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- end row -->
-
-
-                    </div> <!-- container -->
-
-                </div> <!-- content -->
-
-<?php include('includes/footer.php');?>
-
+                    </div>
+                </div>
             </div>
+
+            <?php include('includes/footer.php');?>
         </div>
+    </div>
 
-        <script>
-            var resizefunc = [];
-        </script>
+    <!-- jQuery  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/detect.js"></script>
+    <script src="assets/js/fastclick.js"></script>
+    <script src="assets/js/jquery.blockUI.js"></script>
+    <script src="assets/js/waves.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="../plugins/switchery/switchery.min.js"></script>
 
-        <!-- jQuery  -->
-        <script src="assets/js/jquery.min.js"></script>
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/detect.js"></script>
-        <script src="assets/js/fastclick.js"></script>
-        <script src="assets/js/jquery.blockUI.js"></script>
-        <script src="assets/js/waves.js"></script>
-        <script src="assets/js/jquery.slimscroll.js"></script>
-        <script src="assets/js/jquery.scrollTo.min.js"></script>
-        <script src="../plugins/switchery/switchery.min.js"></script>
-
-        <!-- App js -->
-        <script src="assets/js/jquery.core.js"></script>
-        <script src="assets/js/jquery.app.js"></script>
-
-    </body>
+    <!-- App js -->
+    <script src="assets/js/jquery.core.js"></script>
+    <script src="assets/js/jquery.app.js"></script>
+</body>
 </html>
-<?php } ?>

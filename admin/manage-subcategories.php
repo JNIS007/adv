@@ -119,7 +119,7 @@ if (strlen($_SESSION['login']) == 0) {
                                                         <th scope="row"><?php echo htmlentities($cnt); ?></th>
                                                         <td><?php echo htmlentities($row['catname']); ?></td>
                                                         <td><?php echo htmlentities($row['subcatname']); ?></td>
-                                                        <td><?php echo htmlentities($row['SubCatDescription']); ?></td>
+                                                        <td><?php echo $row['SubCatDescription']; ?></td>
                                                         <td><?php echo htmlentities($row['subcatpostingdate']); ?></td>
                                                         <td><?php echo htmlentities($row['subcatupdationdate']); ?></td>
                                                         <td>
