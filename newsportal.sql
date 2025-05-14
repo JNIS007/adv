@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2025 at 02:41 PM
+-- Generation Time: May 14, 2025 at 10:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -194,6 +194,21 @@ INSERT INTO `tblpages` (`id`, `PageName`, `PageTitle`, `Description`, `PostingDa
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblpostdetails`
+--
+
+CREATE TABLE `tblpostdetails` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `cost_per_person` decimal(10,2) NOT NULL,
+  `is_active` tinyint(1) DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblposts`
 --
 
@@ -341,6 +356,13 @@ ALTER TABLE `tblpages`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblpostdetails`
+--
+ALTER TABLE `tblpostdetails`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `post_id` (`post_id`);
+
+--
 -- Indexes for table `tblposts`
 --
 ALTER TABLE `tblposts`
@@ -404,6 +426,12 @@ ALTER TABLE `tblpages`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `tblpostdetails`
+--
+ALTER TABLE `tblpostdetails`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `tblposts`
 --
 ALTER TABLE `tblposts`
@@ -430,9 +458,14 @@ ALTER TABLE `tblusers`
 --
 ALTER TABLE `other`
   ADD CONSTRAINT `fk_other_posts` FOREIGN KEY (`P_id`) REFERENCES `tblposts` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tblpostdetails`
+--
+ALTER TABLE `tblpostdetails`
+  ADD CONSTRAINT `tblpostdetails_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `tblposts` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
