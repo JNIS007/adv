@@ -45,7 +45,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     const dropdown = document.getElementById('countries-dropdown');
     const mainToggle = document.getElementById('main-toggle');
 
@@ -87,7 +87,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       });
     });
   });
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     const bookingDropdown = document.getElementById('booking-dropdown');
     const bookingToggle = document.getElementById('booking-trigger'); // Trigger element for the booking dropdown
 
@@ -129,7 +129,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       });
     });
   });
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     const travelDropdown = document.getElementById('travel-dropdown');
     const travelTrigger = document.getElementById('travel-trigger');
 
@@ -153,7 +153,31 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       }, 200);
     });
   });
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
+    const AboutDropdown = document.getElementById('About-dropdown');
+    const AboutTrigger = document.getElementById('About-trigger');
+
+    AboutTrigger.addEventListener('mouseenter', () => {
+      AboutDropdown.classList.remove('hidden');
+    });
+
+    AboutTrigger.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!AboutTrigger.matches(':hover') && !AboutDropdown.matches(':hover')) {
+          AboutDropdown.classList.add('hidden');
+        }
+      }, 200);
+    });
+
+    AboutDropdown.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        if (!AboutTrigger.matches(':hover') && !AboutDropdown.matches(':hover')) {
+          AboutDropdown.classList.add('hidden');
+        }
+      }, 200);
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
     const csrDropdown = document.getElementById('csr-dropdown');
     const csrTrigger = document.getElementById('csr-trigger');
 
@@ -359,7 +383,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     <div class="container px-4 mx-auto">
       <div class="flex items-center justify-between py-4">
         <!-- Logo -->
-        <a href="#" class="flex items-center">
+        <a href="index.php" class="flex items-center">
           <img src="assets/logo.png" alt="Advanced Adventures" class="object-contain h-12 md:h-16">
         </a>
 
@@ -488,8 +512,22 @@ while ($dest = mysqli_fetch_assoc($dests)) {
             </div>
           </div>
 
+          <div id="About-container" class="relative inline-block">
+            <!-- Trigger -->
+            <div id="About-trigger" class="font-medium text-gray-700 transition cursor-pointer hover:text-primary">
+              About Us <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="About-dropdown" class="absolute left-0 z-50 hidden w-48 mt-2 bg-white rounded-md shadow-lg">
+              <a href="woweare.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Who we are?</a>
+              <a href="ourteam.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">
+                Our Team</a>
+              <a href="whytravelwithus.php"
+                class="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-50 hover:text-secondary">Why Travel with us</a>
 
-          <a href="/page/about-us.html" class="font-medium text-gray-700 transition hover:text-primary">About Us</a>
+            </div>
+          </div>
 
           <div id="csr-container" class="relative inline-block">
             <!-- Trigger -->
