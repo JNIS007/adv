@@ -1,4 +1,5 @@
 <?php
+include("./admin/includes/config.php");
 $pageTitle = "Responsible Tourism in Nepal with Advanced Adventures";
 $relatedPages = [
   "Responsible Tourism in Nepal with Advanced Adventures" => "#",
@@ -10,12 +11,11 @@ $relatedPages = [
   "Wildlife Spotting" => "wildlife-spotting.php",
   "Learn Nepali Language" => "learn-nepali-language.php"
 ];
+
+$query = mysqli_query($con,"select Description,ImageURL from cms where id=1;");
+$row=mysqli_fetch_assoc($query);
 ?>
 
-<?php
-include("./admin/includes/config.php");
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,14 +48,12 @@ include("./admin/includes/config.php");
 
         <!-- Feature Image -->
         <div class="mb-8">
-          <img src="https://th.bing.com/th/id/OIP.-CyK0DCi0ok6863HnLmlSAHaEK?cb=iwc2&rs=1&pid=ImgDetMain" alt="Travelers engaging with local guides and community members in Nepal" class="object-cover w-full h-auto rounded-lg shadow-lg">
+          <img src="./admin/<?php echo $row["ImageURL"];?>" alt="Travelers engaging with local guides and community members in Nepal" class="object-cover w-full h-auto rounded-lg shadow-lg">
         </div>
 
         <!-- Advanced Adventures Nepal: Travel with Purpose -->
         <div class="p-6 bg-white rounded-lg shadow-md">
-          <h2 class="mb-4 text-2xl font-semibold text-gray-800">Advanced Adventures Nepal: Travel with Purpose</h2>
-          <p class="mb-4 text-gray-600">At Advanced Adventures Nepal, we believe that travel has the power to transform lives—not just for those who journey, but for the communities and environments they encounter. We are passionate about responsible tourism, a philosophy that guides every step we take.</p>
-          <p class="text-gray-600">As guests in the regions we explore, we strive to tread lightly, leaving behind only positive impacts and meaningful connections.</p>
+         <p class="text-justify"><?php echo $row["Description"];?></p>
         </div>
 
         <!-- Our Commitments -->

@@ -10,19 +10,19 @@ if (strlen($_SESSION['login']) == 0) {
     if (isset($_GET['action']) && $_GET['action'] == 'del' && isset($_GET['scid'])) {
         $id = intval($_GET['scid']);
         mysqli_query($con, "UPDATE tblsubcategory SET Is_Active = '0' WHERE SubCategoryId = '$id'");
-        $msg = "Category deleted ";
+        $msg = "SubCategory deleted ";
     }
 
     if (isset($_GET['resid'])) {
         $id = intval($_GET['resid']);
         mysqli_query($con, "UPDATE tblsubcategory SET Is_Active = '1' WHERE SubCategoryId = '$id'");
-        $msg = "Category restored successfully";
+        $msg = "SubCategory restored successfully";
     }
 
     if (isset($_GET['action']) && $_GET['action'] == 'perdel' && isset($_GET['scid'])) {
         $id = intval($_GET['scid']);
         mysqli_query($con, "DELETE FROM tblsubcategory WHERE SubCategoryId = '$id'");
-        $delmsg = "Category deleted forever";
+        $delmsg = "SubCategory deleted forever";
     }
 ?>
 <!DOCTYPE html>

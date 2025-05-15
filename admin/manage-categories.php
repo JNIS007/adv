@@ -110,11 +110,6 @@ if($_GET['action']=='parmdel' && $_GET['rid'])
 
 </div>
                                  
-                                 
-                                    
-
-
-                                   
 
 
                                     <div class="row">

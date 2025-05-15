@@ -11,7 +11,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
     'categories' => []
   ];
 
-  $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId");
+  $cats = mysqli_query($con, "SELECT * FROM tblCategory WHERE destId = $destId and Is_Active = 1");
   while ($cat = mysqli_fetch_assoc($cats)) {
     $catId = $cat['id'];
     $menuData[$destId]['categories'][$catId] = [
@@ -19,7 +19,7 @@ while ($dest = mysqli_fetch_assoc($dests)) {
       'subcategories' => []
     ];
 
-    $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId");
+    $subs = mysqli_query($con, "SELECT * FROM tblSubcategory WHERE CategoryId = $catId and Is_Active=1");
     while ($sub = mysqli_fetch_assoc($subs)) {
       $subId = $sub['SubCategoryId'];
       $menuData[$destId]['categories'][$catId]['subcategories'][$subId] = [

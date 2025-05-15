@@ -62,12 +62,10 @@
                     </ul>
                 </li>
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Why Travel
-                            with Us
+                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> CMS Pages
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="whytravelwithusadmin.php">Add Visa Info</a></li>
-                        <li><a href="manage-visa-info.php">Manage Visa Info</a></li>
+                        <li><a href="Manage-All-CMS.php">Manage CMS Pages</a></li>
                     </ul>
                 </li>
 
