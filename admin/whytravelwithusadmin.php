@@ -29,6 +29,12 @@ if (isset($_POST['submit'])) {
 <head>
     <title>Adventure | Why Travel With Us</title>
 
+    <style>
+   .cke_notifications_area {
+        display: none !important;
+    }
+</style>
+
     <!-- App css -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/core.css" rel="stylesheet" type="text/css" />
@@ -40,7 +46,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../plugins/switchery/switchery.min.css">
     <script src="assets/js/modernizr.min.js"></script>
 
-    <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+   <script src="https://cdn.ckeditor.com/4.20.2/full/ckeditor.js"></script>
 </head>
 
 <body class="fixed-left">
@@ -76,7 +82,26 @@ if (isset($_POST['submit'])) {
 
                         <label>Content:</label><br>
                         <textarea name="content" id="content" rows="10" cols="80"></textarea>
-                        <script>CKEDITOR.replace('content');</script><br>
+                        <script>
+                        // Initialize the editor with full toolbar
+                        CKEDITOR.replace('content', {
+                            toolbar: [
+                                { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },
+                                { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+                                { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'] },
+                                { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+                                { name: 'colors', items: ['TextColor', 'BGColor'] },
+                                { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'CopyFormatting'] },
+                                { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+                                { name: 'insert', items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar'] },
+                                { name: 'tools', items: ['Maximize', 'ShowBlocks'] }
+                            ],
+                            height: 300
+                        });
+
+                    </script>
+
+                       <br>
 
                         <button type="submit" name="submit">Submit</button>
                     </form>

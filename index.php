@@ -1,6 +1,6 @@
 <?php
 include("./admin/includes/config.php")
-  ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +24,7 @@ include("./admin/includes/config.php")
         $q = mysqli_query($con, "SELECT * FROM tblposts WHERE Is_Active = 1");
         while ($r = mysqli_fetch_array($q)) {
           $ct = $r["CategoryId"];
-          ?>
+        ?>
           <div class="relative swiper-slide">
             <!-- Background Image -->
             <div class="absolute inset-0 bg-center bg-cover"
@@ -323,7 +323,7 @@ include("./admin/includes/config.php")
         $query = mysqli_query($con, "SELECT * FROM topposts WHERE Is_Active = 1");
         while ($row = mysqli_fetch_array($query)) {
           $ctid = $row["CategoryId"];
-          ?>
+        ?>
 
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
@@ -342,10 +342,10 @@ include("./admin/includes/config.php")
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($row['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $r = mysqli_fetch_array($q);
-                echo $r["CategoryName"];
-                ?></span>
+                                                                                                    $q = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $r = mysqli_fetch_array($q);
+                                                                                                    echo $r["CategoryName"];
+                                                                                                    ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($row['PostUrl']); ?>">
@@ -625,7 +625,7 @@ include("./admin/includes/config.php")
         $sql = mysqli_query($con, "SELECT * FROM popularposts WHERE Is_Active = 1");
         while ($ro = mysqli_fetch_array($sql)) {
           $ctid = $ro["CategoryId"];
-          ?>
+        ?>
           <div class="relative overflow-hidden transition-all duration-300 shadow-lg group rounded-xl hover:shadow-xl">
             <div class="relative h-64 overflow-hidden">
               <img src="admin/postimages/<?php echo htmlentities($ro['PostImage']); ?>"
@@ -643,10 +643,10 @@ include("./admin/includes/config.php")
               <div class="flex items-start justify-between mb-2">
                 <span class="text-sm text-gray-500"><?php echo htmlentities($ro['Days']); ?> Days</span>
                 <span class="px-2 py-1 text-xs font-semibold text-red-800 bg-red-100 rounded-full"><?php
-                $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
-                $rr = mysqli_fetch_array($qr);
-                echo $rr["CategoryName"];
-                ?></span>
+                                                                                                    $qr = mysqli_query($con, "SELECT * FROM tblcategory WHERE id =$ctid");
+                                                                                                    $rr = mysqli_fetch_array($qr);
+                                                                                                    echo $rr["CategoryName"];
+                                                                                                    ?></span>
               </div>
               <h3 class="mb-3 text-xl font-bold text-gray-800 transition group-hover:text-primary">
                 <a href="package/<?php echo htmlentities($ro['PostUrl']); ?>">
@@ -898,7 +898,7 @@ include("./admin/includes/config.php")
     });
 
     // Reset animations when slide changes (for main swiper)
-    mainSwiper.on('slideChange', function () {
+    mainSwiper.on('slideChange', function() {
       const slides = document.querySelectorAll('.swiper-slide');
       slides.forEach(slide => {
         const animElements = slide.querySelectorAll('[class*="animate-"]');

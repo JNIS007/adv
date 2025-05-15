@@ -52,17 +52,17 @@
 
                 <li class="has_sub">
                     <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i>
-                        <span> Posts (Adventure) </span> <span class="menu-arrow"></span></a>
+                        <span> Package </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="add-post.php">Add Posts</a></li>
-                        <li><a href="other-category.php">Other Posts</a></li>
-                        <li><a href="manage-other.php">Manage Others</a></li>
-                        <li><a href="manage-posts.php">Manage Posts</a></li>
-                        <li><a href="trash-posts.php">Trash Posts</a></li>
+                        <li><a href="add-post.php">Add Package</a></li>
+                        <li><a href="other-category.php">Add Package Details</a></li>
+                        <li><a href="manage-other.php">Manage Package Details</a></li>
+                        <li><a href="manage-posts.php">Manage Package</a></li>
+                        <li><a href="trash-posts.php">Trash Package</a></li>
                     </ul>
                 </li>
                 <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-note"></i> <span> Why Travel
+                    <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-format-list-bulleted"></i> <span> Why Travel
                             with Us
                         </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
